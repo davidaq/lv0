@@ -3,12 +3,13 @@
 "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
+    <constant name="struts.action.excludePattern" value=".*/static/.*" />
     <package name="default" extends="struts-default">
         <interceptors>
             <interceptor name="tojson" class="interceptors.ToJson"/>
         </interceptors>
 
-        <action name="*-*" class="{1}" method="{2}">
+        <action name="*-*" class="actions.{1}" method="{2}">
             <interceptor-ref name="tojson"/>
             <interceptor-ref name="defaultStack"/>
             <result type="stream" name="success">
