@@ -3,6 +3,7 @@ build.xml
 nbproject
 makefile
 web
-.*
-!.gitignore
-/dist/
+dist
+*.sass
+.sass-cache
+sass
