@@ -1,9 +1,13 @@
 build
 build.xml
 nbproject
+nbsrc
 makefile
 web
 dist
-*.sass
-.sass-cache
 sass
+.*
+!.gitignore
+!.gitproject
+!.settings
+!.classpath
