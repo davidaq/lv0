@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 7, 2013 11:43:39 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="tables.Userinfo" table="userinfo" catalog="lv0">
+        <id name="uid" type="int">
+            <column name="uId" />
+            <generator class="assigned" />
+        </id>
+        <property name="uname" type="string">
+            <column name="uName" length="100" />
+        </property>
+        <property name="upassword" type="string">
+            <column name="uPassword" length="100" />
+        </property>
+        <property name="umail" type="string">
+            <column name="uMail" />
+        </property>
+        <property name="uphone" type="string">
+            <column name="uPhone" length="20" />
+        </property>
+        <property name="uportrait" type="string">
+            <column name="uPortrait" length="20" />
+        </property>
+        <property name="usketch" type="string">
+            <column name="uSketch" />
+        </property>
+        <property name="ustate" type="string">
+            <column name="uState" length="100" />
+        </property>
+        <property name="ulabel" type="string">
+            <column name="uLabel" />
+        </property>
+        <property name="uscore" type="java.lang.Integer">
+            <column name="uScore" />
+        </property>
+    </class>
+</hibernate-mapping>

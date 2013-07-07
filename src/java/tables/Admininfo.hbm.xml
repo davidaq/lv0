@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 7, 2013 11:43:39 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="tables.Admininfo" table="admininfo" catalog="lv0">
+        <id name="adId" type="java.lang.Integer">
+            <column name="adId" />
+            <generator class="identity" />
+        </id>
+        <property name="adPassword" type="string">
+            <column name="adPassword" length="100" />
+        </property>
+        <property name="adName" type="string">
+            <column name="adName" length="100" />
+        </property>
+    </class>
+</hibernate-mapping>

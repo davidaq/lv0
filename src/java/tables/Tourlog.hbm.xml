@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 7, 2013 11:43:39 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="tables.Tourlog" table="tourlog" catalog="lv0">
+        <id name="tourLogId" type="java.lang.Integer">
+            <column name="tourLogId" />
+            <generator class="identity" />
+        </id>
+        <property name="author" type="java.lang.Integer">
+            <column name="author" />
+        </property>
+        <property name="content" type="string">
+            <column name="content" />
+        </property>
+        <property name="relaySourceId" type="java.lang.Integer">
+            <column name="relaySourceId" />
+        </property>
+        <property name="relayFromId" type="java.lang.Integer">
+            <column name="relayFromId" />
+        </property>
+        <property name="abstract_" type="string">
+            <column name="abstract" />
+        </property>
+        <property name="date" type="timestamp">
+            <column name="date" length="19" />
+        </property>
+    </class>
+</hibernate-mapping>

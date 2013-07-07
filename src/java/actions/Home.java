@@ -15,8 +15,8 @@ public class Home extends BaseAction {
     
     public String tabs() {
         TabItem[] items = new TabItem[] {
-            new TabItem("关注焦点", "star", "home"),
-            new TabItem("新鲜记忆", "flag", "feed"),
+            new TabItem("关注焦点%%Hot Focus", "star", "home"),
+            new TabItem("新鲜记忆%%", "flag", "feed"),
             new TabItem("媒体影集", "film", "album"),
             new TabItem("旅游计划", "check", "plan"),
             new TabItem("景点百科", "share", "wiki")

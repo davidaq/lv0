@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 7, 2013 11:43:39 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="tables.Planitem" table="planitem" catalog="lv0">
+        <id name="planItemId" type="java.lang.Integer">
+            <column name="planItemId" />
+            <generator class="identity" />
+        </id>
+        <property name="planId" type="java.lang.Integer">
+            <column name="planId" />
+        </property>
+        <property name="resortId" type="java.lang.Integer">
+            <column name="resortId" />
+        </property>
+        <property name="resName" type="string">
+            <column name="resName" />
+        </property>
+        <property name="startdate" type="timestamp">
+            <column name="startdate" length="19" />
+        </property>
+        <property name="enddate" type="timestamp">
+            <column name="enddate" length="19" />
+        </property>
+    </class>
+</hibernate-mapping>

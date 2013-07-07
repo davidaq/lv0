@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 7, 2013 11:43:39 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="tables.Message" table="message" catalog="lv0">
+        <id name="messageId" type="java.lang.Integer">
+            <column name="messageId" />
+            <generator class="identity" />
+        </id>
+        <property name="authorId" type="java.lang.Integer">
+            <column name="authorId" />
+        </property>
+        <property name="targetId" type="java.lang.Integer">
+            <column name="targetId" />
+        </property>
+        <property name="messContent" type="string">
+            <column name="messContent" length="65535" />
+        </property>
+        <property name="messDate" type="timestamp">
+            <column name="messDate" length="19" />
+        </property>
+        <property name="messReply" type="java.lang.Integer">
+            <column name="messReply" />
+        </property>
+        <property name="messRead" type="java.lang.Byte">
+            <column name="messRead" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 7, 2013 11:43:39 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="tables.Media" table="media" catalog="lv0">
+        <id name="mediaId" type="java.lang.Integer">
+            <column name="mediaId" />
+            <generator class="identity" />
+        </id>
+        <property name="uid" type="java.lang.Integer">
+            <column name="uId" />
+        </property>
+        <property name="date" type="timestamp">
+            <column name="date" length="19" />
+        </property>
+        <property name="mediaCover" type="string">
+            <column name="mediaCover" />
+        </property>
+        <property name="mediaName" type="string">
+            <column name="mediaName" length="100" />
+        </property>
+    </class>
+</hibernate-mapping>

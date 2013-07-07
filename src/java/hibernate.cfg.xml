@@ -6,5 +6,21 @@
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/lv0?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">root</property>
+    <mapping resource="tables/Landmark.hbm.xml"/>
+    <mapping resource="tables/Message.hbm.xml"/>
+    <mapping resource="tables/Sensitive.hbm.xml"/>
+    <mapping resource="tables/Media.hbm.xml"/>
+    <mapping resource="tables/Plan.hbm.xml"/>
+    <mapping resource="tables/Userinfo.hbm.xml"/>
+    <mapping resource="tables/Admininfo.hbm.xml"/>
+    <mapping resource="tables/Attention.hbm.xml"/>
+    <mapping resource="tables/Mediacontent.hbm.xml"/>
+    <mapping resource="tables/Tourlog.hbm.xml"/>
+    <mapping resource="tables/Resortremark.hbm.xml"/>
+    <mapping resource="tables/Planitem.hbm.xml"/>
+    <mapping resource="tables/Good.hbm.xml"/>
+    <mapping resource="tables/Ressupplement.hbm.xml"/>
+    <mapping resource="tables/Resort.hbm.xml"/>
+    <mapping resource="tables/Comment.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

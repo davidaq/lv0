@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 7, 2013 11:43:39 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="tables.Landmark" table="landmark" catalog="lv0">
+        <id name="landmarkId" type="java.lang.Integer">
+            <column name="landmarkId" />
+            <generator class="identity" />
+        </id>
+        <property name="landAddress" type="string">
+            <column name="landAddress" />
+        </property>
+        <property name="landAbstract" type="string">
+            <column name="landAbstract" />
+        </property>
+        <property name="landPicture" type="string">
+            <column name="landPicture" />
+        </property>
+        <property name="uid" type="java.lang.Integer">
+            <column name="uId" />
+        </property>
+        <property name="landDate" type="timestamp">
+            <column name="landDate" length="19" />
+        </property>
+    </class>
+</hibernate-mapping>

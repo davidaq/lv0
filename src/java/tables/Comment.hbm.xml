@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 7, 2013 11:43:39 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="tables.Comment" table="comment" catalog="lv0">
+        <id name="comId" type="java.lang.Integer">
+            <column name="comId" />
+            <generator class="identity" />
+        </id>
+        <property name="uid" type="java.lang.Integer">
+            <column name="uId" />
+        </property>
+        <property name="comContent" type="string">
+            <column name="comContent" length="65535" />
+        </property>
+        <property name="tourLogId" type="java.lang.Integer">
+            <column name="tourLogId" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="lv0"/>
+  <table-filter match-name="sensitive"/>
+  <table-filter match-name="ressupplement"/>
+  <table-filter match-name="comment"/>
+  <table-filter match-name="resortremark"/>
+  <table-filter match-name="landmark"/>
+  <table-filter match-name="mediacontent"/>
+  <table-filter match-name="admininfo"/>
+  <table-filter match-name="userinfo"/>
+  <table-filter match-name="good"/>
+  <table-filter match-name="tourlog"/>
+  <table-filter match-name="message"/>
+  <table-filter match-name="media"/>
+  <table-filter match-name="plan"/>
+  <table-filter match-name="resort"/>
+  <table-filter match-name="attention"/>
+  <table-filter match-name="planitem"/>
+</hibernate-reverse-engineering>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 7, 2013 11:43:39 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="tables.Resort" table="resort" catalog="lv0">
+        <id name="resortId" type="java.lang.Integer">
+            <column name="resortId" />
+            <generator class="identity" />
+        </id>
+        <property name="resPicture" type="string">
+            <column name="resPicture" />
+        </property>
+        <property name="resName" type="string">
+            <column name="resName" />
+        </property>
+        <property name="resAddress" type="string">
+            <column name="resAddress" />
+        </property>
+        <property name="resLabel" type="string">
+            <column name="resLabel" />
+        </property>
+        <property name="resState" type="string">
+            <column name="resState" length="100" />
+        </property>
+    </class>
+</hibernate-mapping>

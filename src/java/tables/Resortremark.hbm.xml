@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 7, 2013 11:43:39 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="tables.Resortremark" table="resortremark" catalog="lv0">
+        <id name="resortRemarkId" type="java.lang.Integer">
+            <column name="resortRemarkId" />
+            <generator class="identity" />
+        </id>
+        <property name="authorId" type="java.lang.Integer">
+            <column name="AuthorId" />
+        </property>
+        <property name="resortId" type="java.lang.Integer">
+            <column name="resortId" />
+        </property>
+        <property name="resRemark" type="java.lang.Integer">
+            <column name="resRemark" />
+        </property>
+    </class>
+</hibernate-mapping>

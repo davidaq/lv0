@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 7, 2013 11:43:39 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="tables.Sensitive" table="sensitive" catalog="lv0">
+        <id name="sensitiveId" type="java.lang.Integer">
+            <column name="sensitiveId" />
+            <generator class="identity" />
+        </id>
+        <property name="sensitiveWords" type="string">
+            <column name="sensitiveWords" length="100" />
+        </property>
+    </class>
+</hibernate-mapping>
