@@ -2,7 +2,7 @@
 package actions;
 
 import com.google.gson.Gson;
-//jgygjg
+//FGSB
 public class BaseAction {
     
     private Gson gson = new Gson();
