@@ -56,7 +56,7 @@ function request(url, send, action, type) {
     	$('a.logo').stop().animate({opacity : 1}, 500);
     }
     logoAnimate1();
-    return $.ajax({
+	ajax = $.ajax({
     	url : url,
     	type : method,
     	data : send,
@@ -81,6 +81,7 @@ function request(url, send, action, type) {
     		logoAnimateStop();
     	}
     });
+    return ajax;
 }
 function initForm(body) {
 	var popedOver = [];
