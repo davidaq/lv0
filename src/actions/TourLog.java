@@ -95,7 +95,7 @@ public class TourLog extends BaseAction {
 		int tourLogID;
 	}
 	
-	public String Good(){
+	public String good(){
 		GoodParam param = (GoodParam) getParam(GoodParam.class);
 		Userinfo myUserinfo = (Userinfo)session("myUserinfo");
 		tables.Good gd = new tables.Good();
@@ -105,5 +105,38 @@ public class TourLog extends BaseAction {
 		GoodDao gdd = new GoodDao();
 		gdd.addGood(gd);		
 		return jsonResult("ok");
+	}
+	
+	
+	public static class GetTourLogBySomeoneIdParam{
+		int author;
+		int pageNow;
+	}
+	
+	public String getTourLogBySomeoneId(){
+		GetTourLogBySomeoneIdParam param = (GetTourLogBySomeoneIdParam) getParam(GetTourLogBySomeoneIdParam.class);
+		ArrayList<Userinfo> list = new ArrayList<Userinfo>();
+		Userinfo myUserinfo = (Userinfo)session("myUserinfo");
+		list.add(myUserinfo);
+		TourlogDao td = new TourlogDao();
+		ArrayList<Tourlog> tlist = td.queryByPageUser(list, 16, param.pageNow);
+		
+		return jsonResult(tlist);
+	}
+	
+	
+	public static class GetATourLogByIdParam{
+		int tourLogID;
+	}
+	
+	public String getATourLogById(){
+		GetATourLogByIdParam param = (GetATourLogByIdParam) getParam(GetATourLogByIdParam.class);
+		TourLog tl = null;
+		Userinfo myUserinfo = (Userinfo)session("myUserinfo");
+		TourlogDao td = new TourlogDao();
+		
+		//tl = td.findTourlog(param.tourLogID);
+		
+		return jsonResult(tl);
 	}
 }
