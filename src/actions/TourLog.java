@@ -131,12 +131,9 @@ public class TourLog extends BaseAction {
 	
 	public String getATourLogById(){
 		GetATourLogByIdParam param = (GetATourLogByIdParam) getParam(GetATourLogByIdParam.class);
-		TourLog tl = null;
-		Userinfo myUserinfo = (Userinfo)session("myUserinfo");
+		Tourlog tl = null;
 		TourlogDao td = new TourlogDao();
-		
-		//tl = td.findTourlog(param.tourLogID);
-		
+		tl = td.findTourlogyid(param.tourLogID);
 		return jsonResult(tl);
 	}
 }
