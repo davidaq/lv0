@@ -114,23 +114,24 @@ public class User extends BaseAction {
     public static class EditMyBasicInfoParam{
     	String username;
     	String email;
-    	String qq;
     	String phone;
     }
     
     public String editMyBasicInfo(){
     	EditMyBasicInfoParam param = (EditMyBasicInfoParam) getParam(EditMyBasicInfoParam.class);
     	UserinfoDao ud = new UserinfoDao();
-    	Userinfo ui = ud.findUserinfoByname(param.username);
-    	if(ui != null){
+    	Userinfo ui = (Userinfo)session("myUserinfo");
+    	if(ui == null){
     		return jsonResult("username");
-    	}    	
+    	}
+    	if(param.username == null || param.username.equals("")){
+    		return jsonResult("username");
+    	}
     	
-    	ui = (Userinfo)session("myUserinfo");
     	ui.setUname(param.username);
-    	ui.setUmail(param.email);
-    	ui.setUphone(param.phone);
-    	ui.setUphone(param.phone);
+        ui.setUmail(param.email);
+        ui.setUphone(param.phone);
+    	ud.updateUserinfo(ui);
     	    	
     	return jsonResult("ok");
     }
@@ -147,14 +148,12 @@ public class User extends BaseAction {
     	if(param.portrait == null || param.portrait.equals("")){
     		return jsonResult("portrait");
     	}
-    	if(param.sketch == null){
-    		return jsonResult("sketch");
-    	}
+
     	UserinfoDao ud = new UserinfoDao();
     	Userinfo ui;
     	ui = (Userinfo)session("myUserinfo");
-    	ui.setUname(param.portrait);
-    	ui.setUmail(param.sketch);
+    	ui.setUportrait(param.portrait);
+    	ui.setUsketch(param.sketch);
     	ud.updateUserinfo(ui);
     	
     	return jsonResult("ok");
@@ -173,7 +172,7 @@ public class User extends BaseAction {
     	UserinfoDao ud = new UserinfoDao();
     	Userinfo ui;
     	ui = (Userinfo)session("myUserinfo");
-    	ui.setUname(param.label);
+    	ui.setUlabel(param.label);
     	ud.updateUserinfo(ui);
     	
     	return jsonResult("ok");
