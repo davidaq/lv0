@@ -14,12 +14,21 @@ public class Home extends BaseAction {
     }
     
     public String tabs() {
-        TabItem[] items = new TabItem[] {
-            new TabItem("关注焦点%%Hot Focus", "star", "home"),
-            new TabItem("新鲜记忆%%", "flag", "feed"),
-            new TabItem("媒体影集", "film", "album"),
-            new TabItem("旅游计划", "check", "plan"),
-            new TabItem("景点百科", "share", "wiki")
+        TabItem[] items;
+        if(session("myUserinfo") == null){
+            items = new TabItem[] {
+                    new TabItem("%{Hot_Focus}", "star", "home"),
+                    new TabItem("%{Login}", "user", "login"),
+                    new TabItem("%{Register}", "bell", "register")
+                };
+        } else {
+            items = new TabItem[] {
+                new TabItem("%{Hot_Focus}", "star", "home"),
+                new TabItem("%{My_Feed}", "flag", "feed"),
+                new TabItem("%{Album}", "film", "album"),
+                new TabItem("%{Travel_Plan}", "check", "plan"),
+                new TabItem("%{Resort_Wiki}", "share", "wiki")
+            };
         };
         return jsonResult(items);
     }

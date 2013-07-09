@@ -2,7 +2,9 @@
 package actions;
 
 import com.google.gson.Gson;
-//heheh
+import com.opensymphony.xwork2.ActionContext;
+import java.util.Map;
+
 public class BaseAction {
     
     private Gson gson = new Gson();
@@ -22,5 +24,17 @@ public class BaseAction {
     
     public final String jsonResult(Object o) {
         return gson.toJson(o);
+    }
+    
+    public Map session() {
+        return ActionContext.getContext().getSession();
+    }
+    
+    public Object session(String item) {
+        return session().get(item);
+    }
+    
+    public void session(String item, Object value) {
+        session().put(item, value);
     }
 }
