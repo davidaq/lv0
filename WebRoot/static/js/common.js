@@ -46,6 +46,16 @@ function request(url, send, action, type) {
     var method = 'GET';
     if(send)
         method = 'POST';
+    function logoAnimate1() {
+    	$('a.logo').stop().animate({opacity : 0.3}, 500, logoAnimate2);
+    }
+    function logoAnimate2() {
+    	$('a.logo').stop().animate({opacity : 1}, 500, logoAnimate1);
+    }
+    function logoAnimateStop() {
+    	$('a.logo').stop().animate({opacity : 1}, 500);
+    }
+    logoAnimate1();
     return $.ajax({
     	url : url,
     	type : method,
@@ -54,6 +64,7 @@ function request(url, send, action, type) {
     	tryCount : 0,
     	retryLimit : 5,
     	success : function(result) {
+    		logoAnimateStop();
 		    if(action) {
 		        var reg = /\%\{(.+?)\}/m;
 		        while((m = reg.exec(result))) {
@@ -67,11 +78,12 @@ function request(url, send, action, type) {
 		    }
 	    },
 	    error : function(e,m){
-	    	console.log(url + " : " + m);
+    		logoAnimateStop();
     	}
     });
 }
 function initForm(body) {
+	var popedOver = [];
 	$('form', body).each(function() {
 		var form = $(this)[0];
 		form.onsubmit = function() {
@@ -87,6 +99,10 @@ function initForm(body) {
 				} else
 					send[key] = rawData[k].value;
 			}
+			for(k in popedOver) {
+				popedOver[k].popover('destroy');
+			}
+			popedOver = [];
 			$('input, textarea', form).css('border-color', '');
 			requestApi(form.action, send, function(result) {
 				if(result == 'ok') {
@@ -101,7 +117,12 @@ function initForm(body) {
 					console.log(result);
 					var x = $('input[name^="' + result + '"], textarea[name="' + result + '"]', form);
 					x.css('border-color', '#F00');
-					x.popover('show');
+					x.focus();
+					x[0].select();
+					setTimeout(function() {
+						x.stop().popover('show');
+					}, 200);
+					popedOver.push(x);
 				}
 			});
 			return false;

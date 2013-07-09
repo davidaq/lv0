@@ -1,14 +1,14 @@
 <h1><i class="icon-align-left white"></i> 个人资料设置</h1>
 
 <div class="float-fix">
-	<div class="plain-page profile-block">
-		<h3>修改密码</h3>
-		<label>原始密码：</label> <input type="password"/>
-		<label>新密码：</label> <input type="password"/>
-		<label>新密码确认：</label> <input type="password"/>
+	<form class="plain-page profile-block" action="User-changePassword">
+		<h3>%{Change_Password}</h3>
+		<label>%{Old_Password}:</label> <input type="password" name="oldPassword" data-content="%{Old_Password_Incorrect}"/>
+		<label>%{New_Password}:</label> <input type="password" name="newPassword[]" data-content="%{Password_Repeat_Must_Match}"/>
+		<label>%{Password_Repeat}:</label> <input type="password" name="newPassword[]" data-content="%{Password_Repeat_Must_Match}"/>
 		<br/>
-		<button class="btn btn-primary">修改</button>
-	</div>
+		<input type="submit" class="btn btn-primary" value="修改"/>
+	</form>
 	<div class="plain-page profile-block">
 		<h3>基本信息</h3>
 		<label>用户名（可用于登录）：</label> <input type="text"/>

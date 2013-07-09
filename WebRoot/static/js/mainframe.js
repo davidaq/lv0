@@ -1,5 +1,5 @@
 var scripts = {};
-$(function () {
+setTimeout(function () {
     var lang = getCookie('lang');
     if(!lang)
         lang = 'default';
@@ -193,7 +193,7 @@ $(function () {
             }
         });
     }
-});
+}, 100);
 var showFriendsFlag = false;
 function showFriends() {
     if(!showFriendsFlag) {

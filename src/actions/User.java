@@ -77,7 +77,7 @@ public class User extends BaseAction {
         ud.addUserinfo(ui);
         
         ui = ud.findUserinfoByname(param.username);
-        session("myUserinfo",ui);        
+        session("myUserinfo",ui);
     	return jsonResult("ok");
     }
     
