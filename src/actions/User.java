@@ -99,7 +99,7 @@ public class User extends BaseAction {
     	
     	UserinfoDao ud = new UserinfoDao();
     	Userinfo ui = (Userinfo)session("myUserinfo");
-    	ui.setUpassword(param.newPassword[0]);
+    	ui.setUpassword(MD5Util.MD5(param.newPassword[0]));
     	ud.updateUserinfo(ui);
     	
     	return jsonResult("ok");
