@@ -22,12 +22,15 @@ public class TourlogDao {
 	    tran.commit();
 		
 	} 
-	public void findTourlog(Tourlog ad){
+	public Tourlog findTourlogyid(int  id){
 
 		
 		Transaction tran=session.beginTransaction();
-		
+		String hql="from Tourlog where tourLogId=' "+id+"'";
+		Query query =session.createQuery(hql);
+		Tourlog ad=(Tourlog)query.uniqueResult();
 	    tran.commit();
+		return ad;
 		
 	} 
 	public void updateTourlog(Tourlog ad){
@@ -80,14 +83,7 @@ public class TourlogDao {
 	       
 	        ArrayList<Tourlog> sftlist = new ArrayList();
 	        try {
-//	        	String Hql="from Tourlog where author=";
-//	        	int i=0;
-//	        	for(i=0;i<ulist.size()-1;i++){
-//	            
-//	        	Hql+="'"+ulist.get(i).getUid()+"'"+" or author=";
-//	        	}
-//	        	Hql+="'"+ulist.get(i).getUid()+"'";
-//	        	System.out.println(Hql);
+
 	        	String temp="";
 	        	int i;
 	        	for(i=0;i<ulist.size()-1;i++){
@@ -96,7 +92,6 @@ public class TourlogDao {
 	        	}
 	        	temp+=ulist.get(i).getUid();
 	        	String Hql="select d from Tourlog d where d.author in ("+temp+")";
-	        	System.out.println("***************************"+Hql);
 	            Query q = session.createQuery(Hql);// Ö´ÐÐ²éÑ¯²Ù×÷
 	            q.setFirstResult(pageSize * (pageNow - 1));
 	            q.setMaxResults(pageSize);
