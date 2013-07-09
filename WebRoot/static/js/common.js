@@ -118,7 +118,8 @@ function initForm(body) {
 					var x = $('input[name^="' + result + '"], textarea[name="' + result + '"]', form);
 					x.css('border-color', '#F00');
 					x.focus();
-					x[0].select();
+					if(x[0])
+						x[0].select();
 					setTimeout(function() {
 						x.stop().popover('show');
 					}, 200);

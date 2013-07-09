@@ -131,7 +131,6 @@ public class User extends BaseAction {
     	ui.setUmail(param.email);
     	ui.setUphone(param.phone);
     	ui.setUphone(param.phone);
-    	ud.updateUserinfo(ui);
     	    	
     	return jsonResult("ok");
     }

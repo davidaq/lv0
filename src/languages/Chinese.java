@@ -22,6 +22,8 @@ public class Chinese extends Language {
             // Form
             Addon_Code = "验证码",
             Submit = "提交",
+            Save = "保存",
+            Change = "修改",
             
             // Login & Register
             Login = "登录",
@@ -44,6 +46,13 @@ public class Chinese extends Language {
             Old_Password = "原始密码",
             Old_Password_Incorrect = "原始密码错误",
             New_Password = "新密码",
+            Basic_Information = "基本信息",
+            Phone = "联系电话",
+            Personality = "个性设置",
+            Avatar = "头像",
+            Self_Introduction = "自我简述",
+            Preference = "偏好设置",
+            Interest_Tag = "喜好标签",
             
             // Home tabs
             Hot_Focus = "热门关注",
