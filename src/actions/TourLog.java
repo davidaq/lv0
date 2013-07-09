@@ -3,9 +3,6 @@ package actions;
 import java.util.ArrayList;
 import java.util.Date;
 
-import javax.servlet.jsp.JspApplicationContext;
-
-import actions.User.RegisterParam;
 import tables.Attention;
 import tables.Comment;
 import tables.Tourlog;
