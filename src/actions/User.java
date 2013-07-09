@@ -39,7 +39,7 @@ public class User extends BaseAction {
             return jsonResult("ok");
         }
         
-        return jsonResult("passwordError");
+        return jsonResult("password");
     }
     
     
@@ -75,6 +75,9 @@ public class User extends BaseAction {
         ui.setUpassword(MD5Util.MD5(param.password[0]));
         ui.setUmail(param.email);
         ud.addUserinfo(ui);
+        
+        ui = ud.findUserinfoByname(param.username);
+        session("myUserinfo",ui);        
     	return jsonResult("ok");
     }
     
@@ -141,15 +144,41 @@ public class User extends BaseAction {
     
     public String editExtraSetting(){
     	EditExtraSettingParam param = (EditExtraSettingParam) getParam(EditExtraSettingParam.class);
+    	
     	if(param.portrait == null || param.portrait.equals("")){
     		return jsonResult("portrait");
     	}
     	if(param.sketch == null){
     		return jsonResult("sketch");
     	}
+    	UserinfoDao ud = new UserinfoDao();
+    	Userinfo ui;
+    	ui = (Userinfo)session("myUserinfo");
+    	ui.setUname(param.portrait);
+    	ui.setUmail(param.sketch);
+    	ud.updateUserinfo(ui);
+    	
     	return jsonResult("ok");
     }
     
+    
+    public static class EditLikeLableSettingParam{
+    	String label;
+    }
+    
+    public String editLikeLableSetting(){
+    	EditLikeLableSettingParam param = (EditLikeLableSettingParam) getParam(EditLikeLableSettingParam.class);
+    	if(param.label == null){
+    		return jsonResult("label");
+    	}
+    	UserinfoDao ud = new UserinfoDao();
+    	Userinfo ui;
+    	ui = (Userinfo)session("myUserinfo");
+    	ui.setUname(param.label);
+    	ud.updateUserinfo(ui);
+    	
+    	return jsonResult("ok");
+    }
     
     public String logout(){
     	session("myUserinfo",null);
