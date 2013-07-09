@@ -6,6 +6,8 @@ makefile
 web
 dist
 sass
+*.jar
+*.xml
 .*
 !.gitignore
 !.gitproject
