@@ -7,9 +7,12 @@ import javax.servlet.jsp.JspApplicationContext;
 
 import actions.User.RegisterParam;
 import tables.Attention;
+import tables.Comment;
 import tables.Tourlog;
 import tables.Userinfo;
 import dao.AttentionDao;
+import dao.CommentDao;
+import dao.GoodDao;
 import dao.TourlogDao;
 
 public class TourLog extends BaseAction {
@@ -65,6 +68,45 @@ public class TourLog extends BaseAction {
 		tl.setDate(new Date());
 		TourlogDao tld = new TourlogDao();
 		tld.addTourlog(tl);
+		return jsonResult("ok");
+	}
+	
+	
+	public static class PublishCommentParam{
+		int tourLogID;
+		String comContent;
+	}
+	
+	public String publishComment(){
+		PublishCommentParam param = (PublishCommentParam) getParam(PublishCommentParam.class);
+		if(param.comContent == null || param.comContent.equals("")){
+			return jsonResult("content");
+		}
+		Userinfo myUserinfo = (Userinfo)session("myUserinfo");
+		Comment ct = new Comment();
+		ct.setUid(myUserinfo.getUid());
+		ct.setTourLogId(param.tourLogID);
+		ct.setComContent(param.comContent);
+		CommentDao cd = new CommentDao();
+		cd.addComment(ct);
+		
+		return jsonResult("ok");
+	}
+	
+	
+	public static class GoodParam{
+		int tourLogID;
+	}
+	
+	public String Good(){
+		GoodParam param = (GoodParam) getParam(GoodParam.class);
+		Userinfo myUserinfo = (Userinfo)session("myUserinfo");
+		tables.Good gd = new tables.Good();
+		gd.setUid(myUserinfo.getUid());
+		gd.setTourLogId(param.tourLogID);
+		gd.setDate(new Date());
+		GoodDao gdd = new GoodDao();
+		gdd.addGood(gd);		
 		return jsonResult("ok");
 	}
 }
