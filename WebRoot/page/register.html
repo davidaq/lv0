@@ -1,0 +1,19 @@
+
+<div style="width: 270px; margin: 0 auto">
+	<h1>%{Register}</h1>
+
+	<form action="User-register" class="plain-page" target="home" refresh="true">
+		<label>%{User_Name}:</label>
+		<input type="text" name="username" data-content="%{Username_Occupied}"/>
+		<label>%{EMail}:</label>
+		<input type="text" name="email" data-content="%{EMail_Occupied}"/>
+		<label>%{Password}：</label>
+		<input type="password" name="password[]" data-content="%{Password_Repeat_Must_Match}"/>
+		<label>%{Password_Repeat}：</label>
+		<input type="password" name="password[]" data-content="%{Password_Repeat_Must_Match}"/>
+		<label>%{Addon_Code}： <span id="spamcode"></span></label>
+		<input type="text" name="spamcode" data-content="%{Addon_Code_Incorrect}"/>
+		
+		<input type="submit" class="btn btn-primary" value="%{Submit}"/>
+	</form>
+</div>

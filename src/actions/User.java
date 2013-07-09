@@ -35,7 +35,7 @@ public class User extends BaseAction {
         }
         
         if(ui.getUpassword().equals(MD5Util.MD5(param.password))){
-        	session("myUserinfo",ud);
+        	session("myUserinfo",ui);
             return jsonResult("ok");
         }
         

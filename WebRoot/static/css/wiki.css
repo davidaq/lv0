@@ -1,0 +1,16 @@
+.wikipage .basic {
+  overflow: hidden; }
+  .wikipage .basic img.thumb {
+    max-width: 200px;
+    max-height: 200px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    box-shadow: #000 2px 2px 5px;
+    float: left; }
+  .wikipage .basic h1 button, .wikipage .basic h2 button, .wikipage .basic h3 button, .wikipage .basic h4 button, .wikipage .basic h5 button {
+    float: right; }
+
+.search {
+  position: absolute;
+  right: 0;
+  top: 0; }

@@ -1,0 +1,103 @@
+/*
+Syntax error: Undefined mixin 'whiteChar'.
+        on line 74 of scss/flowview.scss, in `whiteChar'
+        from line 74 of scss/flowview.scss
+
+69: 				img {
+70: 					width: 306px;
+71: 					height: 196px;
+72: 				}
+73: 				.title {
+74: 					@include whiteChar;
+75: 					background: rgba(0, 0, 0, 0.7);
+76: 					position: absolute;
+77: 					padding: 5px;
+78: 					bottom: 2px;
+79: 					left: 2px;
+
+Backtrace:
+scss/flowview.scss:74:in `whiteChar'
+scss/flowview.scss:74
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:253:in `visit_mixin'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:37:in `visit'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:100:in `visit'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:53:in `map'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:53:in `visit_children'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:109:in `block in visit_children'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:121:in `with_environment'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:108:in `visit_children'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:37:in `block in visit'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:320:in `visit_rule'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:37:in `visit'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:100:in `visit'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:53:in `map'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:53:in `visit_children'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:109:in `block in visit_children'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:121:in `with_environment'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:108:in `visit_children'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:37:in `block in visit'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:320:in `visit_rule'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:37:in `visit'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:100:in `visit'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:53:in `map'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:53:in `visit_children'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:109:in `block in visit_children'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:121:in `with_environment'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:108:in `visit_children'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:37:in `block in visit'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:320:in `visit_rule'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:37:in `visit'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:100:in `visit'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:53:in `map'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:53:in `visit_children'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:109:in `block in visit_children'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:121:in `with_environment'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:108:in `visit_children'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:37:in `block in visit'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:320:in `visit_rule'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:37:in `visit'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:100:in `visit'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:53:in `map'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:53:in `visit_children'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:109:in `block in visit_children'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:121:in `with_environment'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:108:in `visit_children'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:37:in `block in visit'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:320:in `visit_rule'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:37:in `visit'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:100:in `visit'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:53:in `map'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:53:in `visit_children'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:109:in `block in visit_children'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:121:in `with_environment'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:108:in `visit_children'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:37:in `block in visit'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:128:in `visit_root'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:37:in `visit'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:100:in `visit'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:7:in `visit'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/root_node.rb:20:in `render'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/engine.rb:315:in `_render'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/engine.rb:262:in `render'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/plugin/compiler.rb:362:in `update_stylesheet'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/plugin/compiler.rb:203:in `block in update_stylesheets'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/plugin/compiler.rb:201:in `each'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/plugin/compiler.rb:201:in `update_stylesheets'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/plugin/compiler.rb:283:in `block in watch'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/vendor/listen/lib/listen/multi_listener.rb:108:in `call'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/vendor/listen/lib/listen/multi_listener.rb:108:in `on_change'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/vendor/listen/lib/listen/multi_listener.rb:117:in `block in initialize_adapter'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/vendor/listen/lib/listen/adapters/polling.rb:56:in `call'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/vendor/listen/lib/listen/adapters/polling.rb:56:in `poll'
+/home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/vendor/listen/lib/listen/adapters/polling.rb:32:in `block in start'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Syntax error: Undefined mixin 'whiteChar'.\A         on line 74 of scss/flowview.scss, in `whiteChar'\A         from line 74 of scss/flowview.scss\A \A 69: 				img {\A 70: 					width: 306px;\A 71: 					height: 196px;\A 72: 				}\A 73: 				.title {\A 74: 					@include whiteChar;\A 75: 					background: rgba(0, 0, 0, 0.7);\A 76: 					position: absolute;\A 77: 					padding: 5px;\A 78: 					bottom: 2px;\A 79: 					left: 2px;"; }

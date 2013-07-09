@@ -1,0 +1,37 @@
+
+<div class="background">
+	<div></div>
+</div>
+<div class="foreground">
+	<div class="head">
+		<a class="logo">
+			<h1>%{sitename}</h1>
+			%{subtitle}
+		</a>
+		<ul id="tabs">
+		</ul>
+	</div>
+	<div class="body">
+	</div>
+</div>
+<div class="foot">
+	<ul class="main-bar menu">
+		<li>
+			<i class="icon-wrench white"></i> %{Settings}
+			<ul class="menu">
+				<li><i class="icon-asterisk white"></i> %{Language}
+					<ul class="menu" id="languageList"></ul>
+				</li>
+				<li><i class="icon-picture white"></i> %{Set_Background}<ul class="menu" id="backgrounds-list"></ul></li>
+				<li><a href="#profile"><i class="icon-user white"></i> %{Set_Profile}</a></li>
+			</ul>
+		</li>
+		<li><i class="icon-tag white"></i> %{Site_Message}</li>
+		<li onclick="showFriends()"><i class="icon-list white"></i> %{Friend_List}</li>
+		<li id="username" ><i class="icon-user white"></i> 
+			<span></span>
+			<ul class="menu"><li onclick="logout()"><i class="icon-remove-sign white"></i> %{Log_Out}</li></ul>
+		</li>
+	</ul>
+	<div class="extra"></div>
+</div>

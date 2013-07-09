@@ -1,0 +1,15 @@
+
+<div style="width: 270px; margin: 0 auto">
+	<h1>%{Login}</h1>
+
+	<form action="User-login" class="plain-page" target="home" refresh="true">
+		<label>%{Account}:</label>
+		<input type="text" name="username" data-content="%{Account_Not_Found}"/>
+		<label>%{Password}：</label>
+		<input type="password" name="password" data-content="%{Password_Incorrect}"/>
+		<label>%{Addon_Code}： <span id="spamcode"></span></label>
+		<input type="text" name="spamcode" data-content="%{Addon_Code_Incorrect}"/>
+		
+		<input type="submit" class="btn btn-primary" value="%{Submit}"/>
+	</form>
+</div>
