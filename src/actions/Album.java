@@ -29,8 +29,8 @@ public class Album extends BaseAction{
 	public String getAlbumById(){
 		GetAlbumByIdParam param = (GetAlbumByIdParam) getParam(GetAlbumByIdParam.class);
 		MediaDao md = new MediaDao();
-		ArrayList<Media> m = null;
-		//m = md.getMediaByid(param.albumId);
+		Media m = null;
+		m = md.getMedia(param.albumId);
 		return jsonResult(m);
 	}
 	
@@ -66,7 +66,7 @@ public class Album extends BaseAction{
 		}
 		
 		MediaDao md = new MediaDao();
-		//m = md.getMediaById(param.albumId);
+		m = md.getMedia(param.albumId);
 		if (m == null){
 			return jsonResult("albumId");
 		}
@@ -96,7 +96,7 @@ public class Album extends BaseAction{
 		
 		MediacontentDao mcd = new MediacontentDao();
 		Mediacontent mc = null;
-		//mc = mcd.findMediacontentById(param.mediaId);
+		mc = mcd.findMediacontentbyid(param.mediaId);
 		if(mc == null){
 			return jsonResult("mediaId");
 		}
@@ -115,16 +115,17 @@ public class Album extends BaseAction{
 	public String deleteAlbum(){
 		DeleteAlbumParam param = (DeleteAlbumParam) getParam(DeleteAlbumParam.class);
 		MediacontentDao mcd = new MediacontentDao();
+		MediaDao md = new MediaDao();
 		ArrayList<Mediacontent> list = null;
-		//list = mcd.getMediacontentByMediaId(param.albumId);
+		list = md.getMediacontent(param.albumId);
 		if(list != null){
 			Iterator i = list.iterator();
 			while(i.hasNext()){
-				//mcd.deleteMediacontent(((Mediacontent)i.next()).getMediaId());
+				mcd.deleteMediacontent((Mediacontent)i.next());
 			}
 		}
-		MediaDao md = new MediaDao();
-		//md.deleteMediaById(param.albumId);
+		
+		md.deleteMedia(md.getMedia(param.albumId));
 		return jsonResult("ok");
 	}
 	
@@ -136,7 +137,7 @@ public class Album extends BaseAction{
 	public String deleteMedia(){
 		DeleteMediaParam param = (DeleteMediaParam) getParam(DeleteMediaParam.class);
 		MediacontentDao mcd = new MediacontentDao();
-		//mcd.deleteMediacontent(param.mediaId);
+		mcd.deleteMediacontent(mcd.findMediacontentbyid(param.mediaId));
 		return jsonResult("ok");
 	}
 }
