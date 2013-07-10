@@ -136,4 +136,30 @@ public class TourLog extends BaseAction {
 		tl = td.findTourlogyid(param.tourLogID);
 		return jsonResult(tl);
 	}
+	
+	
+	public static class TranspondTourLogParam{
+		int tourLogID;
+	}
+	
+	public String transpondTourLog(){
+		TranspondTourLogParam param = (TranspondTourLogParam) getParam(TranspondTourLogParam.class);
+		TourlogDao td = new TourlogDao();
+		Tourlog tl = null;
+		tl = td.findTourlogyid(param.tourLogID);
+		if (tl == null){
+			return jsonResult("tourLogID");
+		}
+		
+		tl.setTourLogId(null);
+		if(tl.getRelaySourceId() == null || tl.getRelaySourceId() < 0){
+			tl.setRelaySourceId(tl.getAuthor());
+		}
+		tl.setRelayFromId(tl.getAuthor());
+		Userinfo ui = (Userinfo)session("myUserinfo");
+		tl.setAuthor(ui.getUid());
+		td.addTourlog(tl);
+		
+		return jsonResult("ok");
+	}
 }
