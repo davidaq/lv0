@@ -7,6 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import tables.Resortremark;
 import tables.Ressupplement;
 
 public class RessupplementDao {
@@ -23,13 +24,15 @@ public class RessupplementDao {
 	    tran.commit();
 		
 	} 
-	public void findRessupplement(Ressupplement ad){
+	public Ressupplement findRessupplementbyid(int id){
 
-		
 		Transaction tran=session.beginTransaction();
-		
+		String hql="from Ressupplement where resSupplementId=' "+id+"'";
+		Query query =session.createQuery(hql);
+		Ressupplement ad=(Ressupplement)query.uniqueResult();
 	    tran.commit();
-	
+		return ad;
+		
 	} 
 	public void updateRessupplement(Ressupplement ad){
 

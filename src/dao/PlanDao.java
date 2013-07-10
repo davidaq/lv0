@@ -7,6 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import tables.Message;
 import tables.Plan;
 
 public class PlanDao {	
@@ -22,14 +23,16 @@ public class PlanDao {
     tran.commit();
 	
 } 
-public void findPlan(Plan ad){
+	public Plan findPlanbyid(int id){
 
-	
-	Transaction tran=session.beginTransaction();
-	
-    tran.commit();
-	
-} 
+		Transaction tran=session.beginTransaction();
+		String hql="from Plan where planId=' "+id+"'";
+		Query query =session.createQuery(hql);
+		Plan ad=(Plan)query.uniqueResult();
+	    tran.commit();
+		return ad;
+		
+	} 
 public void updatePlan(Plan ad){
 	Transaction tran=session.beginTransaction();
 	session.update(ad);

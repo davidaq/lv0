@@ -7,6 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import tables.Plan;
 import tables.Planitem;
 import tables.Resort;
 
@@ -35,13 +36,16 @@ public ArrayList<Planitem> findPlanitemDaoByplanId(int  planid){
 		return resultStu;
 			
 		} 
-public void findPlanitem(Planitem ad){
 
-	
+public Planitem findPlanitembyid(int id){
+
 	Transaction tran=session.beginTransaction();
-	
+	String hql="from Planitem where planItemId=' "+id+"'";
+	Query query =session.createQuery(hql);
+	Planitem ad=(Planitem)query.uniqueResult();
     tran.commit();
-
+	return ad;
+	
 } 
 public void updatePlanitem(Planitem ad){
 

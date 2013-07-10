@@ -7,6 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import tables.Planitem;
 import tables.Resortremark;
 
 public class ResortremarkDao {
@@ -22,12 +23,14 @@ public class ResortremarkDao {
 	    tran.commit();
 		
 	} 
-	public void findResortremark(Resortremark ad){
+	public Resortremark findResortremarkbyid(int id){
 
-		
 		Transaction tran=session.beginTransaction();
-		
+		String hql="from Resortremark where resortRemarkId=' "+id+"'";
+		Query query =session.createQuery(hql);
+		Resortremark ad=(Resortremark)query.uniqueResult();
 	    tran.commit();
+		return ad;
 		
 	} 
 	public void updateResortremark(Resortremark ad){
