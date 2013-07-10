@@ -18,19 +18,39 @@ function FlowView(fv) {
 		} else {	// scroll to tail
 			pos -= 70;
 		}
-		if(pos > 0 || me.xDispos < $(fv).width())
+		if(delta < 0 && me.xDispos < $(fv).width()) {
 			pos = 0;
-		else if(pos < $(fv).width() - me.xDispos - 20)
+			me.load();
+		}else if(pos > 0)
+			pos = 0;
+		else if(pos < $(fv).width() - me.xDispos - 20) {
 			pos = $(fv).width() - me.xDispos - 20;
+			me.load();
+		}
 		$(fv).stop().animate({left: pos + 'px'}, 200);
     });
 }
+FlowView.prototype.load = function(listener) {
+	if(listener) {
+		this.loadMore = listener;
+	} else if(this.loadMore) {
+		if(this.loadDelay) {
+			return;
+		}
+		this.loadDelay = setTimeout(function() {
+			this.loadDelay = false;
+		}, 1000);
+		this.loadMore();
+	}
+}
 FlowView.prototype.addBlock = function(html, big) {
 	var item = document.createElement('div');
+	item.innerHTML = html;
 	item.className = 'block' + (big ? ' big':'');
 	this.queue.push(item);
 };
 FlowView.prototype.show = function() {
+	this.load();
 	if(this.queue.length > 0) {
 		var item = this.queue.shift();
 		var me = this;

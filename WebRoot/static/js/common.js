@@ -75,6 +75,11 @@ function request(url, send, action, type) {
 			        	result = JSON.parse(result);
 		        }
 		        action(result);
+		        if(parseUsernamesDelay) {
+		        	clearTimeout(parseUsernamesDelay);
+		        	parseUsernamesDelay = false;
+		        }
+				parseUsernamesDelay = setTimeout(parseUsernames, 10);
 		    }
 	    },
 	    error : function(e,m){
@@ -115,7 +120,6 @@ function initForm(body) {
 						document.location.reload();
 					}
 				} else {
-					console.log(result);
 					var x = $('input[name^="' + result + '"], textarea[name="' + result + '"]', form);
 					x.css('border-color', '#F00');
 					x.focus();
@@ -137,4 +141,8 @@ function logout() {
 			document.location.reload();
 		}
 	});
+}
+function parseUsernames() {
+	if(parsedUsernames)
+	$('.username');
 }
