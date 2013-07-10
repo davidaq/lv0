@@ -8,12 +8,35 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import tables.Media;
+import tables.Mediacontent;
 
 public class MediaDao {
 	Session session=HibernateSessionFactory.currentSession();
 	public void close(){
 		session.close();
 	}
+public ArrayList<Mediacontent>getMediacontent(int Med){
+
+		
+		Transaction tran=session.beginTransaction();
+		String hqlsql = "from Mediacontent where mediaId='"+Med+"'";
+		Query query = session.createQuery(hqlsql);
+		 ArrayList<Mediacontent> resultStu = (ArrayList<Mediacontent>)query.list();
+	    tran.commit();
+		
+		return resultStu;
+	} 
+public ArrayList<Media>getMediaByUid(int Med){
+
+	
+	Transaction tran=session.beginTransaction();
+	String hqlsql = "from Media where uid='"+Med+"'";
+	Query query = session.createQuery(hqlsql);
+	 ArrayList<Media> resultStu = (ArrayList<Media>)query.list();
+    tran.commit();
+	
+	return resultStu;
+} 
 	public void addMedia(Media ad){
 
 		

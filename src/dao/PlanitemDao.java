@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import tables.Planitem;
+import tables.Resort;
 
 public class PlanitemDao {
 	Session session=HibernateSessionFactory.currentSession();
@@ -22,6 +23,18 @@ public class PlanitemDao {
     tran.commit();
 	
 } 
+public ArrayList<Planitem> findPlanitemDaoByplanId(int  planid){
+
+		
+		Transaction tran=session.beginTransaction();
+		String hql="from Planitem where planId ='"+planid+"'";
+		Query query =session.createQuery(hql);
+		
+		 ArrayList<Planitem> resultStu = (ArrayList<Planitem>)query.list();
+	    tran.commit();
+		return resultStu;
+			
+		} 
 public void findPlanitem(Planitem ad){
 
 	

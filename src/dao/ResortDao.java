@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import tables.Resort;
+import tables.Userinfo;
 
 public class ResortDao {
 	Session session=HibernateSessionFactory.currentSession();
@@ -22,14 +23,42 @@ public class ResortDao {
 	    tran.commit();
 		
 	} 
-	public void findResort(Resort ad){
+	public Resort findResortByname(String name){
+
+		Transaction tran=session.beginTransaction();
+		String hql="from Resort where resName='"+name+"'";
+		Query query =session.createQuery(hql);
+		
+		Resort te=(Resort) query.uniqueResult();
+	    tran.commit();
+		return te;
+		
+		
+	} 
+	public Resort findResortById(int id){
+
+		Transaction tran=session.beginTransaction();
+		String hql="from Resort where resortId='"+id+"'";
+		Query query =session.createQuery(hql);
+		
+		Resort te=(Resort) query.uniqueResult();
+	    tran.commit();
+		return te;
+		
+		
+	} 
+	public ArrayList<Resort> findResortLikename(String name){
 
 		
 		Transaction tran=session.beginTransaction();
+		String hql="from Resort where resName like '%"+name+"%'";
+		Query query =session.createQuery(hql);
 		
+		 ArrayList<Resort> resultStu = (ArrayList<Resort>)query.list();
 	    tran.commit();
-		
-	} 
+		return resultStu;
+			
+		} 
 	public void updateResort(Resort ad){
 
 		
@@ -62,17 +91,17 @@ public class ResortDao {
 	        ArrayList<Resort> sftlist = new ArrayList();
 	        try {
 	         
-	            //String hql = "from Employee emp";// ï¿½ï¿½Ñ¯HQLï¿½ï¿½ï¿½
-	           String HQL = "from Resort";// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯HQLï¿½ï¿½ï¿½
-	            Query q = session.createQuery(HQL);// Ö´ï¿½Ð²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
+	            //String hql = "from Employee emp";// ²éÑ¯HQLÓï¾ä
+	           String HQL = "from Resort";// Ìõ¼þ²éÑ¯HQLÓï¾ä
+	            Query q = session.createQuery(HQL);// Ö´ÐÐ²éÑ¯²Ù×÷
 	            q.setFirstResult(pageSize * (pageNow - 1));
 	            q.setMaxResults(pageSize);
 	            sftlist = (ArrayList<Resort>)q.list();
 	        } catch (HibernateException e) {
 	            e.printStackTrace();
-	            System.out.println("ï¿½ï¿½Ñ¯Ê§ï¿½ï¿½");
+	            System.out.println("²éÑ¯Ê§°Ü");
 	        } finally {
-	        	HibernateSessionFactory.closeSession();// ï¿½Ø±ï¿½session
+	        	HibernateSessionFactory.closeSession();// ¹Ø±Õsession
 	        }
 	        return sftlist;
 	    }

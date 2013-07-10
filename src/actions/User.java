@@ -64,6 +64,10 @@ public class User extends BaseAction {
         	return jsonResult("password");
         }
         
+        if(param.email == null || param.email.equals("")){
+        	return jsonResult("email");
+        }
+        
         UserinfoDao ud = new UserinfoDao();
         Userinfo ui = ud.findUserinfoByname(param.username);
         if(ui != null){

@@ -7,6 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import tables.Media;
 import tables.Mediacontent;
 
 public class MediacontentDao {
@@ -57,6 +58,7 @@ public class MediacontentDao {
 		
 		return resultStu;
 	} 
+
 	 public ArrayList<Mediacontent> queryByPage(int pageSize, int pageNow) {
 	        Session session = null;
 	        ArrayList<Mediacontent> sftlist = new ArrayList();
