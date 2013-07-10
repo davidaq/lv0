@@ -126,7 +126,11 @@ public class Album extends BaseAction{
 			}
 		}
 		
-		md.deleteMedia(md.getMedia(param.albumId));
+		Media m = md.getMedia(param.albumId);
+		if(m == null){
+			return jsonResult("albumId");
+		}
+		md.deleteMedia(m);
 		return jsonResult("ok");
 	}
 	
@@ -138,7 +142,11 @@ public class Album extends BaseAction{
 	public String deleteMedia(){
 		DeleteMediaParam param = (DeleteMediaParam) getParam(DeleteMediaParam.class);
 		MediacontentDao mcd = new MediacontentDao();
-		mcd.deleteMediacontent(mcd.findMediacontentbyid(param.mediaId));
+		Mediacontent m = mcd.findMediacontentbyid(param.mediaId);
+		if(m == null){
+			return jsonResult("mediaId");
+		}		
+		mcd.deleteMediacontent(m);
 		return jsonResult("ok");
 	}
 	
