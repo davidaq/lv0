@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import tables.Resort;
+import tables.Ressupplement;
 import tables.Userinfo;
 
 public class ResortDao {
@@ -55,6 +56,18 @@ public class ResortDao {
 		Query query =session.createQuery(hql);
 		
 		 ArrayList<Resort> resultStu = (ArrayList<Resort>)query.list();
+	    tran.commit();
+		return resultStu;
+			
+		} 
+public ArrayList<Ressupplement> findResSuplementByid(int id){
+
+		
+		Transaction tran=session.beginTransaction();
+		String hql="from Ressupplement where resortId='"+id+"'";
+		Query query =session.createQuery(hql);
+		
+		 ArrayList<Ressupplement> resultStu = (ArrayList<Ressupplement>)query.list();
 	    tran.commit();
 		return resultStu;
 			

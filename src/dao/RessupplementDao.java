@@ -10,6 +10,7 @@ import org.hibernate.Transaction;
 import tables.Ressupplement;
 
 public class RessupplementDao {
+	//根据景点ID查询
 	Session session=HibernateSessionFactory.currentSession();
 	public void close(){
 		session.close();
