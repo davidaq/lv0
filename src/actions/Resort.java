@@ -186,4 +186,36 @@ public class Resort extends BaseAction {
     	
     	return jsonResult("ok");
     }
+    
+    
+    public static class DeleteResortParam{
+    	int resortId;
+    }
+    
+    public String deleteResort(){
+    	DeleteResortParam param = (DeleteResortParam) getParam(DeleteResortParam.class);
+    	ResortDao rd = new ResortDao();
+    	tables.Resort r = rd.findResortById(param.resortId);
+    	if(r == null){
+    		return jsonResult("resortId");
+    	}
+    	rd.deleteResort(r);
+    	return jsonResult("ok");
+    }
+    
+    
+    public static class DeleteRessupplementParam{
+    	int resSupplementId;
+    }
+    
+    public String deleteRessupplement(){
+    	DeleteRessupplementParam param = (DeleteRessupplementParam) getParam(DeleteRessupplementParam.class);
+    	RessupplementDao rsd = new RessupplementDao();
+    	tables.Ressupplement rs = rsd.findRessupplementbyid(param.resSupplementId);
+    	if(rs == null){
+    		return jsonResult("resortId");
+    	}
+    	rsd.deleteRessupplement(rs);
+    	return jsonResult("ok");
+    }
 }
