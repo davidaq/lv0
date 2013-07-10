@@ -36,8 +36,8 @@ public class Chinese extends Language {
             Account_Not_Found = "账号不存在",
             Password_Incorrect = "密码错误",
             Addon_Code_Incorrect = "验证码错误",
-            Username_Occupied = "用户名已占用",
-            EMail_Occupied = "邮箱已占用",
+            Username_Invalid_Or_Occupied = "用户名不可用或已占用",
+            EMail_Invalid_Or_Occupied = "邮箱不可用或已占用",
             Password_Repeat = "密码确认",
             Password_Repeat_Must_Match = "密码为空或密码确认不匹配",
             

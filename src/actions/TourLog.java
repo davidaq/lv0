@@ -23,6 +23,9 @@ public class TourLog extends BaseAction {
 		Userinfo myUserinfo = (Userinfo)session("myUserinfo");
 		AttentionDao atd = new AttentionDao();
 		ArrayList<Userinfo> list = atd.GetAttentionedByUserId(myUserinfo.getUid());
+                list.add(myUserinfo);
+                if(true)
+                    return jsonResult(list);
 		
 		TourlogDao td = new TourlogDao();
 		ArrayList<Tourlog> tlist = td.queryByPageUser(list, 16, param.pageNow);

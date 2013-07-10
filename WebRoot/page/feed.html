@@ -1,15 +1,12 @@
-<h1><i class="icon-align-left white"></i> 新鲜记忆</h1>
-
+<h1><i class="icon-align-left white"></i> %{My_Feed}</h1>
 <div class="flowview">
 	<div class="block big">
-		<div style="padding: 10px;">
-			<h3>发表新记忆 </h3>
-			<textarea style="width: 280px; height: 70px;"></textarea>
-			<button class="btn btn-primary">发表</button>
-			<button class="btn">打开高级编辑器</button>
-			<br/><br/>
-			<img src="static/images/map.jpg">
-		</div>
+		<form style="padding: 10px;" action="TourLog-publishTourLog">
+			<h3>%{Post_New_Memory} </h3>
+			<textarea id="post_content" style="width: 290px; height: 270px;" name="content"></textarea>
+			<br/>
+			<input type="submit" class="btn btn-primary" value="%{Post}"/>
+		</form>
 	</div>
 	<div class="block">
 		<div class="feed">
