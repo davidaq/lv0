@@ -7,6 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import tables.Ressupplement;
 import tables.Sensitive;
 
 public class SeneitiveDao {
@@ -22,12 +23,14 @@ public class SeneitiveDao {
 	    tran.commit();
 		
 	} 
-	public void findSensitive(Sensitive ad){
+	public Sensitive findSensitivebyid(int id){
 
-		
 		Transaction tran=session.beginTransaction();
-		
+		String hql="from Sensitive where sensitiveId=' "+id+"'";
+		Query query =session.createQuery(hql);
+		Sensitive ad=(Sensitive)query.uniqueResult();
 	    tran.commit();
+		return ad;
 		
 	} 
 	public void updateSensitive(Sensitive ad){

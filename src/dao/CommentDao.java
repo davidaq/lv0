@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import tables.Comment;
+import tables.Mediacontent;
 
 public class CommentDao {
 	Session session=HibernateSessionFactory.currentSession();
@@ -22,12 +23,14 @@ public class CommentDao {
 	    tran.commit();
 		
 	} 
-	public void findComment(Comment ad){
+	public Comment findCommentbyid(int id){
 
-		
 		Transaction tran=session.beginTransaction();
-		
+		String hql="from Comment where comId=' "+id+"'";
+		Query query =session.createQuery(hql);
+		Comment ad=(Comment)query.uniqueResult();
 	    tran.commit();
+		return ad;
 		
 	} 
 	public void updateComment(Comment ad){

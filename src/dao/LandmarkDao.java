@@ -7,6 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import tables.Comment;
 import tables.Landmark;
 
 public class LandmarkDao {	
@@ -22,14 +23,16 @@ public class LandmarkDao {
     tran.commit();
 	
 } 
-public void findLandmark(Landmark ad){
+	public Landmark findLandmarkbyid(int id){
 
-	
-	Transaction tran=session.beginTransaction();
-	
-    tran.commit();
-	
-} 
+		Transaction tran=session.beginTransaction();
+		String hql="from Landmark where landmarkId=' "+id+"'";
+		Query query =session.createQuery(hql);
+		Landmark ad=(Landmark)query.uniqueResult();
+	    tran.commit();
+		return ad;
+		
+	} 
 public void updateLandmark(Landmark ad){
 
 	
