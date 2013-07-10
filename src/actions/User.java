@@ -115,6 +115,19 @@ public class User extends BaseAction {
     }
     
     
+    public static class GetUsernameByUidParam{
+    	int userId;
+    }
+    
+    public String getUsernameByUid(){
+    	GetUsernameByUidParam param = (GetUsernameByUidParam) getParam(GetUsernameByUidParam.class);
+    	UserinfoDao ud = new UserinfoDao();
+    	Userinfo u = ud.findUserinfoByid(param.userId);
+    	
+    	return jsonResult(u.getUname());
+    }
+    
+    
     public static class EditMyBasicInfoParam{
     	String username;
     	String email;
