@@ -3,10 +3,6 @@ package actions;
 
 import java.util.ArrayList;
 
-import javax.mail.search.SearchTerm;
-
-import org.apache.commons.collections.map.StaticBucketMap;
-
 import tables.Ressupplement;
 
 import dao.ResortDao;
