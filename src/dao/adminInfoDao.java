@@ -24,13 +24,15 @@ public class adminInfoDao {
 	    tran.commit();
 		session.close();
 	} 
-	public void findAdminInfo(Admininfo ad){
+	public Admininfo findAdminInfoByid(int id){
 
 		
 		Transaction tran=session.beginTransaction();
-		
+		String hql="from Admininfo where adId=' "+id+"'";
+		Query query =session.createQuery(hql);
+		Admininfo ad=(Admininfo)query.uniqueResult();
 	    tran.commit();
-		
+		return ad;
 	} 
 	public void updateAdminInfo(Admininfo ad){
 

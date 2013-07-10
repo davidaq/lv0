@@ -45,6 +45,18 @@ public Userinfo findUserinfoByname(String name){
 	return ad;
 		
 	} 
+public ArrayList<Userinfo> findUserinfoLikename(String name){
+
+	
+	Transaction tran=session.beginTransaction();
+	String hql="from Userinfo where uname like '%"+name+"%'";
+	Query query =session.createQuery(hql);
+	
+	 ArrayList<Userinfo> resultStu = (ArrayList<Userinfo>)query.list();
+    tran.commit();
+	return resultStu;
+		
+	} 
 public Userinfo findUserinfoByMail(String email){
 
 	Transaction tran=session.beginTransaction();

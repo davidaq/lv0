@@ -73,4 +73,23 @@ public ArrayList<Plan> getPlanAll(){
         	HibernateSessionFactory.closeSession();// 关闭session
         }
         return sftlist;
-    }}
+    }
+ public ArrayList<Plan> queryByPageAuthor(int uid,int pageSize, int pageNow) {
+     
+     ArrayList<Plan> sftlist = new ArrayList();
+     try {
+         
+         //String hql = "from Employee emp";// 查询HQL语句
+        String HQL = "from Plan where authorId='"+uid+"'";// 条件查询HQL语句
+         Query q = session.createQuery(HQL);// 执行查询操作
+         q.setFirstResult(pageSize * (pageNow - 1));
+         q.setMaxResults(pageSize);
+         sftlist = (ArrayList<Plan>)q.list();
+     } catch (HibernateException e) {
+         e.printStackTrace();
+         System.out.println("查询失败");
+     } finally {
+     	HibernateSessionFactory.closeSession();// 关闭session
+     }
+     return sftlist;
+ }}
