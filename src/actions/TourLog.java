@@ -2,9 +2,11 @@ package actions;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
 import tables.Attention;
 import tables.Comment;
+import tables.Good;
 import tables.Tourlog;
 import tables.Userinfo;
 import dao.AttentionDao;
@@ -28,23 +30,6 @@ public class TourLog extends BaseAction {
 		ArrayList<Tourlog> tlist = td.queryByPageUser(list, 16, param.pageNow);
 		
 		return jsonResult(tlist);
-	}
-	
-	
-	public static class SetAttentionParam{
-		int attedUser;
-	}
-	
-	public String setAttention(){
-		SetAttentionParam param = (SetAttentionParam) getParam(SetAttentionParam.class);
-		Userinfo myUserinfo = (Userinfo)session("myUserinfo");
-		AttentionDao atd = new AttentionDao();
-		Attention at = new Attention();
-		at.setAttUser(myUserinfo.getUid());
-		at.setAttedUser(param.attedUser);
-		atd.addAttention(at);
-		
-		return jsonResult("ok");
 	}
 	
 	
@@ -135,6 +120,50 @@ public class TourLog extends BaseAction {
 		TourlogDao td = new TourlogDao();
 		tl = td.findTourlogyid(param.tourLogID);
 		return jsonResult(tl);
+	}
+	
+	
+	public static class DeleteTourLogByIdParam{
+		int tourLogId;
+	}
+	
+	public String deleteTourLogById(){
+		DeleteTourLogByIdParam param = (DeleteTourLogByIdParam) getParam(DeleteTourLogByIdParam.class);
+		TourlogDao td = new TourlogDao();
+		
+		Tourlog t = td.findTourlogyid(param.tourLogId);
+		if(t == null){
+			return jsonResult("tourLogId");
+		}
+		Userinfo ui = (Userinfo)session("myUserinfo");
+		if(!t.getAuthor().equals(ui.getUid())){
+			return jsonResult("tourLogId");
+		}
+		//delete goods
+		GoodDao gd = new GoodDao();
+		ArrayList<Good> gList = null;
+		gList = gd.getGoodByLogId(param.tourLogId);
+		if(gList.size() > 0){
+			Iterator<Good> gIterator = gList.iterator();
+			
+			while(gIterator.hasNext()){
+				Good g = gIterator.next();
+				gd.deleteGood(g);
+			}
+		}
+		//delete comments
+		CommentDao cd = new CommentDao();
+		ArrayList<Comment> cList = cd.getCommentByLogId(param.tourLogId);
+		if(cList.size() > 0){
+			Iterator<Comment> cIterator = cList.iterator();
+			while (cIterator.hasNext()) {
+				Comment comment = cIterator.next();
+				cd.deleteComment(comment);
+			}
+		}
+		//delete Tourlog
+		td.deleteTourlog(t);
+		return jsonResult("ok");
 	}
 	
 	
