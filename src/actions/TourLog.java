@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 
+import antlr.CommonAST;
+
 import tables.Attention;
 import tables.Comment;
 import tables.Good;
@@ -163,6 +165,35 @@ public class TourLog extends BaseAction {
 		}
 		//delete Tourlog
 		td.deleteTourlog(t);
+		return jsonResult("ok");
+	}
+	
+	
+	public static class DeleteCommentByIdParam{
+		int comId;
+	}
+	
+	public String deleteCommentById(){
+		DeleteCommentByIdParam param = (DeleteCommentByIdParam) getParam(DeleteCommentByIdParam.class);
+		CommentDao cd = new CommentDao();
+		Comment c = cd.findCommentbyid(param.comId);
+		if (c == null){
+			return jsonResult("comId");
+		}
+		TourlogDao td = new TourlogDao();
+		Tourlog t = td.findTourlogyid(c.getTourLogId());
+		if (t == null){
+			return jsonResult("tourLogId");
+		}
+		
+		Userinfo ui = (Userinfo)session("myUserinfo");
+		
+		
+		if(!t.getAuthor().equals(ui.getUid()) && !c.getUid().equals(ui.getUid())){
+			return jsonResult("uid");
+		}
+		
+		cd.deleteComment(c);
 		return jsonResult("ok");
 	}
 	
