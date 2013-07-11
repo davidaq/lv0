@@ -140,6 +140,7 @@ function logout() {
 	});
 }
 parsedUsernames = {};
+parsedUseravatars = {};
 function parseUsernames(element) {
 	if(!element)
 		element = document;
@@ -157,6 +158,22 @@ function parseUsernames(element) {
 			});
 		} else {
 			$(me).html(parsedUsernames[uid]);
+		}
+	});
+	$('img.useravatar', element).each(function() {
+		if($(this).closest('.template')[0])
+			return;
+		var me = this;
+		var uid = $(this).attr('title');
+		$(this).removeClass('username');
+		$(this).attr('title','');
+		if(!parsedUseravatars[uid]) {
+			requestApi('User-getUsernameByUid', {userId : uid}, function(result) {
+				$(me).attr('src', result);
+				parsedUseravatars[uid] = result;
+			});
+		} else {
+			$(me).attr('src', result);
 		}
 	});
 }

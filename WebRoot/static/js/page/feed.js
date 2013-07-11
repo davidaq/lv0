@@ -12,7 +12,7 @@ scripts.feed = function(param, body) {
 							content = content.replace(new RegExp('%' + i + '%','g'), item[i]);
 						
 						var element = fv.addBlock(content, item.abstract_.length > 100);
-						$(element).click(function() {
+						$('.text', element).click(function() {
 							$('#detailDlg .modal-body').html(item.content);
 							$('#detailDlg').modal();
 						});

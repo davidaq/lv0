@@ -52,6 +52,7 @@ FlowView.prototype.addBlock = function(html, big) {
 	item.innerHTML = html;
 	item.className = 'block' + (big ? ' big':'');
 	this.queue.push(item);
+	this.show();
 	return item;
 };
 FlowView.prototype.show = function() {

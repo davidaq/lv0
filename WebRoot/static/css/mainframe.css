@@ -210,7 +210,8 @@ a:hover {
           .flowview-wrap .flowview .block .feed .avatar span {
             display: block; }
         .flowview-wrap .flowview .block .feed .text {
-          width: 150px; }
+          width: 150px;
+          min-height: 150px; }
           .flowview-wrap .flowview .block .feed .text b.title {
             font-size: 17px;
             display: block;

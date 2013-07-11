@@ -83,9 +83,9 @@ public class GoodDao {
 		java.sql.Date startDate= new java.sql.Date(start);
 		java.sql.Date nowtDate= new java.sql.Date(nw);
 		Transaction tran=session.beginTransaction();
-		String strSql="from Tourlog where tourLogId in (select one.tourLogId from Good one  where one.date > '"+startDate+"' and one.date <'" +nowtDate
-				+"' group by one.tourLogId order by count(*) desc)";
+		String strSql="select t, (select count(*) from Good g where g.tourLogId = t.tourLogId and g.date > '"+startDate+"' group by g.tourLogId) as _good from Tourlog t order by _good desc";
 		Query query=session.createQuery(strSql);
+                System.out.println(query.getQueryString());
 		query.setFirstResult(0);
 		query.setMaxResults(10);
 		
@@ -140,18 +140,18 @@ public class GoodDao {
 	        Session session = null;
 	        ArrayList<Good> sftlist = new ArrayList();
 	        try {
-	            session = HibernateSessionFactory.currentSession();// »ñµÃsession¶ÔÏó
-	            //String hql = "from Employee emp";// ²éÑ¯HQLÓï¾ä
-	           String HQL = "from Good";// Ìõ¼þ²éÑ¯HQLÓï¾ä
-	            Query q = session.createQuery(HQL);// Ö´ÐÐ²éÑ¯²Ù×÷
+	            session = HibernateSessionFactory.currentSession();// ï¿½ï¿½ï¿½sessionï¿½ï¿½ï¿½ï¿½
+	            //String hql = "from Employee emp";// ï¿½ï¿½Ñ¯HQLï¿½ï¿½ï¿½
+	           String HQL = "from Good";// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯HQLï¿½ï¿½ï¿½
+	            Query q = session.createQuery(HQL);// Ö´ï¿½Ð²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
 	            q.setFirstResult(pageSize * (pageNow - 1));
 	            q.setMaxResults(pageSize);
 	            sftlist = (ArrayList<Good>)q.list();
 	        } catch (HibernateException e) {
 	            e.printStackTrace();
-	            System.out.println("²éÑ¯Ê§°Ü");
+	            System.out.println("ï¿½ï¿½Ñ¯Ê§ï¿½ï¿½");
 	        } finally {
-	        	HibernateSessionFactory.closeSession();// ¹Ø±Õsession
+	        	HibernateSessionFactory.closeSession();// ï¿½Ø±ï¿½session
 	        }
 	        return sftlist;
 	    }
