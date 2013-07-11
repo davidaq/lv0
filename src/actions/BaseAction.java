@@ -37,4 +37,9 @@ public class BaseAction {
     public void session(String item, Object value) {
         session().put(item, value);
     }
+    
+    public static String toAbstract(String content) {
+        content = content.replaceAll("(\\<.+?\\>|\\n|\\r|&nbsp;|\\s)+", " ").trim().substring(0, 80);
+        return content;
+    }
 }

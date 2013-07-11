@@ -5,10 +5,31 @@ scripts.feed = function(param, body) {
 		requestApi('tourLog-getTourLog', {pageNow : page}, function(result) {
 			if(result && result.length > 0) {
 				for(k in result) {
-					var content = $('.template', body).html();
-					for(i in result[k])
-						content = content.replace(new RegExp('%' + i + '%','g'), result[k][i]);
-					fv.addBlock(content);
+					(function() {
+						var item = result[k];
+						var content = $('.template', body).html();
+						for(i in item)
+							content = content.replace(new RegExp('%' + i + '%','g'), item[i]);
+						
+						var element = fv.addBlock(content, item.abstract_.length > 100);
+						$(element).click(function() {
+							$('#detailDlg .modal-body').html(item.content);
+							$('#detailDlg').modal();
+						});
+						if(result[k].author != CFG.userinfo.uid) {
+							$('.remove', element).remove();
+						} else {
+							$('.remove', element).click(function() {
+								var me = this;
+								requestApi('', function() {
+									$(me).closest('.block').fadeOut(200, function() {	
+										$(this).show();
+										$(this).css('visibility', 'hidden');
+									});
+								});
+							});
+						}
+					})();
 				}
 				page++;
 			}

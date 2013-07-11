@@ -29,6 +29,19 @@
 			-o-webkit-opacity: 0.9;
 			width: 310px;
 			height: 200px;
+			overflow: hidden;
+			position: relative;
+			.remove {
+				position: absolute;
+				right: 5px;
+				display: none;
+				&:hover {
+					background-color: #AAA;
+				}
+			}
+			&:hover .remove {
+				display: block;
+			}
 			.feed {
 				cursor: pointer;
 				padding: 5px;
