@@ -207,15 +207,11 @@ function showFriends() {
         requestApi('friends-list', function(result) {
             $('.foot .extra').hide();
             $('.foot .extra').html('');
+            console.log(result);
             for(k in result) {
                 var item = document.createElement('div');
                 item.className = 'friend-list-item';
-                var flagIcon;
-                if(result[k].relation == 'friend') {
-                    flagIcon = 'friend';
-                } else {
-                    flagIcon = 'watch';
-                }
+                
                 if(result[k].online) {
                     item.className += ' online';
                 } else {
@@ -229,12 +225,14 @@ function showFriends() {
                 removeBtn.className = 'icon-remove white';
                 (function() {
                 	var uid = result[k].uid;
-		            removeBtn.onclick = function() {
+		            $(removeBtn).click(function() {
 						requestApi('friends-deleteAttention', {uid : uid}, function() {});
-		            };
+						$(this).closest('.friend-list-item').hide(100).remove();
+		            });
                 })();
                 
                 $('.foot .extra').append(item);
+                $(item).append(removeBtn);
             }
             $('.foot .extra').slideDown(100);
         }).error(function() {

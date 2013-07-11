@@ -40,7 +40,7 @@ public class Friends extends BaseAction {
 	    		if(ad.findAttentionByAttid(attention.getAttedUser(), attention.getAttUser()) != null){
 	    			relation = "friend";
 	    		}
-	    		list[i] = new FriendItem(attention.getAttedUser(), u.getUname(), u.getUportrait(),relation , online);
+	    		list[i++] = new FriendItem(attention.getAttedUser(), u.getUname(), u.getUportrait(),relation , online);
 	    	}
     	}
     	
