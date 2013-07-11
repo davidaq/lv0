@@ -43,7 +43,7 @@ $(function () {
         setInterval(function() {
             if(switching)
                 return;
-            if(curHash != document.location.hash) {
+            if(CFG.refresh || curHash != document.location.hash) {
                 var url = document.location.hash.substr(1);
                 var pos = url.indexOf('%');
                 var param;
@@ -66,6 +66,9 @@ $(function () {
                         var item = document.createElement('div');
                         item.className = 'content';
                         item.innerHTML = result;
+                        if(CFG.refresh) {
+                        	$('.foreground .body').html('');
+                        }
                         $('.foreground .body').append(item);
                         if($('.foreground .body > .content')[1]) {
                             switching = true;
@@ -76,12 +79,12 @@ $(function () {
                             });
                             $(item).fadeOut(0).fadeIn(300);
                         }
-                        scripts[url](param, item);
-                        initForm(item);
-                        if($('h1:first', item)[0])
-                            document.title = $('h1:first', item).text() + " | " + bareTitle;
-                        else
-                            document.title = bareTitle;
+	                    scripts[url](param, item);
+	                    initForm(item);
+	                    if($('h1:first', item)[0])
+	                        document.title = $('h1:first', item).text() + " | " + bareTitle;
+	                    else
+	                        document.title = bareTitle;
                     }
                     if(!scripts[url]) {
                         scripts[url] = true;
@@ -109,6 +112,7 @@ $(function () {
                     });
                 }
                 curHash = document.location.hash;
+            	CFG.refresh = false;
             }
         }, 100);
     }
@@ -219,7 +223,17 @@ function showFriends() {
                 }
                 if(!result[k].avatar)
                 	result[k].avatar = 'static/images/picmi.png';
-                item.innerHTML = '<img src="' + result[k].avatar + '"/> ' + result[k].name;
+                item.innerHTML = '<img src="' + result[k].avatar + '"/> ' + result[k].name
+                	+ ' &nbsp;&nbsp; ';
+                var removeBtn = document.createElement('i');
+                removeBtn.className = 'icon-remove white';
+                (function() {
+                	var uid = result[k].uid;
+		            removeBtn.onclick = function() {
+						requestApi('friends-deleteAttention', {uid : uid}, function() {});
+		            };
+                })();
+                
                 $('.foot .extra').append(item);
             }
             $('.foot .extra').slideDown(100);

@@ -152,8 +152,14 @@ a:hover {
         max-height: 25px; }
       .foot .extra .friend-list-item.offline img {
         opacity: 0.4; }
-    .foot .extra .friend-list-item:hover {
-      background: rgba(0, 0, 0, 0.7); }
+      .foot .extra .friend-list-item i {
+        visibility: hidden; }
+        .foot .extra .friend-list-item i:hover {
+          background-color: rgba(255, 255, 255, 0.3); }
+      .foot .extra .friend-list-item:hover {
+        background: rgba(0, 0, 0, 0.7); }
+        .foot .extra .friend-list-item:hover i {
+          visibility: visible; }
 
 .flowview-wrap {
   overflow: hidden; }

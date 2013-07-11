@@ -112,9 +112,9 @@ function initForm(body) {
 					if(form.target) {
 						document.location.hash = form.target;
 						if($(form).attr('refresh'))
-							document.location.reload();
+							refresh();
 					} else {
-						document.location.reload();
+						refresh();
 					}
 				} else {
 					var x = $('input[name^="' + result + '"], textarea[name="' + result + '"]', form);
@@ -198,4 +198,8 @@ function parseUsernames(element) {
 
 function follow_user(uid) {
 	requestApi('friends-setAttention', {attedUser : uid}, function() {});
+}
+
+function refresh() {
+	CFG.refresh = true;
 }
