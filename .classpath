@@ -33,6 +33,6 @@
 			<attribute name="owner.project.facets" value="web.struts2"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/com.sun.java.jdk.win32.x86_64_1.6.0.u43"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
