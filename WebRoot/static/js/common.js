@@ -144,37 +144,56 @@ parsedUseravatars = {};
 function parseUsernames(element) {
 	if(!element)
 		element = document;
+	var pendingUsername = {};
 	$('.username', element).each(function() {
 		if($(this).closest('.template')[0])
 			return;
-		var me = this;
 		var uid = $(this).attr('title');
 		$(this).removeClass('username');
 		$(this).attr('title','');
+		var me = this;
 		if(!parsedUsernames[uid]) {
-			requestApi('User-getUsernameByUid', {userId : uid}, function(result) {
-				$(me).html(result);
-				parsedUsernames[uid] = result;
-			});
+			if(!pendingUsername[uid])
+				pendingUsername[uid] = [];
+			pendingUsername[uid].push(this);
 		} else {
 			$(me).html(parsedUsernames[uid]);
 		}
 	});
+	for(k in pendingUsername) {
+		(function() {
+			var uid = k;
+			requestApi('User-getUsernameByUid', {userId : uid}, function(result) {
+				parsedUsernames[uid] = result;
+				$(pendingUsername[uid]).html(result);
+			});
+		})();
+	}
+	var pendingAvatars = {};
 	$('img.useravatar', element).each(function() {
 		if($(this).closest('.template')[0])
 			return;
-		var me = this;
 		var uid = $(this).attr('title');
 		$(this).removeClass('username');
 		$(this).attr('title','');
 		if(!parsedUseravatars[uid]) {
-			requestApi('User-getUsernameByUid', {userId : uid}, function(result) {
-				$(me).attr('src', result);
-				parsedUseravatars[uid] = result;
-			});
-		} else {
-			$(me).attr('src', result);
+			if(!pendingAvatars[uid])
+				pendingAvatars[uid] = [];
+			pendingAvatars[uid].push(this);
+		} else if(parsedUseravatars[uid]) {
+			$(me).attr('src', parsedUseravatars[uid]);
 		}
 	});
+	for(k in pendingAvatars) {
+		(function() {
+			var uid = k;
+			requestApi('User-getUserPortraitByUid', {uid : uid}, function(result) {
+				parsedUseravatars[uid] = result;
+				if(result) {
+					$(pendingAvatars[uid]).attr('src', result);
+				}
+			});
+		})();
+	}
 }
 

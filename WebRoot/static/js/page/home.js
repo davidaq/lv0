@@ -1,6 +1,5 @@
 scripts.home = function(param, body) {
 	var fv = new FlowView(body);
-	fv.show();
 	requestApi('home-getTop10', function(result) {
 		for(k in result) {
 			(function() {
@@ -10,23 +9,11 @@ scripts.home = function(param, body) {
 					content = content.replace(new RegExp('%' + i + '%','g'), item[i]);
 				var element = fv.addBlock(content, item.abstract_.length > 100);
 				$('.text', element).click(function() {
-					$('#detailDlg .modal-body').html(item.content);
-					$('#detailDlg').modal();
+					document.location.hash = '#tourlog%' + item.tourLogId;
 				});
-				if(result[k].author != CFG.userinfo.uid) {
-					$('.remove', element).remove();
-				} else {
-					$('.remove', element).click(function() {
-						var me = this;
-						requestApi('', function() {
-							$(me).closest('.block').fadeOut(200, function() {	
-								$(this).show();
-								$(this).css('visibility', 'hidden');
-							});
-						});
-					});
-				}
 			})();
 		}
+		parseUsernames(fv.fv);
+		fv.show();
 	});
 };

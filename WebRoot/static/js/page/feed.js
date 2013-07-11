@@ -33,6 +33,8 @@ scripts.feed = function(param, body) {
 				}
 				page++;
 			}
+			parseUsernames(fv.fv);
+			fv.show();
 		});
 	});
 	fv.show();

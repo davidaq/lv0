@@ -4,13 +4,17 @@ function FlowView(fv) {
 	var wrap = document.createElement('div');
 	wrap.className = 'flowview-wrap';
 	$(fv).wrap(wrap);
-	this.queue = $('.block', fv).toArray();
-	$('.block', fv).remove();
+	this.queue = [];
+	var present = $('.block', fv);
+	$(fv).html('');
+	var me = this;
+	present.each(function() {
+		me.addBlock($(this).html(), $(this).hasClass('big'));
+	});
 	this.fv = fv;
 	this.slot = false;
 	this.xDispos = 0;
 	var pos = 0;
-	var me = this;
 	$(fv).mousewheel(function(event, delta) {
 		event.preventDefault();
 		if(delta > 0) {	// scroll to front
@@ -51,37 +55,42 @@ FlowView.prototype.addBlock = function(html, big) {
 	var item = document.createElement('div');
 	item.innerHTML = html;
 	item.className = 'block' + (big ? ' big':'');
+	
+	var me = this;
+	function newCol() {
+		var col = document.createElement('div');
+		col.className = 'column';
+		$(col).css('left', me.xDispos);
+		$(me.fv).append(col);
+		me.xDispos += 318;
+		return col;
+	}
+	if($(item).hasClass('big')) {
+		$(newCol()).append(item);
+	} else if(this.slot) {
+		$(this.slot).append(item);
+		this.slot = false;
+	} else {
+		var col = newCol();
+		$(col).append(item);
+		this.slot = col;
+	}
+	$(item).hide();
 	this.queue.push(item);
-	this.show();
 	return item;
 };
-FlowView.prototype.show = function() {
+FlowView.prototype.show = function(selfcall) {
+	if(!selfcall && this.showing)
+		return;
 	this.load();
+	this.showing = false;
 	if(this.queue.length > 0) {
+		this.showing = true;
 		var item = this.queue.shift();
+		$(item).fadeIn(300);
 		var me = this;
-		function newCol() {
-			var col = document.createElement('div');
-			col.className = 'column';
-			$(col).css('left', me.xDispos);
-			$(me.fv).append(col);
-			me.xDispos += 318;
-			return col;
-		}
-		if($(item).hasClass('big')) {
-			$(newCol()).append(item);
-		} else if(this.slot) {
-			$(this.slot).append(item);
-			this.slot = false;
-		} else {
-			var col = newCol();
-			$(col).append(item);
-			this.slot = col;
-		}
-		$(item).fadeOut(0).fadeIn(300);
-		parseUsernames();
 		setTimeout(function() {
-			me.show();
+			me.show(true);
 		}, 50);
 	}
 };
