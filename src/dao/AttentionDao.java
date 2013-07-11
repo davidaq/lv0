@@ -158,7 +158,7 @@ public Attention findAttentionByAttid(int attid,int attedid){
 
 	 
 	 
-	 public ArrayList<Attention> GetAttentionsByUserIdFriend(int attUser)
+	 public ArrayList<Attention> GetAttentionsByUserId(int attUser)
 	{
 		ArrayList<Attention> temp=new ArrayList<Attention>();
 		String  Hql="select d from Attention d where d.attUser='"+attUser+"'";
