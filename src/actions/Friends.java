@@ -82,17 +82,17 @@ public class Friends extends BaseAction {
 	
 	
 	public static class DeleteAttentionParam{
-		int attentionId;
+		int uid;
 	}
 	
 	public String deleteAttention(){
 		DeleteAttentionParam param = (DeleteAttentionParam) getParam(DeleteAttentionParam.class);
 		AttentionDao ad = new AttentionDao();
-		Attention a = ad.findAttentionByid(param.attentionId);
+		Userinfo ui = (Userinfo)session("myUserinfo");
+		Attention a = ad.findAttentionByAttid(ui.getUid(), param.uid);
 		if (a == null){
 			return jsonResult("attentionId");
-		}
-		Userinfo ui = (Userinfo)session("myUserinfo");
+		}		
 		if (a.getAttUser() != ui.getUid()){
 			return jsonResult("attentionId");
 		}
