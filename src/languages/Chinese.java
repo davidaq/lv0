@@ -19,11 +19,15 @@ public class Chinese extends Language {
             Set_Profile = "设置个人资料",
             Follow = "关注",
             
+            // Logs
+            Post_New_Memory = "发表新记忆",
+            
             // Form
             Addon_Code = "验证码",
             Submit = "提交",
             Save = "保存",
             Change = "修改",
+            Post = "发表",
             
             // Login & Register
             Login = "登录",

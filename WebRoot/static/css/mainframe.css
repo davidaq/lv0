@@ -150,6 +150,8 @@ a:hover {
       .foot .extra .friend-list-item img {
         max-width: 25px;
         max-height: 25px; }
+      .foot .extra .friend-list-item.offline img {
+        opacity: 0.4; }
     .foot .extra .friend-list-item:hover {
       background: rgba(0, 0, 0, 0.7); }
 

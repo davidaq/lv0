@@ -2,9 +2,9 @@
 <div class="template">
 	<div class="feed">
 		<div class="avatar">
-			<img src="static/images/picmi.png" />
+			<img src="static/images/picmi.png" class="useravatar" title="%author%"/>
 			<span class="username" title="%author%"></span>
-			<button class="btn btn-primary">%{Follow}</button>
+			<button class="btn btn-primary" onclick="follow_user(%author%)">%{Follow}</button>
 		</div>
 		<div class="text">
 			%abstract_%
@@ -21,13 +21,4 @@
 			<input type="submit" class="btn btn-primary" value="%{Post}"/>
 		</form>
 	</div>
-</div>
-
-<div class="modal hide fade" id="detailDlg">
-  <div class="modal-header">
-  	&nbsp;
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-  </div>
-  <div class="modal-body">
-  </div>
 </div>

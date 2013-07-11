@@ -8,13 +8,13 @@ function FlowView(fv) {
 	var present = $('.block', fv);
 	$(fv).html('');
 	var me = this;
-	present.each(function() {
-		me.addBlock($(this).html(), $(this).hasClass('big'));
-	});
 	this.fv = fv;
 	this.slot = false;
 	this.xDispos = 0;
 	var pos = 0;
+	present.each(function() {
+		me.addBlock($(this).html(), $(this).hasClass('big'));
+	});
 	$(fv).mousewheel(function(event, delta) {
 		event.preventDefault();
 		if(delta > 0) {	// scroll to front
