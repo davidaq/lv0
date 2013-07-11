@@ -69,7 +69,11 @@ public class User extends BaseAction {
         }
         
         UserinfoDao ud = new UserinfoDao();
-        Userinfo ui = ud.findUserinfoByname(param.username);
+        Userinfo ui = ud.findUserinfoByMail(param.email);
+        if(ui != null){
+        	return jsonResult("email");
+        }
+        ui = ud.findUserinfoByname(param.username);
         if(ui != null){
             return jsonResult("username");
         }
