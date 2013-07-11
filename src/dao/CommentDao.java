@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import tables.Comment;
+import tables.Good;
 import tables.Mediacontent;
 
 public class CommentDao {
@@ -32,6 +33,17 @@ public class CommentDao {
 	    tran.commit();
 		return ad;
 		
+	} 
+	public ArrayList<Comment> getCommentByLogId(int id){
+
+		Session session=HibernateSessionFactory.currentSession();
+		Transaction tran=session.beginTransaction();
+		String hqlsql = "from Comment where tourLogId='"+id+"'";
+		 Query query = session.createQuery(hqlsql);
+		 ArrayList<Comment> resultStu = (ArrayList<Comment>)query.list();
+	    tran.commit();
+		//.close();
+		return resultStu;
 	} 
 	public void updateComment(Comment ad){
 

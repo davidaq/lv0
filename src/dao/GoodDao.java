@@ -63,6 +63,17 @@ public class GoodDao {
 		//.close();
 		return resultStu;
 	} 
+	public ArrayList<Good> getGoodByLogId(int id){
+
+		Session session=HibernateSessionFactory.currentSession();
+		Transaction tran=session.beginTransaction();
+		String hqlsql = "from Good where tourLogId='"+id+"'";
+		 Query query = session.createQuery(hqlsql);
+		 ArrayList<Good> resultStu = (ArrayList<Good>)query.list();
+	    tran.commit();
+		//.close();
+		return resultStu;
+	} 
 	public ArrayList <Tourlog> getTop10(){
 
 		Session session=HibernateSessionFactory.currentSession();
