@@ -92,6 +92,16 @@ public Attention findAttentionByid(int id){
 	    tran.commit();
 		return ad;
 	} 
+public Attention findAttentionByAttid(int attid,int attedid){
+
+	
+	Transaction tran=session.beginTransaction();
+	String hql="from Attention where attUser=' "+attid+"' and attedUser='"+attedid+"'" ;
+	Query query =session.createQuery(hql);
+	Attention ad=(Attention)query.uniqueResult();
+    tran.commit();
+	return ad;
+} 
 	public void findAttention(Attention ad){
 
 		
