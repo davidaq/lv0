@@ -15,17 +15,20 @@ function FlowView(fv) {
 		event.preventDefault();
 		if(delta > 0) {	// scroll to front
 			pos += 70;
+			if(pos > 0)
+				pos = 0;
 		} else {	// scroll to tail
 			pos -= 70;
-		}
-		if(delta < 0 && me.xDispos < $(fv).width()) {
-			pos = 0;
-			me.load();
-		}else if(pos > 0)
-			pos = 0;
-		else if(pos < $(fv).width() - me.xDispos - 20) {
-			pos = $(fv).width() - me.xDispos - 20;
-			me.load();
+			try {
+				if(me.xDispos < $(fv).width()) {
+					pos = 0;
+				} else if(pos < $(fv).width() - me.xDispos - 20) {
+					pos = $(fv).width() - me.xDispos - 20;
+				} else {
+					throw 0;
+				}
+				me.load();
+			} finally {}
 		}
 		$(fv).stop().animate({left: pos + 'px'}, 200);
     });
@@ -37,8 +40,9 @@ FlowView.prototype.load = function(listener) {
 		if(this.loadDelay) {
 			return;
 		}
+		var me = this;
 		this.loadDelay = setTimeout(function() {
-			this.loadDelay = false;
+			me.loadDelay = false;
 		}, 1000);
 		this.loadMore();
 	}
@@ -73,6 +77,7 @@ FlowView.prototype.show = function() {
 			this.slot = col;
 		}
 		$(item).fadeOut(0).fadeIn(300);
+		parseUsernames();
 		setTimeout(function() {
 			me.show();
 		}, 50);

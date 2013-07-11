@@ -17,7 +17,6 @@ public class TourLog extends BaseAction {
     public static class GetTourLogParam {
         int pageNow;
     }
-	
 	public String getTourLog(){
 		GetTourLogParam param = (GetTourLogParam) getParam(GetTourLogParam.class);
 		Userinfo myUserinfo = (Userinfo)session("myUserinfo");

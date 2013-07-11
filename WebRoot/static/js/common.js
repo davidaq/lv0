@@ -44,8 +44,10 @@ function request(url, send, action, type) {
         }
     }
     var method = 'GET';
-    if(send)
+    if(send) {
         method = 'POST';
+        url += "?d=" + new Date().getTime();
+    }
     function logoAnimate1() {
     	$('a.logo').stop().animate({opacity : 0.3}, 500, logoAnimate2);
     }
@@ -75,11 +77,6 @@ function request(url, send, action, type) {
 			        	result = JSON.parse(result);
 		        }
 		        action(result);
-		        if(parseUsernamesDelay) {
-		        	clearTimeout(parseUsernamesDelay);
-		        	parseUsernamesDelay = false;
-		        }
-				parseUsernamesDelay = setTimeout(parseUsernames, 10);
 		    }
 	    },
 	    error : function(e,m){
@@ -142,7 +139,25 @@ function logout() {
 		}
 	});
 }
-function parseUsernames() {
-	if(parsedUsernames)
-	$('.username');
+parsedUsernames = {};
+function parseUsernames(element) {
+	if(!element)
+		element = document;
+	$('.username', element).each(function() {
+		if($(this).closest('.template')[0])
+			return;
+		var me = this;
+		var uid = $(this).attr('title');
+		$(this).removeClass('username');
+		$(this).attr('title','');
+		if(!parsedUsernames[uid]) {
+			requestApi('User-getUsernameByUid', {userId : uid}, function(result) {
+				$(me).html(result);
+				parsedUsernames[uid] = result;
+			});
+		} else {
+			$(me).html(parsedUsernames[uid]);
+		}
+	});
 }
+

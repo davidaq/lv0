@@ -2,12 +2,15 @@ scripts.feed = function(param, body) {
 	var fv = new FlowView(body);
 	var page = 1;
 	fv.load(function() {
-		requestApi('tourLog-getTourLog', {pageNow : page++}, function(result) {
-			for(k in result) {
-				var content = $('.template', body).html();
-				for(i in result[k])
-					content = content.replace(new RegExp('%' + i + '%','g'), result[k][i]);
-				fv.addBlock(content);
+		requestApi('tourLog-getTourLog', {pageNow : page}, function(result) {
+			if(result && result.length > 0) {
+				for(k in result) {
+					var content = $('.template', body).html();
+					for(i in result[k])
+						content = content.replace(new RegExp('%' + i + '%','g'), result[k][i]);
+					fv.addBlock(content);
+				}
+				page++;
 			}
 		});
 	});
