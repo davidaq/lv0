@@ -1,6 +1,7 @@
 package actions;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 
 import dao.MediaDao;
@@ -29,8 +30,8 @@ public class Album extends BaseAction{
 	public String getAlbumById(){
 		GetAlbumByIdParam param = (GetAlbumByIdParam) getParam(GetAlbumByIdParam.class);
 		MediaDao md = new MediaDao();
-		ArrayList<Media> m = null;
-		//m = md.getMediaByid(param.albumId);
+		Media m = null;
+		m = md.getMedia(param.albumId);
 		return jsonResult(m);
 	}
 	
@@ -66,7 +67,7 @@ public class Album extends BaseAction{
 		}
 		
 		MediaDao md = new MediaDao();
-		//m = md.getMediaById(param.albumId);
+		m = md.getMedia(param.albumId);
 		if (m == null){
 			return jsonResult("albumId");
 		}
@@ -96,7 +97,7 @@ public class Album extends BaseAction{
 		
 		MediacontentDao mcd = new MediacontentDao();
 		Mediacontent mc = null;
-		//mc = mcd.findMediacontentById(param.mediaId);
+		mc = mcd.findMediacontentbyid(param.mediaId);
 		if(mc == null){
 			return jsonResult("mediaId");
 		}
@@ -115,16 +116,21 @@ public class Album extends BaseAction{
 	public String deleteAlbum(){
 		DeleteAlbumParam param = (DeleteAlbumParam) getParam(DeleteAlbumParam.class);
 		MediacontentDao mcd = new MediacontentDao();
+		MediaDao md = new MediaDao();
 		ArrayList<Mediacontent> list = null;
-		//list = mcd.getMediacontentByMediaId(param.albumId);
+		list = md.getMediacontent(param.albumId);
 		if(list != null){
 			Iterator i = list.iterator();
 			while(i.hasNext()){
-				//mcd.deleteMediacontent(((Mediacontent)i.next()).getMediaId());
+				mcd.deleteMediacontent((Mediacontent)i.next());
 			}
 		}
-		MediaDao md = new MediaDao();
-		//md.deleteMediaById(param.albumId);
+		
+		Media m = md.getMedia(param.albumId);
+		if(m == null){
+			return jsonResult("albumId");
+		}
+		md.deleteMedia(m);
 		return jsonResult("ok");
 	}
 	
@@ -136,7 +142,75 @@ public class Album extends BaseAction{
 	public String deleteMedia(){
 		DeleteMediaParam param = (DeleteMediaParam) getParam(DeleteMediaParam.class);
 		MediacontentDao mcd = new MediacontentDao();
-		//mcd.deleteMediacontent(param.mediaId);
+		Mediacontent m = mcd.findMediacontentbyid(param.mediaId);
+		if(m == null){
+			return jsonResult("mediaId");
+		}		
+		mcd.deleteMediacontent(m);
+		return jsonResult("ok");
+	}
+	
+	
+	public static class AddAlbumParam{
+		Media album;
+	}
+	
+	public String addAlbum(){
+		AddAlbumParam param = (AddAlbumParam) getParam(AddAlbumParam.class);
+		if (param.album == null){
+			return jsonResult("album");
+		}
+		param.album.setMediaId(null);
+		if (param.album.getMediaName() == null || param.album.getMediaName().equals("")){
+			return jsonResult("mediaName");
+		}
+		if (param.album.getUid() == null || param.album.getUid().equals("")){
+			return jsonResult("uid");
+		}
+		if (param.album.getDate() == null || param.album.getDate().equals("")){
+			param.album.setDate(new Date());
+		}
+		
+		MediaDao md = new MediaDao();
+		md.addMedia(param.album);
+		
+		return jsonResult("ok");
+	}
+	
+	
+	public static class AddMediaParam{
+		Mediacontent media;
+	}
+	
+	public String addMedia(){
+		AddMediaParam param = (AddMediaParam) getParam(AddMediaParam.class);
+		if (param.media == null){
+			return jsonResult("media");
+		}
+		param.media.setMediaContentId(null);
+		if (param.media.getUid() == null || param.media.getUid().equals("")){
+			return jsonResult("uid");
+		}
+		if (param.media.getType() == null || param.media.getType().equals("")){
+			return jsonResult("type");
+		}
+		if (param.media.getAddress() == null || param.media.getAddress().equals("")){
+			return jsonResult("address");
+		}
+		if (param.media.getHeadline() == null || param.media.getHeadline().equals("")){
+			return jsonResult("headline");
+		}
+		if (param.media.getMediaId() == null || param.media.getMediaId().equals("")){
+			return jsonResult("mediaId");
+		}
+		
+		if (param.media.getDate() == null || param.media.getDate().equals("")){
+			param.media.setDate(new Date());
+		}
+		
+		MediacontentDao mcd = new MediacontentDao();
+		mcd.addMediacontent(param.media);
+		
 		return jsonResult("ok");
 	}
 }

@@ -7,6 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import tables.Landmark;
 import tables.Message;
 
 public class MessageDao {
@@ -22,12 +23,14 @@ public class MessageDao {
 	    tran.commit();
 		
 	} 
-	public void findMessage(Message ad){
+	public Message findMessagebyid(int id){
 
-	
 		Transaction tran=session.beginTransaction();
-		
+		String hql="from Message where messageId=' "+id+"'";
+		Query query =session.createQuery(hql);
+		Message ad=(Message)query.uniqueResult();
 	    tran.commit();
+		return ad;
 		
 	} 
 	public void updateMessage(Message ad){

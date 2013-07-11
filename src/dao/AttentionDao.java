@@ -32,10 +32,13 @@ public class AttentionDao {
 		
 	}//与用户表关联，返回目标的用户信息
 	public ArrayList<Userinfo> GetAttentionedByUserId(int attedUser){//与用户表关联，返回我的粉丝的用户信息）
-		 ArrayList<Userinfo> temp;
+		 ArrayList<Userinfo> temp=new ArrayList<Userinfo>();
 		 String sql="";
 		String  Hql="select d from Attention d where d.attedUser='"+attedUser+"'";
 		ArrayList<Attention> list=(ArrayList<Attention>) session.createQuery(Hql).list();
+		if(list.isEmpty()){
+			return temp;
+		}
 		int i;
 		
 		for(i=0;i<list.size()-1;i++){
@@ -52,11 +55,14 @@ public class AttentionDao {
 	}
 	public ArrayList<Userinfo> GetAttentionByUserIdFriend(int attUser)//与用户表关联，返回我的好友的信息,被关注 的人  既我的好友信息
 	{
-		 ArrayList<Userinfo> temp;
+		 ArrayList<Userinfo> temp=new ArrayList<Userinfo>();
 		 String sql="";
 		String  Hql="select d from Attention d where d.attUser='"+attUser+"'";
 		
 		ArrayList<Attention> list=(ArrayList<Attention>) session.createQuery(Hql).list();
+		if(list.isEmpty()){
+			return temp;
+		}
 		int i;
 		
 		for(i=0;i<list.size()-1;i++){

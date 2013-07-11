@@ -85,6 +85,10 @@ public class TourlogDao {
 	        try {
 
 	        	String temp="";
+	        	if(ulist.isEmpty()){
+	        		return sftlist;
+	        	}
+	        	
 	        	int i;
 	        	for(i=0;i<ulist.size()-1;i++){
 	        		temp+=ulist.get(i).getUid()+",";

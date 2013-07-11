@@ -1,6 +1,13 @@
 
 package actions;
 
+import java.util.ArrayList;
+
+import dao.GoodDao;
+
+import tables.Tourlog;
+import actions.User.EditExtraSettingParam;
+
 
 public class Home extends BaseAction {
     
@@ -49,5 +56,13 @@ public class Home extends BaseAction {
             new BackgroundItem("木质风情", "static/images/wood.jpg")
         };
         return jsonResult(items);
+    }
+    
+    
+    public String getTop10(){
+    	GoodDao gd = new GoodDao();
+    	ArrayList<Tourlog> tList = null;
+    	tList = gd.getTop10();
+    	return jsonResult(tList);
     }
 }

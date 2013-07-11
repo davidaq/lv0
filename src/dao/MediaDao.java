@@ -26,11 +26,22 @@ public ArrayList<Mediacontent>getMediacontent(int Med){
 		
 		return resultStu;
 	} 
-public ArrayList<Media>getMediaByUid(int Med){
+public Media getMedia(int mediaid){
 
 	
 	Transaction tran=session.beginTransaction();
-	String hqlsql = "from Media where uid='"+Med+"'";
+	String hqlsql = "from Media where mediaId='"+mediaid+"'";
+	Query query = session.createQuery(hqlsql);
+	Media resultStu = (Media) query.uniqueResult();
+    tran.commit();
+	
+	return resultStu;
+} 
+public ArrayList<Media>getMediaByUid(int uid){
+
+	
+	Transaction tran=session.beginTransaction();
+	String hqlsql = "from Media where uid='"+uid+"'";
 	Query query = session.createQuery(hqlsql);
 	 ArrayList<Media> resultStu = (ArrayList<Media>)query.list();
     tran.commit();

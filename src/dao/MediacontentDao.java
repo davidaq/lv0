@@ -7,6 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import tables.Admininfo;
 import tables.Media;
 import tables.Mediacontent;
 
@@ -23,12 +24,14 @@ public class MediacontentDao {
 	    tran.commit();
 		
 	} 
-	public void findMediacontent(Mediacontent ad){
+	public Mediacontent findMediacontentbyid(int id){
 
-		
 		Transaction tran=session.beginTransaction();
-		
+		String hql="from Mediacontent where mediaContentId=' "+id+"'";
+		Query query =session.createQuery(hql);
+		Mediacontent ad=(Mediacontent)query.uniqueResult();
 	    tran.commit();
+		return ad;
 		
 	} 
 	public void updateMediacontent(Mediacontent ad){
