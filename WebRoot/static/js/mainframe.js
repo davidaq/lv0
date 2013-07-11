@@ -213,12 +213,13 @@ function showFriends() {
                     flagIcon = 'watch';
                 }
                 if(result[k].online) {
-                    flagIcon += '-online';
+                    item.className += ' online';
                 } else {
-                    flagIcon += '-offline';
+                    item.className += ' offline';
                 }
-                item.innerHTML = '<img src="' + result[k].avatar + '"/> ' + result[k].name + ' <img src="static/images/' + flagIcon + '.png"/> ';
-                console.log(result[k]);
+                if(!result[k].avatar)
+                	result[k].avatar = 'static/images/picmi.png';
+                item.innerHTML = '<img src="' + result[k].avatar + '"/> ' + result[k].name;
                 $('.foot .extra').append(item);
             }
             $('.foot .extra').slideDown(100);

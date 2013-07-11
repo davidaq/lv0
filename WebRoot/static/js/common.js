@@ -196,3 +196,6 @@ function parseUsernames(element) {
 	}
 }
 
+function follow_user(uid) {
+	requestApi('friends-setAttention', {attedUser : uid}, function() {});
+}
