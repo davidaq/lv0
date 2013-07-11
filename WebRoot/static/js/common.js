@@ -151,13 +151,12 @@ function parseUsernames(element) {
 		var uid = $(this).attr('title');
 		$(this).removeClass('username');
 		$(this).attr('title','');
-		var me = this;
 		if(!parsedUsernames[uid]) {
 			if(!pendingUsername[uid])
 				pendingUsername[uid] = [];
 			pendingUsername[uid].push(this);
 		} else {
-			$(me).html(parsedUsernames[uid]);
+			$(this).html(parsedUsernames[uid]);
 		}
 	});
 	for(k in pendingUsername) {
@@ -181,7 +180,7 @@ function parseUsernames(element) {
 				pendingAvatars[uid] = [];
 			pendingAvatars[uid].push(this);
 		} else if(parsedUseravatars[uid]) {
-			$(me).attr('src', parsedUseravatars[uid]);
+			$(this).attr('src', parsedUseravatars[uid]);
 		}
 	});
 	for(k in pendingAvatars) {

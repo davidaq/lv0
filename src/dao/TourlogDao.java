@@ -53,7 +53,7 @@ public class TourlogDao {
 
 		
 		Transaction tran=session.beginTransaction();
-		String hqlsql = "from Tourlog";
+		String hqlsql = "from Tourlog order by tourLogId desc";
 		 Query query = session.createQuery(hqlsql);
 		 ArrayList<Tourlog> resultStu = (ArrayList<Tourlog>)query.list();
 	    tran.commit();
@@ -66,7 +66,7 @@ public class TourlogDao {
 	        try {
 	            
 	            //String hql = "from Employee emp";// 查询HQL语句
-	           String HQL = "from Tourlog";// 条件查询HQL语句
+	           String HQL = "from Tourlog order by tourLogId desc";// 条件查询HQL语句
 	            Query q = session.createQuery(HQL);// 执行查询操作
 	            q.setFirstResult(pageSize * (pageNow - 1));
 	            q.setMaxResults(pageSize);
@@ -95,7 +95,7 @@ public class TourlogDao {
 	        		System.out.println(temp);
 	        	}
 	        	temp+=ulist.get(i).getUid();
-	        	String Hql="select d from Tourlog d where d.author in ("+temp+")";
+	        	String Hql="select d from Tourlog d where d.author in ("+temp+") order by tourLogId desc";
 	            Query q = session.createQuery(Hql);// 执行查询操作
 	            q.setFirstResult(pageSize * (pageNow - 1));
 	            q.setMaxResults(pageSize);

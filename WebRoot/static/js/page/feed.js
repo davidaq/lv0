@@ -13,15 +13,14 @@ scripts.feed = function(param, body) {
 						
 						var element = fv.addBlock(content, item.abstract_.length > 100);
 						$('.text', element).click(function() {
-							$('#detailDlg .modal-body').html(item.content);
-							$('#detailDlg').modal();
+							document.location.hash = '#tourlog%' + item.tourLogId;
 						});
 						if(result[k].author != CFG.userinfo.uid) {
 							$('.remove', element).remove();
 						} else {
 							$('.remove', element).click(function() {
 								var me = this;
-								requestApi('', function() {
+								requestApi('tourLog-deleteTourLogById', {tourLogId : item.tourLogId}, function() {
 									$(me).closest('.block').fadeOut(200, function() {	
 										$(this).show();
 										$(this).css('visibility', 'hidden');
