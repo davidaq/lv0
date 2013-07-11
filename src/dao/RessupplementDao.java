@@ -11,7 +11,7 @@ import tables.Resortremark;
 import tables.Ressupplement;
 
 public class RessupplementDao {
-	//¸ù¾Ý¾°µãID²éÑ¯
+	//ï¿½ï¿½Ý¾ï¿½ï¿½ï¿½IDï¿½ï¿½Ñ¯
 	Session session=HibernateSessionFactory.currentSession();
 	public void close(){
 		session.close();
@@ -34,6 +34,18 @@ public class RessupplementDao {
 		return ad;
 		
 	} 
+	
+	public ArrayList<Ressupplement> findRessupplementbyResortId(int resertId){
+
+		Transaction tran=session.beginTransaction();
+		String hql="from Ressupplement where resortId=' "+resertId+"'";
+		Query query =session.createQuery(hql);
+		ArrayList<Ressupplement> adList =(ArrayList<Ressupplement>)query.list();
+	    tran.commit();
+		return adList;
+		
+	} 
+	
 	public void updateRessupplement(Ressupplement ad){
 
 		
@@ -66,17 +78,17 @@ public class RessupplementDao {
 	        ArrayList<Ressupplement> sftlist = new ArrayList();
 	        try {
 	           
-	            //String hql = "from Employee emp";// ²éÑ¯HQLÓï¾ä
-	           String HQL = "from Ressupplement";// Ìõ¼þ²éÑ¯HQLÓï¾ä
-	            Query q = session.createQuery(HQL);// Ö´ÐÐ²éÑ¯²Ù×÷
+	            //String hql = "from Employee emp";// ï¿½ï¿½Ñ¯HQLï¿½ï¿½ï¿½
+	           String HQL = "from Ressupplement";// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯HQLï¿½ï¿½ï¿½
+	            Query q = session.createQuery(HQL);// Ö´ï¿½Ð²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
 	            q.setFirstResult(pageSize * (pageNow - 1));
 	            q.setMaxResults(pageSize);
 	            sftlist = (ArrayList<Ressupplement>)q.list();
 	        } catch (HibernateException e) {
 	            e.printStackTrace();
-	            System.out.println("²éÑ¯Ê§°Ü");
+	            System.out.println("ï¿½ï¿½Ñ¯Ê§ï¿½ï¿½");
 	        } finally {
-	        	HibernateSessionFactory.closeSession();// ¹Ø±Õsession
+	        	HibernateSessionFactory.closeSession();// ï¿½Ø±ï¿½session
 	        }
 	        return sftlist;
 	    }

@@ -203,6 +203,17 @@ public class Resort extends BaseAction {
     	if(r == null){
     		return jsonResult("resortId");
     	}
+    	
+    	
+    	RessupplementDao rsd = new RessupplementDao();
+    	
+    	ArrayList<Ressupplement> rs = rsd.findRessupplementbyResortId(r.getResortId());
+    	if(rs != null){
+	    	for(Ressupplement ressupplement : rs){
+	    		rsd.deleteRessupplement(ressupplement);
+	    	}
+    	}
+    	
     	rd.deleteResort(r);
     	return jsonResult("ok");
     }

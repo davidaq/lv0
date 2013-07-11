@@ -45,7 +45,7 @@ public class TourLog extends BaseAction {
 		Tourlog tl = new Tourlog();
 		tl.setAuthor(myUserinfo.getUid());
 		tl.setContent(param.content);
-		tl.setAbstract_(param.content);
+		tl.setAbstract_(this.toAbstract(param.content));
 		tl.setDate(new Date());
 		TourlogDao tld = new TourlogDao();
 		tld.addTourlog(tl);
