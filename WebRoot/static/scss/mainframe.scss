@@ -109,24 +109,6 @@ a:hover {
         background: no-repeat left center;
         padding-left: 30px;
     }
-    a {
-        @include whiteChar;
-        display: block;
-        float: left;
-        padding: 1%;
-        margin: 1%;
-        width: 29%;
-        height: 110px;
-        overflow: hidden;
-        font-size: 30px;
-        background: no-repeat right bottom;
-        opacity: 0.7;
-        -moz-opacity: 0.7;
-        opacity: 0.7;
-    }
-    a:hover {
-        opacity: 1;
-    }
 }
 .foot {
     @include whiteChar;

@@ -1,39 +1,43 @@
-<h1><i class="icon-align-left white"></i> 个人资料设置</h1>
+<h1><i class="icon-align-left white"></i> %{Set_Profile}</h1>
 
 <div class="float-fix">
-	<div class="plain-page profile-block">
-		<h3>修改密码</h3>
-		<label>原始密码：</label> <input type="password"/>
-		<label>新密码：</label> <input type="password"/>
-		<label>新密码确认：</label> <input type="password"/>
+	<form class="plain-page profile-block" action="User-changePassword">
+		<h3>%{Change_Password}</h3>
+		<label>%{Old_Password}:</label> <input type="password" name="oldPassword" data-content="%{Old_Password_Incorrect}"/>
+		<label>%{New_Password}:</label> <input type="password" name="newPassword[]" data-content="%{Password_Repeat_Must_Match}"/>
+		<label>%{Password_Repeat}:</label> <input type="password" name="newPassword[]" data-content="%{Password_Repeat_Must_Match}"/>
 		<br/>
-		<button class="btn btn-primary">修改</button>
-	</div>
-	<div class="plain-page profile-block">
-		<h3>基本信息</h3>
-		<label>用户名（可用于登录）：</label> <input type="text"/>
-		<label>邮箱（可用于登录）：</label> <input type="text"/>
-		<label>QQ：</label> <input type="text"/>
-		<label>联系电话：</label> <input type="text"/>
 		<br/>
-		<button class="btn btn-primary">保存</button>
-	</div>
-	<div class="plain-page profile-block">
-		<h3>个性设置</h3>
-		<label>头像：</label>
-		<img src="static/images/bulb.png"/>
-		<button class="btn">更换</button>
+		<input type="submit" class="btn btn-primary" value="%{Save}"/>
+	</form>
+	<form class="plain-page profile-block" action="User-editMyBasicInfo">
+		<h3>%{Basic_Information}</h3>
+		<label>%{User_Name}:</label> <input type="text" name="username" data-object=""/>
+		<label>%{EMail}:</label> <input type="text" name="email"/>
+		<label>%{Phone}:</label> <input type="text" name="phone"/>
+		<br/>
+		<br/>
+		<input type="submit" class="btn btn-primary" value="%{Save}"/>
+	</form>
+	<form class="plain-page profile-block" action="User-editExtraSetting">
+		<h3>%{Personality}</h3>
+		<label>%{Avatar}:</label>
+		<img src="static/images/bulb.png" style="max-width: 100px; max-height: 100px;"/>
+		
+		<input type="text" name="portrait" value="static/images/bulb.png" onchange="change_avatar(this)"/>
 		<br/><br/>
-		<label>自我简述：</label>
-		<textarea style="height: 100px"></textarea>
+		<label>%{Self_Introduction}:</label>
+		<textarea style="height: 100px" name="sketch"></textarea>
 		<br/>
-		<button class="btn btn-primary">保存</button>
-	</div>
-	<div class="plain-page profile-block">
-		<h3>偏好设置</h3>
-		<label>喜好标签：</label>
-		<textarea style="height: 100px"></textarea>
 		<br/>
-		<button class="btn btn-primary">保存</button>
-	</div>
+		<input type="submit" class="btn btn-primary" value="%{Save}"/>
+	</form>
+	<form class="plain-page profile-block" action="User-editLikeLableSetting">
+		<h3>%{Preference}</h3>
+		<label>%{Interest_Tag}:</label>
+		<textarea style="height: 100px" name="label"></textarea>
+		<br/>
+		<br/>
+		<input type="submit" class="btn btn-primary" value="%{Save}"/>
+	</form>
 </div>

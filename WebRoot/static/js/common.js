@@ -44,9 +44,21 @@ function request(url, send, action, type) {
         }
     }
     var method = 'GET';
-    if(send)
+    if(send) {
         method = 'POST';
-    return $.ajax({
+        url += "?d=" + new Date().getTime();
+    }
+    function logoAnimate1() {
+    	$('a.logo').stop().animate({opacity : 0.3}, 500, logoAnimate2);
+    }
+    function logoAnimate2() {
+    	$('a.logo').stop().animate({opacity : 1}, 500, logoAnimate1);
+    }
+    function logoAnimateStop() {
+    	$('a.logo').stop().animate({opacity : 1}, 500);
+    }
+    logoAnimate1();
+	ajax = $.ajax({
     	url : url,
     	type : method,
     	data : send,
@@ -54,6 +66,7 @@ function request(url, send, action, type) {
     	tryCount : 0,
     	retryLimit : 5,
     	success : function(result) {
+    		logoAnimateStop();
 		    if(action) {
 		        var reg = /\%\{(.+?)\}/m;
 		        while((m = reg.exec(result))) {
@@ -67,11 +80,13 @@ function request(url, send, action, type) {
 		    }
 	    },
 	    error : function(e,m){
-	    	console.log(url + " : " + m);
+    		logoAnimateStop();
     	}
     });
+    return ajax;
 }
 function initForm(body) {
+	var popedOver = [];
 	$('form', body).each(function() {
 		var form = $(this)[0];
 		form.onsubmit = function() {
@@ -87,6 +102,10 @@ function initForm(body) {
 				} else
 					send[key] = rawData[k].value;
 			}
+			for(k in popedOver) {
+				popedOver[k].popover('destroy');
+			}
+			popedOver = [];
 			$('input, textarea', form).css('border-color', '');
 			requestApi(form.action, send, function(result) {
 				if(result == 'ok') {
@@ -98,10 +117,15 @@ function initForm(body) {
 						document.location.reload();
 					}
 				} else {
-					console.log(result);
 					var x = $('input[name^="' + result + '"], textarea[name="' + result + '"]', form);
 					x.css('border-color', '#F00');
-					x.popover('show');
+					x.focus();
+					if(x[0])
+						x[0].select();
+					setTimeout(function() {
+						x.stop().popover('show');
+					}, 200);
+					popedOver.push(x);
 				}
 			});
 			return false;
@@ -115,3 +139,25 @@ function logout() {
 		}
 	});
 }
+parsedUsernames = {};
+function parseUsernames(element) {
+	if(!element)
+		element = document;
+	$('.username', element).each(function() {
+		if($(this).closest('.template')[0])
+			return;
+		var me = this;
+		var uid = $(this).attr('title');
+		$(this).removeClass('username');
+		$(this).attr('title','');
+		if(!parsedUsernames[uid]) {
+			requestApi('User-getUsernameByUid', {userId : uid}, function(result) {
+				$(me).html(result);
+				parsedUsernames[uid] = result;
+			});
+		} else {
+			$(me).html(parsedUsernames[uid]);
+		}
+	});
+}
+

@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 
-import antlr.CommonAST;
-
 import tables.Attention;
 import tables.Comment;
 import tables.Good;
@@ -21,12 +19,12 @@ public class TourLog extends BaseAction {
     public static class GetTourLogParam {
         int pageNow;
     }
-	
 	public String getTourLog(){
 		GetTourLogParam param = (GetTourLogParam) getParam(GetTourLogParam.class);
 		Userinfo myUserinfo = (Userinfo)session("myUserinfo");
 		AttentionDao atd = new AttentionDao();
 		ArrayList<Userinfo> list = atd.GetAttentionedByUserId(myUserinfo.getUid());
+                list.add(myUserinfo);
 		
 		TourlogDao td = new TourlogDao();
 		ArrayList<Tourlog> tlist = td.queryByPageUser(list, 16, param.pageNow);

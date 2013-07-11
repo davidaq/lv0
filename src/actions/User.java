@@ -81,7 +81,7 @@ public class User extends BaseAction {
         ud.addUserinfo(ui);
         
         ui = ud.findUserinfoByname(param.username);
-        session("myUserinfo",ui);        
+        session("myUserinfo",ui);
     	return jsonResult("ok");
     }
     
@@ -146,8 +146,8 @@ public class User extends BaseAction {
     	}
     	
     	ui.setUname(param.username);
-		ui.setUmail(param.email);
-		ui.setUphone(param.phone);
+        ui.setUmail(param.email);
+        ui.setUphone(param.phone);
     	ud.updateUserinfo(ui);
     	    	
     	return jsonResult("ok");
