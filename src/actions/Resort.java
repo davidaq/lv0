@@ -4,9 +4,12 @@ package actions;
 import java.util.ArrayList;
 import java.util.Date;
 
+import tables.Resortremark;
 import tables.Ressupplement;
+import tables.Userinfo;
 
 import dao.ResortDao;
+import dao.ResortremarkDao;
 import dao.RessupplementDao;
 
 public class Resort extends BaseAction {
@@ -21,6 +24,7 @@ public class Resort extends BaseAction {
         ResortDao dao = new ResortDao();
         return jsonResult(dao.queryByPage(pageSize, param.page));
     }
+
     
     public static class SearchResortByNameParam{
     	String searchText;
@@ -216,6 +220,52 @@ public class Resort extends BaseAction {
     		return jsonResult("resortId");
     	}
     	rsd.deleteRessupplement(rs);
+    	return jsonResult("ok");
+    }
+    
+    
+    public static class GetResortRemarkByResortIdParam{
+    	int resortId;
+    }
+    
+    public String getResortRemarkByResortId(){
+    	GetResortRemarkByResortIdParam param = (GetResortRemarkByResortIdParam) getParam(GetResortRemarkByResortIdParam.class);
+    	ResortremarkDao rd = new ResortremarkDao();
+    	ArrayList<Resortremark> rr = null;
+    	rr = rd.findResortremarkByid(param.resortId);
+    	int num = rr.size();
+    	java.util.Iterator<Resortremark> i = rr.iterator();
+    	int mark = 0;
+    	while (i.hasNext()) {
+			Resortremark r = i.next();
+			mark += r.getResRemark();
+		}
+    	int mark2 = mark / rr.size();
+    	return jsonResult(mark2);
+    }
+    
+    
+    public static class AddTheResortremarkByResortIdParam{
+    	int resortId;
+    	int resRemark;
+    }
+    
+    public String addTheResortremarkByResort(){
+    	AddTheResortremarkByResortIdParam param = (AddTheResortremarkByResortIdParam) getParam(AddTheResortremarkByResortIdParam.class);
+    	ResortremarkDao rrd = new ResortremarkDao();
+    	ArrayList<Resortremark> rrList = null;
+    	rrList = rrd.findResortremarkByid(param.resortId);
+    	if(rrList.size() == 0){
+    		return jsonResult("resortId");
+    	}
+    	Resortremark rr = new Resortremark();
+    	Userinfo ui = (Userinfo)session("myUserinfo");
+    	rr.setAuthorId(ui.getUid());
+    	rr.setResortId(param.resortId);
+    	rr.setResortRemarkId(null);
+    	rr.setResRemark(param.resRemark);
+    	rrd.addResortremark(rr);
+    	
     	return jsonResult("ok");
     }
 }
