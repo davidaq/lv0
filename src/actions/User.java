@@ -199,4 +199,20 @@ public class User extends BaseAction {
     	session("myUserinfo",null);
     	return jsonResult("ok");
     }
+    
+    
+    public static class GetUserPortraitByUidParam{
+    	int uid;
+    }
+    
+    public String getUserPortraitByUid(){
+    	GetUserPortraitByUidParam param = (GetUserPortraitByUidParam) getParam(GetUserPortraitByUidParam.class);
+    	UserinfoDao ud = new UserinfoDao();
+    	Userinfo ui = ud.findUserinfoByid(param.uid);
+    	if(ui == null){
+    		return jsonResult("uid");
+    	}
+    	String portrait = ui.getUportrait();
+    	return jsonResult(portrait);
+    }
 }

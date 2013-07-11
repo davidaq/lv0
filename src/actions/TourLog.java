@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 
-import tables.Attention;
 import tables.Comment;
 import tables.Good;
 import tables.Tourlog;

@@ -1,7 +1,5 @@
-<!DOCTYPE struts PUBLIC
-"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
-"http://struts.apache.org/dtds/struts-2.0.dtd">
-
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
     <constant name="struts.action.excludePattern" value=".*/static/.*" />
     <package name="default" extends="struts-default">
@@ -9,19 +7,19 @@
             <interceptor name="tojson" class="interceptors.ToJson"/>
         </interceptors>
 
-        <action name="spam-code" class="actions.util.SpamcodeAction">
-            <result name="success" type="stream">
-               <param name="contentType">image/jpeg</param>  
-               <param name="inputName">inputStream</param>
-            </result>  
-        </action>
         <action name="*-*" class="actions.{1}" method="{2}">
             <interceptor-ref name="tojson"/>
             <interceptor-ref name="defaultStack"/>
-            <result name="success" type="stream">
+            <result type="stream" name="success">
                 <param name="contentType">text/javascript</param>
                 <param name="inputName">resultStream</param>
             </result>
         </action>
+        <action name="spam-code" class="actions.util.SpamcodeAction">
+            <result type="stream" name="success">
+                <param name="contentType">image/jpeg</param>
+                <param name="inputName">inputStream</param>
+            </result>
+        </action>
     </package>
-</struts>
+</struts>    
