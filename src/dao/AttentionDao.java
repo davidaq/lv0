@@ -30,8 +30,8 @@ public class AttentionDao {
 		
 		return u;
 		
-	}//ÓëÓÃ»§±í¹ØÁª£¬·µ»ØÄ¿±êµÄÓÃ»§ÐÅÏ¢
-	public ArrayList<Userinfo> GetAttentionedByUserId(int attedUser){//ÓëÓÃ»§±í¹ØÁª£¬·µ»ØÎÒµÄ·ÛË¿µÄÓÃ»§ÐÅÏ¢£©
+	}//ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Ï¢
+	public ArrayList<Userinfo> GetAttentionedByUserId(int attedUser){//ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÒµÄ·ï¿½Ë¿ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½
 		 ArrayList<Userinfo> temp=new ArrayList<Userinfo>();
 		 String sql="";
 		String  Hql="select d from Attention d where d.attedUser='"+attedUser+"'";
@@ -47,13 +47,13 @@ public class AttentionDao {
     	sql+=list.get(i).getAttUser();    
     	String Hl="select d from Userinfo d where d.uid in ("+sql+")";
     	System.out.println(Hl);
-    	 Query q = session.createQuery(Hl);// Ö´ÐÐ²éÑ¯²Ù×÷
+    	 Query q = session.createQuery(Hl);// Ö´ï¿½Ð²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
         temp=(ArrayList<Userinfo>) q.list();
 		 
 		return temp;
 		
 	}
-	public ArrayList<Userinfo> GetAttentionByUserIdFriend(int attUser)//ÓëÓÃ»§±í¹ØÁª£¬·µ»ØÎÒµÄºÃÓÑµÄÐÅÏ¢,±»¹Ø×¢ µÄÈË  ¼ÈÎÒµÄºÃÓÑÐÅÏ¢
+	public ArrayList<Userinfo> GetAttentionByUserIdFriend(int attUser)//ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÒµÄºï¿½ï¿½Ñµï¿½ï¿½ï¿½Ï¢,ï¿½ï¿½ï¿½ï¿½×¢ ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½ï¿½ÒµÄºï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	{
 		 ArrayList<Userinfo> temp=new ArrayList<Userinfo>();
 		 String sql="";
@@ -72,7 +72,7 @@ public class AttentionDao {
     	sql+=list.get(i).getAttedUser();    
     	String Hl="select d from Userinfo d where d.uid in ("+sql+")";
     	System.out.println(Hl);
-    	Query q = session.createQuery(Hl);// Ö´ÐÐ²éÑ¯²Ù×÷
+    	Query q = session.createQuery(Hl);// Ö´ï¿½Ð²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
     	temp=(ArrayList<Userinfo>) q.list();
 		 
 		return temp;
@@ -92,6 +92,16 @@ public Attention findAttentionByid(int id){
 	    tran.commit();
 		return ad;
 	} 
+public Attention findAttentionByAttid(int attid,int attedid){
+
+	
+	Transaction tran=session.beginTransaction();
+	String hql="from Attention where attUser=' "+attid+"' and attedUser='"+attedid+"'" ;
+	Query query =session.createQuery(hql);
+	Attention ad=(Attention)query.uniqueResult();
+    tran.commit();
+	return ad;
+} 
 	public void findAttention(Attention ad){
 
 		
@@ -131,19 +141,29 @@ public Attention findAttentionByid(int id){
 	        ArrayList<Attention> sftlist = new ArrayList();
 	        try {
 	            
-	            //String hql = "from Employee emp";// ²éÑ¯HQLÓï¾ä
-	           String HQL = "from Attention";// Ìõ¼þ²éÑ¯HQLÓï¾ä
-	            Query q = session.createQuery(HQL);// Ö´ÐÐ²éÑ¯²Ù×÷
+	            //String hql = "from Employee emp";// ï¿½ï¿½Ñ¯HQLï¿½ï¿½ï¿½
+	           String HQL = "from Attention";// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯HQLï¿½ï¿½ï¿½
+	            Query q = session.createQuery(HQL);// Ö´ï¿½Ð²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
 	            q.setFirstResult(pageSize * (pageNow - 1));
 	            q.setMaxResults(pageSize);
 	            sftlist = (ArrayList<Attention>)q.list();
 	        } catch (HibernateException e) {
 	            e.printStackTrace();
-	            System.out.println("²éÑ¯Ê§°Ü");
+	            System.out.println("ï¿½ï¿½Ñ¯Ê§ï¿½ï¿½");
 	        } finally {
-	        	HibernateSessionFactory.closeSession();// ¹Ø±Õsession
+	        	HibernateSessionFactory.closeSession();// ï¿½Ø±ï¿½session
 	        }
 	        return sftlist;
 	    }
 
+	 
+	 
+	 public ArrayList<Attention> GetAttentionsByUserIdFriend(int attUser)
+	{
+		ArrayList<Attention> temp=new ArrayList<Attention>();
+		String  Hql="select d from Attention d where d.attUser='"+attUser+"'";
+		ArrayList<Attention> list=(ArrayList<Attention>) session.createQuery(Hql).list();
+		return list;
+			
+	}
 }
