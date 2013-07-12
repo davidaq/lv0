@@ -208,7 +208,7 @@ a:hover {
           overflow: hidden;
           margin: 5px; }
         .flowview-wrap .flowview .block .feed .avatar {
-          width: 60px;
+          width: 70px;
           text-align: center; }
           .flowview-wrap .flowview .block .feed .avatar img {
             display: block;
@@ -218,10 +218,10 @@ a:hover {
           .flowview-wrap .flowview .block .feed .avatar span {
             display: block; }
         .flowview-wrap .flowview .block .feed .text {
-          width: 210px;
+          width: 200px;
           min-height: 150px;
-          font-size: 1.3em;
-          line-height: 1.4em;
+          font-size: 1.5em;
+          line-height: 1.7em;
           color: #222; }
           .flowview-wrap .flowview .block .feed .text b.title {
             font-size: 17px;

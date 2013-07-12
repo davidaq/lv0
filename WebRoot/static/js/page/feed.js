@@ -11,7 +11,7 @@ scripts.feed = function(param, body) {
 						for(i in item)
 							content = content.replace(new RegExp('%' + i + '%','g'), item[i]);
 						
-						var element = fv.addBlock(content, item.abstract_.length > 100);
+						var element = fv.addBlock(content, item.abstract_.length > 50);
 						$('.text', element).click(function() {
 							document.location.hash = '#tourlog%' + item.tourLogId;
 						});
