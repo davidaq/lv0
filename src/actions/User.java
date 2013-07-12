@@ -89,7 +89,7 @@ public class User extends BaseAction {
         ud.addUserinfo(ui);
         
         ui = ud.findUserinfoByname(param.username);
-        i.setUstate(new Date());
+        ui.setUstate(new Date());
         ud.updateUserinfo(ui);
         session("myUserinfo",ui);
     	return jsonResult("ok");
