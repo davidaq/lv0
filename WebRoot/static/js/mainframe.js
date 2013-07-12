@@ -19,6 +19,11 @@ $(function () {
 		});
     	
     });
+    setInterval(function() {
+		requestApi('user-getMyUserinfo', function(result) {
+			CFG.userinfo = result;
+		});
+    }, 30000);
     function initUsername() {
     	if(!CFG.userinfo)
 	    	$('#username').hide();
@@ -207,7 +212,6 @@ function showFriends() {
         requestApi('friends-list', function(result) {
             $('.foot .extra').hide();
             $('.foot .extra').html('');
-            console.log(result);
             for(k in result) {
                 var item = document.createElement('div');
                 item.className = 'friend-list-item';
@@ -219,20 +223,26 @@ function showFriends() {
                 }
                 if(!result[k].avatar)
                 	result[k].avatar = 'static/images/picmi.png';
-                item.innerHTML = '<img src="' + result[k].avatar + '"/> ' + result[k].name
-                	+ ' &nbsp;&nbsp; ';
-                var removeBtn = document.createElement('i');
-                removeBtn.className = 'icon-remove white';
-                (function() {
+                item.innerHTML = '<img src="' + result[k].avatar + '"/> ' + result[k].name;
+                //	+ ' &nbsp;&nbsp; ';
+                //var removeBtn = document.createElement('i');
+                //removeBtn.className = 'icon-remove white';
+                /*(function() {
                 	var uid = result[k].uid;
 		            $(removeBtn).click(function() {
 						requestApi('friends-deleteAttention', {uid : uid}, function() {});
 						$(this).closest('.friend-list-item').hide(100).remove();
 		            });
-                })();
+                })();*/
+                (function() {
+                	var info = result[k];
+		            $(item).click(function() {
+		            	show_userinfo(info.uid);
+		            });
+	            })();
                 
                 $('.foot .extra').append(item);
-                $(item).append(removeBtn);
+                //$(item).append(removeBtn);
             }
             $('.foot .extra').slideDown(100);
         }).error(function() {
@@ -243,4 +253,15 @@ function showFriends() {
         showFriendsFlag = false;
         $('.foot .extra').stop().slideUp(200);
     }
+}
+
+function show_userinfo(user) {
+	function display(info) {
+		$('#userinfo h1').html('<img src="' + info.uportrait + '" style="max-width:100px; max-height: 100px"/> ' + info.name);
+		$('#userinfo').modal();
+	}
+	if(typeof user == 'number') {
+	} else {
+		display(user);
+	}
 }
