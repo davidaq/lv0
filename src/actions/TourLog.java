@@ -83,13 +83,29 @@ public class TourLog extends BaseAction {
 	public String good(){
 		GoodParam param = (GoodParam) getParam(GoodParam.class);
 		Userinfo myUserinfo = (Userinfo)session("myUserinfo");
-		tables.Good gd = new tables.Good();
+		GoodDao gdd = new GoodDao();
+		tables.Good gd = gdd.getGoodByLogIdAndUserId(param.tourLogID,myUserinfo.getUid());
+		if(gd != null){
+			return "tourLogID";
+		}
+		gd = new Good();
 		gd.setUid(myUserinfo.getUid());
 		gd.setTourLogId(param.tourLogID);
 		gd.setDate(new Date());
-		GoodDao gdd = new GoodDao();
 		gdd.addGood(gd);		
 		return jsonResult("ok");
+	}
+	
+	
+	public static class GetGoodByTourLogIdParam{
+		int tourLogId;
+	}
+	
+	public String getGoodByTourLogId(){
+		GetGoodByTourLogIdParam param = (GetGoodByTourLogIdParam) getParam(GetGoodByTourLogIdParam.class);
+		GoodDao gd = new GoodDao();
+		ArrayList<Good> gList = gd.getGoodByLogId(param.tourLogId);
+		return jsonResult(gList.size());
 	}
 	
 	
@@ -194,6 +210,19 @@ public class TourLog extends BaseAction {
 		cd.deleteComment(c);
 		return jsonResult("ok");
 	}
+	
+	
+	public static class GetCommentByTourLogIdParam{
+		int tourLogId;		
+	}
+	
+	public String getCommentByTourLogId(){
+		GetCommentByTourLogIdParam param = (GetCommentByTourLogIdParam) getParam(GetCommentByTourLogIdParam.class);
+		CommentDao cd = new CommentDao();
+		ArrayList<Comment> cList = cd.getCommentByLogId(param.tourLogId);
+		return jsonResult(cList);
+	}
+	
 	
 	
 	public static class TranspondTourLogParam{
