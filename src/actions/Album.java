@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 
+import org.apache.commons.collections.map.StaticBucketMap;
+import org.omg.CORBA.PUBLIC_MEMBER;
+
 import dao.MediaDao;
 import dao.MediacontentDao;
 import tables.Media;
@@ -210,6 +213,30 @@ public class Album extends BaseAction{
 		
 		MediacontentDao mcd = new MediacontentDao();
 		mcd.addMediacontent(param.media);
+		
+		return jsonResult("ok");
+	}
+	
+	
+	public static class MoveMediaParam{
+		int mediaId;
+		int albumId;
+	}
+	
+	public String MoveMedia(){
+		MoveMediaParam param = (MoveMediaParam) getParam(MoveMediaParam.class);
+		MediacontentDao mcd = new MediacontentDao();
+		Mediacontent mc = mcd.findMediacontentbyid(param.mediaId);
+		if(mc == null){
+			return jsonResult("mediaId");
+		}
+		MediaDao md = new MediaDao();
+		Media m = md.getMedia(param.albumId);
+		if(m == null){
+			return jsonResult("albumId");
+		}
+		
+		mc.setMediaId(param.albumId);
 		
 		return jsonResult("ok");
 	}
