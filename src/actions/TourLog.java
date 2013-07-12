@@ -12,6 +12,7 @@ import dao.AttentionDao;
 import dao.CommentDao;
 import dao.GoodDao;
 import dao.TourlogDao;
+import dao.UserinfoDao;
 
 public class TourLog extends BaseAction {
 	
@@ -100,7 +101,8 @@ public class TourLog extends BaseAction {
 	public String getTourLogBySomeoneId(){
 		GetTourLogBySomeoneIdParam param = (GetTourLogBySomeoneIdParam) getParam(GetTourLogBySomeoneIdParam.class);
 		ArrayList<Userinfo> list = new ArrayList<Userinfo>();
-		Userinfo myUserinfo = (Userinfo)session("myUserinfo");
+		UserinfoDao ud = new UserinfoDao();
+		Userinfo myUserinfo = ud.findUserinfoByid(param.author);
 		list.add(myUserinfo);
 		TourlogDao td = new TourlogDao();
 		ArrayList<Tourlog> tlist = td.queryByPageUser(list, 16, param.pageNow);
