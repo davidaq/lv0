@@ -159,6 +159,9 @@ function parseUsernames(element) {
 		} else {
 			$(this).html(parsedUsernames[uid]);
 		}
+		$(this).click(function() {
+			show_userinfo(uid * 1);
+		});
 	});
 	for(k in pendingUsername) {
 		(function() {
@@ -183,6 +186,9 @@ function parseUsernames(element) {
 		} else if(parsedUseravatars[uid]) {
 			$(this).attr('src', parsedUseravatars[uid]);
 		}
+		$(this).click(function() {
+			show_userinfo(uid * 1);
+		});
 	});
 	for(k in pendingAvatars) {
 		(function() {
@@ -198,9 +204,27 @@ function parseUsernames(element) {
 }
 
 function follow_user(uid) {
-	requestApi('friends-setAttention', {attedUser : uid}, function() {});
+	requestApi('friends-setAttention', {attedUser : uid}, function(result) {
+		if(result == 'ok') {
+			msgbox(L('User_followed'));
+		}
+	});
+}
+
+
+function unfollow_user(uid) {
+	requestApi('friends-deleteAttention', {uid : uid}, function(result) {
+		if(result == 'ok') {
+			msgbox(L('User_follow_removed'));
+		}
+	});
 }
 
 function refresh() {
 	CFG.refresh = true;
+}
+
+function msgbox(message) {
+	$('#alert .modal-body').html(message);
+	$('#alert').modal();
 }

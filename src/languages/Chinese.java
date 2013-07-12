@@ -18,6 +18,7 @@ public class Chinese extends Language {
             Set_Background = "设置背景",
             Set_Profile = "设置个人资料",
             Follow = "关注",
+            Memories = "记忆",
             
             // Logs
             Post_New_Memory = "发表新记忆",
@@ -28,6 +29,10 @@ public class Chinese extends Language {
             Save = "保存",
             Change = "修改",
             Post = "发表",
+            
+            // Follow
+            User_followed = "用户已关注",
+            User_follow_removed = "用户关注已取消",
             
             // Login & Register
             Login = "登录",
