@@ -156,4 +156,15 @@ public class GoodDao {
 	        return sftlist;
 	    }
 
+	 public Good getGoodByLogIdAndUserId(int tourLogid,int userId){
+
+			Session session=HibernateSessionFactory.currentSession();
+			Transaction tran=session.beginTransaction();
+			String hqlsql = "from Good where tourLogId='"+tourLogid+"' and uId='"+ userId + "'";
+			 Query query = session.createQuery(hqlsql);
+			 Good resultStu = (Good)query.uniqueResult();
+		    tran.commit();
+			//.close();
+			return resultStu;
+		} 
 }
