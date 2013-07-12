@@ -1,6 +1,8 @@
 
 package actions;
 
+import java.util.Date;
+
 import tables.Userinfo;
 import dao.UserinfoDao;
 
@@ -36,6 +38,8 @@ public class User extends BaseAction {
         
         if(ui.getUpassword().equals(MD5Util.MD5(param.password))){
         	session("myUserinfo",ui);
+        	ui.setUstate(new Date());
+        	ud.updateUserinfo(ui);
             return jsonResult("ok");
         }
         
@@ -85,6 +89,8 @@ public class User extends BaseAction {
         ud.addUserinfo(ui);
         
         ui = ud.findUserinfoByname(param.username);
+        ui.setUstate(new Date());
+        ud.updateUserinfo(ui);
         session("myUserinfo",ui);
     	return jsonResult("ok");
     }
@@ -115,7 +121,23 @@ public class User extends BaseAction {
     
     
     public String getMyUserinfo(){
-    	return jsonResult(session("myUserinfo"));
+    	Userinfo ui = (Userinfo)session("myUserinfo");
+    	ui.setUstate(new Date());
+    	UserinfoDao ud = new UserinfoDao();
+    	ud.updateUserinfo(ui);
+    	return jsonResult(ui);
+    }
+    
+    
+    public static class GetUserinfoByUidParam{
+    	int userId;
+    }
+    
+    public String getUserinfoByUid(){
+    	GetUserinfoByUidParam param = (GetUserinfoByUidParam) getParam(GetUserinfoByUidParam.class);
+    	UserinfoDao uDao = new UserinfoDao();
+    	Userinfo ui = uDao.findUserinfoByid(param.userId);
+    	return jsonResult(ui);
     }
     
     
@@ -200,6 +222,10 @@ public class User extends BaseAction {
     }
     
     public String logout(){
+    	UserinfoDao ud = new UserinfoDao();
+    	Userinfo ui = (Userinfo)session("myUserinfo");
+    	ui.setUstate(null);
+    	ud.updateUserinfo(ui);
     	session("myUserinfo",null);
     	return jsonResult("ok");
     }
