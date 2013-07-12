@@ -197,6 +197,22 @@ public class TourLog extends BaseAction {
 	}
 	
 	
+	public static class GetCommentByTourLogIdParam{
+		int tourLogId;		
+	}
+	
+	public String getCommentByTourLogId(){
+		GetCommentByTourLogIdParam param = (GetCommentByTourLogIdParam) getParam(GetCommentByTourLogIdParam.class);
+		CommentDao cd = new CommentDao();
+		ArrayList<Comment> cList = cd.getCommentByLogId(param.tourLogId);
+		if(cList == null || cList.size() < 1){
+			return jsonResult("tourLogId");
+		}
+		return jsonResult(cList);
+	}
+	
+	
+	
 	public static class TranspondTourLogParam{
 		int tourLogID;
 	}
