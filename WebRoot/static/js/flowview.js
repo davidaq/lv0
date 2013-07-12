@@ -32,7 +32,7 @@ function FlowView(fv) {
 					throw 0;
 				}
 				me.load();
-			} finally {}
+			} catch(x){}
 		}
 		$(fv).stop().animate({left: pos + 'px'}, 200);
     });

@@ -83,6 +83,7 @@ function request(url, send, action, type) {
     		logoAnimateStop();
     	}
     });
+    ajax.sendData = send;
     return ajax;
 }
 function initForm(body) {
@@ -112,7 +113,7 @@ function initForm(body) {
 					if(form.target) {
 						document.location.hash = form.target;
 						if($(form).attr('refresh'))
-							refresh();
+							document.location.reload();
 					} else {
 						refresh();
 					}
@@ -173,7 +174,7 @@ function parseUsernames(element) {
 		if($(this).closest('.template')[0])
 			return;
 		var uid = $(this).attr('title');
-		$(this).removeClass('username');
+		$(this).removeClass('useravatar');
 		$(this).attr('title','');
 		if(!parsedUseravatars[uid]) {
 			if(!pendingAvatars[uid])

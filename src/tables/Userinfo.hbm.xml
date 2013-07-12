@@ -26,7 +26,7 @@
         <property name="usketch" type="string">
             <column name="uSketch" />
         </property>
-        <property name="ustate" type="string">
+        <property name="ustate" type="date">
             <column name="uState" length="100" />
         </property>
         <property name="ulabel" type="string">
