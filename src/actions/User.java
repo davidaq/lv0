@@ -89,7 +89,7 @@ public class User extends BaseAction {
         ud.addUserinfo(ui);
         
         ui = ud.findUserinfoByname(param.username);
-        ui.setUstate(new Date());
+        i.setUstate(new Date());
         ud.updateUserinfo(ui);
         session("myUserinfo",ui);
     	return jsonResult("ok");
@@ -125,6 +125,19 @@ public class User extends BaseAction {
     	ui.setUstate(new Date());
     	UserinfoDao ud = new UserinfoDao();
     	ud.updateUserinfo(ui);
+    	return jsonResult(ui);
+    }
+    
+    
+    public static class GetUserinfoByUidParam{
+    	int userId;
+    }
+    
+    public String getUserinfoByUid(){
+    	GetUserinfoByUidParam param = (GetUserinfoByUidParam) getParam(GetUserinfoByUidParam.class);
+    	UserinfoDao uDao = new UserinfoDao();
+    	Userinfo ui = uDao.findUserinfoByid(param.userId);
+    	
     	return jsonResult(ui);
     }
     
