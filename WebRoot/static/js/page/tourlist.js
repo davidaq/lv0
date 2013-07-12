@@ -8,7 +8,7 @@ scripts.tourlist = function(param, body) {
 			if(result && result.length > 0) {
 				for(k in result) {
 					(function() {
-						var item = result[k][0];
+						var item = result[k];
 						var content = $('.template', body).html();
 						for(i in item)
 							content = content.replace(new RegExp('%' + i + '%','g'), item[i]);

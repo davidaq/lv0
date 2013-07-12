@@ -55,20 +55,20 @@ public class TourLog extends BaseAction {
 	
 	
 	public static class PublishCommentParam{
-		int tourLogID;
-		String comContent;
+		int tourLogId;
+		String content;
 	}
 	
 	public String publishComment(){
 		PublishCommentParam param = (PublishCommentParam) getParam(PublishCommentParam.class);
-		if(param.comContent == null || param.comContent.equals("")){
+		if(param.content == null || param.content.equals("")){
 			return jsonResult("content");
 		}
 		Userinfo myUserinfo = (Userinfo)session("myUserinfo");
 		Comment ct = new Comment();
 		ct.setUid(myUserinfo.getUid());
-		ct.setTourLogId(param.tourLogID);
-		ct.setComContent(param.comContent);
+		ct.setTourLogId(param.tourLogId);
+		ct.setComContent(param.content);
 		CommentDao cd = new CommentDao();
 		cd.addComment(ct);
 		
@@ -77,20 +77,20 @@ public class TourLog extends BaseAction {
 	
 	
 	public static class GoodParam{
-		int tourLogID;
+		int tourLogId;
 	}
 	
 	public String good(){
 		GoodParam param = (GoodParam) getParam(GoodParam.class);
 		Userinfo myUserinfo = (Userinfo)session("myUserinfo");
 		GoodDao gdd = new GoodDao();
-		tables.Good gd = gdd.getGoodByLogIdAndUserId(param.tourLogID,myUserinfo.getUid());
+		tables.Good gd = gdd.getGoodByLogIdAndUserId(param.tourLogId,myUserinfo.getUid());
 		if(gd != null){
-			return "tourLogID";
+                    return "tourLogId";
 		}
 		gd = new Good();
 		gd.setUid(myUserinfo.getUid());
-		gd.setTourLogId(param.tourLogID);
+		gd.setTourLogId(param.tourLogId);
 		gd.setDate(new Date());
 		gdd.addGood(gd);		
 		return jsonResult("ok");
@@ -126,16 +126,15 @@ public class TourLog extends BaseAction {
 		return jsonResult(tlist);
 	}
 	
-	
 	public static class GetATourLogByIdParam{
-		int tourLogID;
+		int tourLogId;
 	}
 	
 	public String getATourLogById(){
 		GetATourLogByIdParam param = (GetATourLogByIdParam) getParam(GetATourLogByIdParam.class);
 		Tourlog tl = null;
 		TourlogDao td = new TourlogDao();
-		tl = td.findTourlogyid(param.tourLogID);
+		tl = td.findTourlogyid(param.tourLogId);
 		return jsonResult(tl);
 	}
 	
@@ -227,16 +226,16 @@ public class TourLog extends BaseAction {
 	
 	
 	public static class TranspondTourLogParam{
-		int tourLogID;
+		int tourLogId;
 	}
 	
 	public String transpondTourLog(){
 		TranspondTourLogParam param = (TranspondTourLogParam) getParam(TranspondTourLogParam.class);
 		TourlogDao td = new TourlogDao();
 		Tourlog tl = null;
-		tl = td.findTourlogyid(param.tourLogID);
+		tl = td.findTourlogyid(param.tourLogId);
 		if (tl == null){
-			return jsonResult("tourLogID");
+			return jsonResult("tourLogId");
 		}
 		
 		tl.setTourLogId(null);

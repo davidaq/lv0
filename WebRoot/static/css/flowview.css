@@ -1,23 +1,23 @@
 /*
 Syntax error: Undefined mixin 'whiteChar'.
-        on line 88 of scss/flowview.scss, in `whiteChar'
-        from line 88 of scss/flowview.scss
+        on line 91 of scss/flowview.scss, in `whiteChar'
+        from line 91 of scss/flowview.scss
 
-83: 				img {
-84: 					width: 306px;
-85: 					height: 196px;
-86: 				}
-87: 				.title {
-88: 					@include whiteChar;
-89: 					background: rgba(0, 0, 0, 0.7);
-90: 					position: absolute;
-91: 					padding: 5px;
-92: 					bottom: 2px;
-93: 					left: 2px;
+86: 				img {
+87: 					width: 306px;
+88: 					height: 196px;
+89: 				}
+90: 				.title {
+91: 					@include whiteChar;
+92: 					background: rgba(0, 0, 0, 0.7);
+93: 					position: absolute;
+94: 					padding: 5px;
+95: 					bottom: 2px;
+96: 					left: 2px;
 
 Backtrace:
-scss/flowview.scss:88:in `whiteChar'
-scss/flowview.scss:88
+scss/flowview.scss:91:in `whiteChar'
+scss/flowview.scss:91
 /home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:253:in `visit_mixin'
 /home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:37:in `visit'
 /home/davidaq/.gem/ruby/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:100:in `visit'
@@ -100,4 +100,4 @@ scss/flowview.scss:88
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined mixin 'whiteChar'.\A         on line 88 of scss/flowview.scss, in `whiteChar'\A         from line 88 of scss/flowview.scss\A \A 83: 				img {\A 84: 					width: 306px;\A 85: 					height: 196px;\A 86: 				}\A 87: 				.title {\A 88: 					@include whiteChar;\A 89: 					background: rgba(0, 0, 0, 0.7);\A 90: 					position: absolute;\A 91: 					padding: 5px;\A 92: 					bottom: 2px;\A 93: 					left: 2px;"; }
+  content: "Syntax error: Undefined mixin 'whiteChar'.\A         on line 91 of scss/flowview.scss, in `whiteChar'\A         from line 91 of scss/flowview.scss\A \A 86: 				img {\A 87: 					width: 306px;\A 88: 					height: 196px;\A 89: 				}\A 90: 				.title {\A 91: 					@include whiteChar;\A 92: 					background: rgba(0, 0, 0, 0.7);\A 93: 					position: absolute;\A 94: 					padding: 5px;\A 95: 					bottom: 2px;\A 96: 					left: 2px;"; }

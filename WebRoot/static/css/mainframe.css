@@ -218,8 +218,11 @@ a:hover {
           .flowview-wrap .flowview .block .feed .avatar span {
             display: block; }
         .flowview-wrap .flowview .block .feed .text {
-          width: 150px;
-          min-height: 150px; }
+          width: 210px;
+          min-height: 150px;
+          font-size: 1.4em;
+          line-height: 1.5em;
+          color: #222; }
           .flowview-wrap .flowview .block .feed .text b.title {
             font-size: 17px;
             display: block;
@@ -266,3 +269,32 @@ a:hover {
   position: absolute;
   right: 0;
   top: 0; }
+
+#tourLogPage {
+  background: rgba(255, 255, 255, 0.7);
+  overflow: hidden;
+  zoom: 1;
+  width: 90%;
+  margin: 0 auto;
+  border-radius: 5px; }
+  #tourLogPage .block {
+    height: 400px;
+    overflow-y: auto;
+    color: #000;
+    padding: 1%; }
+    #tourLogPage .block.content {
+      float: left;
+      width: 60%;
+      background: rgba(255, 255, 255, 0.6);
+      font-size: 1.9em;
+      line-height: 2em; }
+    #tourLogPage .block.comment {
+      background: transparent;
+      float: right;
+      width: 35%; }
+      #tourLogPage .block.comment textarea {
+        width: 96%; }
+      #tourLogPage .block.comment .item {
+        padding: 5px;
+        margin: 5px;
+        border-top: 1px dashed #777; }

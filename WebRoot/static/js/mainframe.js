@@ -68,6 +68,7 @@ $(function () {
                 }
                 function showPage(result) {
                     var display = function () {
+                    	$('.modal').modal('hide');
                         var item = document.createElement('div');
                         item.className = 'content';
                         item.innerHTML = result;

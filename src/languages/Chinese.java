@@ -22,6 +22,9 @@ public class Chinese extends Language {
             
             // Logs
             Post_New_Memory = "发表新记忆",
+            Comment = "评论",
+            Like = "赞",
+            Transpond = "转发",
             
             // Form
             Addon_Code = "验证码",
