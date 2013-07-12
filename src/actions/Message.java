@@ -1,15 +1,10 @@
 package actions;
 
+import dao.MessageDao;
 import java.util.ArrayList;
 import java.util.Date;
-
 import tables.Userinfo;
 
-import com.sun.mail.handlers.message_rfc822;
-
-import dao.MessageDao;
-
-import actions.User.LoginParam;
 
 public class Message extends BaseAction{
 	public static class GetMessageByUserIdParam{

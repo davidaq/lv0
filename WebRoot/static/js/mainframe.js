@@ -19,6 +19,11 @@ $(function () {
 		});
     	
     });
+    setInterval(function() {
+		requestApi('user-getMyUserinfo', function(result) {
+			CFG.userinfo = result;
+		});
+    }, 30000);
     function initUsername() {
     	if(!CFG.userinfo)
 	    	$('#username').hide();
@@ -207,10 +212,9 @@ function showFriends() {
         requestApi('friends-list', function(result) {
             $('.foot .extra').hide();
             $('.foot .extra').html('');
-            console.log(result);
             for(k in result) {
                 var item = document.createElement('div');
-                item.className = 'friend-list-item';
+                item.className = 'friend-list-item friend-list-item' + result[k].uid;
                 
                 if(result[k].online) {
                     item.className += ' online';
@@ -219,20 +223,16 @@ function showFriends() {
                 }
                 if(!result[k].avatar)
                 	result[k].avatar = 'static/images/picmi.png';
-                item.innerHTML = '<img src="' + result[k].avatar + '"/> ' + result[k].name
-                	+ ' &nbsp;&nbsp; ';
-                var removeBtn = document.createElement('i');
-                removeBtn.className = 'icon-remove white';
+                item.innerHTML = '<img src="' + result[k].avatar + '"/> ' + result[k].name;
+
                 (function() {
-                	var uid = result[k].uid;
-		            $(removeBtn).click(function() {
-						requestApi('friends-deleteAttention', {uid : uid}, function() {});
-						$(this).closest('.friend-list-item').hide(100).remove();
+                	var info = result[k];
+		            $(item).click(function() {
+		            	show_userinfo(info.uid * 1);
 		            });
-                })();
+	            })();
                 
                 $('.foot .extra').append(item);
-                $(item).append(removeBtn);
             }
             $('.foot .extra').slideDown(100);
         }).error(function() {
@@ -243,4 +243,30 @@ function showFriends() {
         showFriendsFlag = false;
         $('.foot .extra').stop().slideUp(200);
     }
+}
+
+function show_userinfo(user) {
+	function display(info) {
+		if(!info.uportrait)
+			info.uportrait = 'static/images/picmi.png';
+		$('#userinfo h1').html('<img src="' + info.uportrait + '" style="max-width:100px; max-height: 100px"/> ' + info.uname);
+		$('#userinfo .phone').html(info.uphone);
+		$('#userinfo .intro').val(info.usketch);
+		$('#userinfo .tourlist').attr('href', '#tourlist%' + info.uid);
+		$('#userinfo .album').attr('href', '#album%' + info.uid);
+		$('#userinfo .follow')[0].onclick = function() {
+			follow_user(info.uid);
+		};
+		$('#userinfo .unfollow')[0].onclick = function() {
+			unfollow_user(info.uid);
+		};
+		$('#userinfo').modal();
+	}
+	if(typeof user == 'number') {
+		requestApi('user-getUserinfoByUid', {userId : user}, function(result) {
+			display(result);
+		});
+	} else {
+		display(user);
+	}
 }

@@ -122,9 +122,11 @@ public class User extends BaseAction {
     
     public String getMyUserinfo(){
     	Userinfo ui = (Userinfo)session("myUserinfo");
-    	ui.setUstate(new Date());
-    	UserinfoDao ud = new UserinfoDao();
-    	ud.updateUserinfo(ui);
+        if(ui != null) {
+            ui.setUstate(new Date());
+            UserinfoDao ud = new UserinfoDao();
+            ud.updateUserinfo(ui);
+        }
     	return jsonResult(ui);
     }
     
