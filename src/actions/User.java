@@ -137,7 +137,6 @@ public class User extends BaseAction {
     	GetUserinfoByUidParam param = (GetUserinfoByUidParam) getParam(GetUserinfoByUidParam.class);
     	UserinfoDao uDao = new UserinfoDao();
     	Userinfo ui = uDao.findUserinfoByid(param.userId);
-    	
     	return jsonResult(ui);
     }
     
