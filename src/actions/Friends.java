@@ -2,6 +2,7 @@
 package actions;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 
 import tables.Attention;
@@ -33,7 +34,7 @@ public class Friends extends BaseAction {
 	    	for(Attention attention : aList){
 	    		Userinfo u = ud.findUserinfoByid(attention.getAttedUser());
 	    		boolean online = false;
-	    		if(u.getUstate() != null && u.getUstate().equals("1")){
+	    		if(u.getUstate() != null && ((new Date()).getTime() - u.getUstate().getTime()) <= 10){
 	    			online = true;
 	    		}
 	    		String relation = "watch";
@@ -43,14 +44,6 @@ public class Friends extends BaseAction {
 	    		list[i++] = new FriendItem(attention.getAttedUser(), u.getUname(), u.getUportrait(),relation , online);
 	    	}
     	}
-    	
-    	
-//        FriendItem[] list = new FriendItem[] {
-//            new FriendItem(10123,"David","static/images/bulb.png","watch",true),
-//            new FriendItem(10124,"AQ","static/images/pi.png","friend",false),
-//            new FriendItem(10125,"FG","static/images/picmi.png","friend",false),
-//            new FriendItem(10127,"HWB","static/images/logo.png","watch",true)
-//        };
         return jsonResult(list);
     }
     
