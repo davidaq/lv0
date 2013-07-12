@@ -39,7 +39,10 @@ public class BaseAction {
     }
     
     public static String toAbstract(String content) {
-        content = content.replaceAll("(\\<.+?\\>|\\n|\\r|&nbsp;|\\s)+", " ").trim().substring(0, 80);
+        content = content.replaceAll("(\\<.+?\\>|\\n|\\r|&nbsp;|\\s)+", " ").trim();
+        if(content.length() > 80) {
+            content = content.substring(0, 78) + "...";
+        }
         return content;
     }
 }

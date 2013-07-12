@@ -159,6 +159,7 @@ function parseUsernames(element) {
 		} else {
 			$(this).html(parsedUsernames[uid]);
 		}
+		$(this).css('cursor', 'pointer');
 		$(this).click(function() {
 			show_userinfo(uid * 1);
 		});
@@ -186,6 +187,7 @@ function parseUsernames(element) {
 		} else if(parsedUseravatars[uid]) {
 			$(this).attr('src', parsedUseravatars[uid]);
 		}
+		$(this).css('cursor', 'pointer');
 		$(this).click(function() {
 			show_userinfo(uid * 1);
 		});
@@ -216,6 +218,14 @@ function unfollow_user(uid) {
 	requestApi('friends-deleteAttention', {uid : uid}, function(result) {
 		if(result == 'ok') {
 			msgbox(L('User_follow_removed'));
+		}
+	});
+}
+
+function tour_log_like(pid) {
+	requestApi('tourLog-good', {uid : uid}, function(result) {
+		if(result == 'ok') {
+			$('.good.good' + uid).html($('.good.good' + uid).html() * 1 + 1);
 		}
 	});
 }

@@ -55,20 +55,20 @@ public class TourLog extends BaseAction {
 	
 	
 	public static class PublishCommentParam{
-		int tourLogID;
-		String comContent;
+		int tourLogId;
+		String content;
 	}
 	
 	public String publishComment(){
 		PublishCommentParam param = (PublishCommentParam) getParam(PublishCommentParam.class);
-		if(param.comContent == null || param.comContent.equals("")){
+		if(param.content == null || param.content.equals("")){
 			return jsonResult("content");
 		}
 		Userinfo myUserinfo = (Userinfo)session("myUserinfo");
 		Comment ct = new Comment();
 		ct.setUid(myUserinfo.getUid());
-		ct.setTourLogId(param.tourLogID);
-		ct.setComContent(param.comContent);
+		ct.setTourLogId(param.tourLogId);
+		ct.setComContent(param.content);
 		CommentDao cd = new CommentDao();
 		cd.addComment(ct);
 		
@@ -110,16 +110,15 @@ public class TourLog extends BaseAction {
 		return jsonResult(tlist);
 	}
 	
-	
 	public static class GetATourLogByIdParam{
-		int tourLogID;
+		int tourLogId;
 	}
 	
 	public String getATourLogById(){
 		GetATourLogByIdParam param = (GetATourLogByIdParam) getParam(GetATourLogByIdParam.class);
 		Tourlog tl = null;
 		TourlogDao td = new TourlogDao();
-		tl = td.findTourlogyid(param.tourLogID);
+		tl = td.findTourlogyid(param.tourLogId);
 		return jsonResult(tl);
 	}
 	
