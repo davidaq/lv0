@@ -33,6 +33,16 @@ public class MessageDao {
 		return ad;
 		
 	} 
+	public ArrayList<Message> findMessagebyuid(int id){
+
+		Transaction tran=session.beginTransaction();
+		String hql="from Message where authorId=' "+id+"'";
+		Query query =session.createQuery(hql);
+		ArrayList<Message> ad=(ArrayList<Message>)query.list();
+	    tran.commit();
+		return ad;
+		
+	} 
 	public void updateMessage(Message ad){
 
 		
