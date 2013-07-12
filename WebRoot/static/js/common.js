@@ -31,6 +31,23 @@ function requestApi(api, send, action) {
         return request(CFG.apiUrl(api), send, "JSON");
     }
 }
+logoAnimateCounter = 0;
+function logoAnimate() {
+	if(logoAnimateCounter == 0)
+		logoAnimate1();
+	logoAnimateCounter++;
+}
+function logoAnimate1() {
+	$('a.logo').stop().animate({opacity : 0.3}, 500, logoAnimate2);
+}
+function logoAnimate2() {
+	$('a.logo').stop().animate({opacity : 1}, 500, logoAnimate1);
+}
+function logoAnimateStop() {
+	logoAnimateCounter--;
+	if(logoAnimateCounter == 0)
+		$('a.logo').stop().animate({opacity : 1}, 500);
+}
 function request(url, send, action, type) {
     if(!type) {
         if(!action) {
@@ -48,43 +65,55 @@ function request(url, send, action, type) {
         method = 'POST';
         url += "?d=" + new Date().getTime();
     }
-    function logoAnimate1() {
-    	$('a.logo').stop().animate({opacity : 0.3}, 500, logoAnimate2);
+    logoAnimate();
+    function RetryAjax(url, send, method, action) {
+    	this.url = url; this.send = send; this.method = method; this.action = action;
+    	this.retry = 5;
+		ajax = this;
+		this.intent();
     }
-    function logoAnimate2() {
-    	$('a.logo').stop().animate({opacity : 1}, 500, logoAnimate1);
+    RetryAjax.prototype.intent = function() {
+    	var me = this;
+		this.ajax = $.ajax({
+			url : url,
+			type : method,
+			data : send,
+			dataType : 'text',
+			tryCount : 0,
+			retryLimit : 20,
+			success : function(result) {
+				logoAnimateStop();
+				if(action) {
+				    var reg = /\%\{(.+?)\}/m;
+				    while((m = reg.exec(result))) {
+				        result = result.replace(m[0], L(m[1]));
+				    }
+				    if(type == "JSON") {
+				    	if(result)
+					    	result = JSON.parse(result);
+				    }
+				    action(result);
+				}
+			},
+			error : function(e,m){
+				me.ajax = false;
+				if(me.retry-- > 0) {
+					me.delay = setTimeout(function() {
+						me.intent();
+					}, 1000);
+				} else {
+					logoAnimateStop();
+				}
+			}
+		});
     }
-    function logoAnimateStop() {
-    	$('a.logo').stop().animate({opacity : 1}, 500);
+    RetryAjax.prototype.abort = function() {
+    	if(this.ajax)
+	    	this.ajax.abort();
+	    if(this.delay)
+	    	clearTimeout(this.delay);
     }
-    logoAnimate1();
-	ajax = $.ajax({
-    	url : url,
-    	type : method,
-    	data : send,
-    	dataType : 'text',
-    	tryCount : 0,
-    	retryLimit : 5,
-    	success : function(result) {
-    		logoAnimateStop();
-		    if(action) {
-		        var reg = /\%\{(.+?)\}/m;
-		        while((m = reg.exec(result))) {
-		            result = result.replace(m[0], L(m[1]));
-		        }
-		        if(type == "JSON") {
-		        	if(result)
-			        	result = JSON.parse(result);
-		        }
-		        action(result);
-		    }
-	    },
-	    error : function(e,m){
-    		logoAnimateStop();
-    	}
-    });
-    ajax.sendData = send;
-    return ajax;
+    return new RetryAjax(url, send, method, action);
 }
 function initForm(body) {
 	var popedOver = [];
@@ -223,9 +252,10 @@ function unfollow_user(uid) {
 }
 
 function tour_log_like(pid) {
-	requestApi('tourLog-good', {uid : uid}, function(result) {
+	requestApi('tourLog-good', {tourLogId : pid}, function(result) {
+		console.log(result);
 		if(result == 'ok') {
-			$('.good.good' + uid).html($('.good.good' + uid).html() * 1 + 1);
+			$('.good.good' + pid).html($('.good.good' + pid).html() * 1 + 1);
 		}
 	});
 }

@@ -294,3 +294,7 @@ a:hover {
       width: 35%; }
       #tourLogPage .block.comment textarea {
         width: 96%; }
+      #tourLogPage .block.comment .item {
+        padding: 5px;
+        margin: 5px;
+        border-top: 1px dashed #777; }

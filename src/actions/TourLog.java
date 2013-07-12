@@ -77,20 +77,20 @@ public class TourLog extends BaseAction {
 	
 	
 	public static class GoodParam{
-		int tourLogID;
+		int tourLogId;
 	}
 	
 	public String good(){
 		GoodParam param = (GoodParam) getParam(GoodParam.class);
 		Userinfo myUserinfo = (Userinfo)session("myUserinfo");
 		GoodDao gdd = new GoodDao();
-		tables.Good gd = gdd.getGoodByLogIdAndUserId(param.tourLogID,myUserinfo.getUid());
+		tables.Good gd = gdd.getGoodByLogIdAndUserId(param.tourLogId,myUserinfo.getUid());
 		if(gd != null){
-			return "tourLogID";
+                    return "tourLogId";
 		}
 		gd = new Good();
 		gd.setUid(myUserinfo.getUid());
-		gd.setTourLogId(param.tourLogID);
+		gd.setTourLogId(param.tourLogId);
 		gd.setDate(new Date());
 		gdd.addGood(gd);		
 		return jsonResult("ok");
@@ -226,16 +226,16 @@ public class TourLog extends BaseAction {
 	
 	
 	public static class TranspondTourLogParam{
-		int tourLogID;
+		int tourLogId;
 	}
 	
 	public String transpondTourLog(){
 		TranspondTourLogParam param = (TranspondTourLogParam) getParam(TranspondTourLogParam.class);
 		TourlogDao td = new TourlogDao();
 		Tourlog tl = null;
-		tl = td.findTourlogyid(param.tourLogID);
+		tl = td.findTourlogyid(param.tourLogId);
 		if (tl == null){
-			return jsonResult("tourLogID");
+			return jsonResult("tourLogId");
 		}
 		
 		tl.setTourLogId(null);
