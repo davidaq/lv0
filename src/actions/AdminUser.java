@@ -1,6 +1,9 @@
 package actions;
 
+import java.util.ArrayList;
 import java.util.Date;
+
+import com.opensymphony.xwork2.Result;
 
 import tables.Admininfo;
 import tables.Userinfo;
@@ -140,5 +143,41 @@ public class AdminUser extends BaseAction{
     public String adminLogout(){
     	session("myAdmininfo",null);
     	return jsonResult("ok");
+    }
+    
+    
+    public static class SearchUserinfosParam{
+    	String searchText;
+    }
+    
+    public String searchFindUserinfos(){
+    	SearchUserinfosParam param = (SearchUserinfosParam) getParam(SearchUserinfosParam.class);
+    	UserinfoDao uid = new UserinfoDao();
+    	ArrayList<Userinfo> uList = null;
+    	ArrayList<Userinfo> uList2 = null;
+    	ArrayList<Userinfo> uList3 = null;
+    	if(param.searchText.indexOf("@") > -1){
+    		uList2 = uid.findUserinfosLikeumail(param.searchText);
+    	}
+    	
+    	uList = uid.findUserinfosLikeName(param.searchText);
+    	uList3 = uid.findUserinfosLikeuSketch(param.searchText);
+    	if(uList == null){
+    		uList = new ArrayList<Userinfo>();
+    	}
+    	if(uList2 != null && uList2.size() > 0){
+    		ArrayList<Userinfo> temp = new ArrayList<Userinfo>(uList2);
+    		temp.retainAll(uList);
+    		uList2.removeAll(temp);
+    		uList.addAll(uList2);
+    	}
+    	if(uList3 != null && uList3.size() > 0){
+    		ArrayList<Userinfo> temp = new ArrayList<Userinfo>(uList3);
+    		temp.retainAll(uList);
+    		uList3.removeAll(temp);
+    		uList.addAll(uList3);
+    	}
+    	
+    	return jsonResult(uList);
     }
 }
