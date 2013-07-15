@@ -25,6 +25,7 @@ public class Home extends BaseAction {
         if(session("myUserinfo") == null){
             items = new TabItem[] {
                     new TabItem("%{Hot_Focus}", "star", "home"),
+                    new TabItem("%{Resort_Wiki}", "share", "wiki"),
                     new TabItem("%{Login}", "user", "login"),
                     new TabItem("%{Register}", "bell", "register")
                 };
