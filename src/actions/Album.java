@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.Iterator;
 import tables.Media;
 import tables.Mediacontent;
+import tables.Userinfo;
 
 public class Album extends BaseAction{
 	public static class GetAlbumsByUserIdParam{
@@ -151,27 +152,23 @@ public class Album extends BaseAction{
 	
 	
 	public static class AddAlbumParam{
-		Media album;
+		String albumName;
 	}
 	
 	public String addAlbum(){
 		AddAlbumParam param = (AddAlbumParam) getParam(AddAlbumParam.class);
-		if (param.album == null){
-			return jsonResult("album");
+		if (param.albumName == null || param.albumName.equals("")){
+			return jsonResult("albumName");
 		}
-		param.album.setMediaId(null);
-		if (param.album.getMediaName() == null || param.album.getMediaName().equals("")){
-			return jsonResult("mediaName");
-		}
-		if (param.album.getUid() == null || param.album.getUid().equals("")){
-			return jsonResult("uid");
-		}
-		if (param.album.getDate() == null || param.album.getDate().equals("")){
-			param.album.setDate(new Date());
-		}
-		
+		Media media = new Media();
+		media.setMediaId(null);
+		Userinfo myUserinfo = (Userinfo)session("myUserinfo");
+		media.setUid(myUserinfo.getUid());
+		media.setDate(new Date());
+		media.setMediaName(param.albumName);
+		media.setMediaCover(null);
 		MediaDao md = new MediaDao();
-		md.addMedia(param.album);
+		md.addMedia(media);
 		
 		return jsonResult("ok");
 	}
