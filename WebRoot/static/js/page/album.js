@@ -3,6 +3,10 @@ scripts.album = function(param, body) {
 	fv.show();
 	$('#createAlbumBtn').click(function() {
 		var name = $(this).prev('input').val();
-		
+		requestApi('album-addAlbum', {albumName : name}, function(result) {
+			if(result == 'ok') {
+				refresh();
+			}
+		});
 	});
 };
