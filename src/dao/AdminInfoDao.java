@@ -10,7 +10,7 @@ import tables.*;
 
 
 
-public class adminInfoDao {
+public class AdminInfoDao {
 	Session session=HibernateSessionFactory.currentSession();
 	public void close()
 	{
@@ -29,6 +29,16 @@ public class adminInfoDao {
 		
 		Transaction tran=session.beginTransaction();
 		String hql="from Admininfo where adId=' "+id+"'";
+		Query query =session.createQuery(hql);
+		Admininfo ad=(Admininfo)query.uniqueResult();
+	    tran.commit();
+		return ad;
+	}
+	public Admininfo findAdminInfoByAdName(String adName){
+
+		
+		Transaction tran=session.beginTransaction();
+		String hql="from Admininfo where adName=' "+adName+"'";
 		Query query =session.createQuery(hql);
 		Admininfo ad=(Admininfo)query.uniqueResult();
 	    tran.commit();
@@ -65,18 +75,18 @@ public class adminInfoDao {
 	      
 	        ArrayList<Admininfo> sftlist = new ArrayList();
 	        try {
-	            // »ñµÃsession¶ÔÏó
-	            //String hql = "from Employee emp";// ²éÑ¯HQLÓï¾ä
-	            HQL = "from Admininfo";// Ìõ¼þ²éÑ¯HQLÓï¾ä
-	            Query q = session.createQuery(HQL);// Ö´ÐÐ²éÑ¯²Ù×÷
+	            // ï¿½ï¿½ï¿½sessionï¿½ï¿½ï¿½ï¿½
+	            //String hql = "from Employee emp";// ï¿½ï¿½Ñ¯HQLï¿½ï¿½ï¿½
+	            HQL = "from Admininfo";// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯HQLï¿½ï¿½ï¿½
+	            Query q = session.createQuery(HQL);// Ö´ï¿½Ð²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
 	            q.setFirstResult(pageSize * (pageNow - 1));
 	            q.setMaxResults(pageSize);
 	            sftlist = (ArrayList<Admininfo>)q.list();
 	        } catch (HibernateException e) {
 	            e.printStackTrace();
-	            System.out.println("²éÑ¯Ê§°Ü");
+	            System.out.println("ï¿½ï¿½Ñ¯Ê§ï¿½ï¿½");
 	        } finally {
-	        	HibernateSessionFactory.closeSession();// ¹Ø±Õsession
+	        	HibernateSessionFactory.closeSession();// ï¿½Ø±ï¿½session
 	        }
 	        return sftlist;
 	    }

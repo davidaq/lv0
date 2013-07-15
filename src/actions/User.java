@@ -112,7 +112,15 @@ public class User extends BaseAction {
     	}
     	
     	UserinfoDao ud = new UserinfoDao();
-    	Userinfo ui = (Userinfo)session("myUserinfo");
+    	Userinfo ui;
+    	ui = (Userinfo)session("myUserinfo");
+    	Userinfo ui2 = ud.findUserinfoByid(ui.getUid());
+    	if(ui2 == null){
+    		return jsonResult("username");
+    	}
+    	if(!ui2.getUpassword().equals(param.oldPassword)){
+    		return jsonResult("oldPassword");
+    	}
     	ui.setUpassword(MD5Util.MD5(param.newPassword[0]));
     	ud.updateUserinfo(ui);
     	
