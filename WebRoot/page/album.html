@@ -1,4 +1,4 @@
-<h1><i class="icon-align-left white"></i> 媒体影集</h1>
+<h1><i class="icon-align-left white"></i> %{Album} :: <span class="username"></span></h1>
 <div class="search input-append">
 	<input type="text" placeholder="创建影集"/>
 	<button class="btn addon" id="createAlbumBtn"><i class="icon-plus"></i></button>
@@ -6,15 +6,38 @@
 
 <div class="template">
 	<div class="thumb-item">
-		<img src="static/images/twilight_dune.jpg" />
+		<img src="%mediaCover%" />
 		<div class="title">
-			<b>测试影集。。。</b>
+			<b>%mediaName%</b>
 			<div class="extra">
-				用于测试！！！！
+				%date%
+				<button class="btn" style="position: absolute; right: 5px; bottom: 5px">%{Operation}</button>
 			</div>
 		</div>
 	</div>
 </div>
 
 <div class="flowview">
+</div>
+
+<div class="modal hide fade" id="albumEditDlg" style="width:250px; margin-left: -125px; margin-top: 40px">
+	<div class="modal-header">
+		<button class="close" data-dismiss="modal">&times;</button>
+		<h3></h3>
+	</div>
+	<form class="modal-body">
+		<label>%{Album_title} : </label>
+		<input type="text" name="mediaName"/>
+		
+		<label>%{Album_cover} : </label>
+		<input type="text" name="mediaCover" placeholder="http://"/>
+	</form>
+	<div class="modal-footer">
+		<button class="btn btn-danger" id="del">%{Delete}</button>
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<div class="btn-group">
+			<button class="btn btn-primary" data-dismiss="modal" id="ok">%{Save}</button>
+			<button class="btn" data-dismiss="modal">%{Cancel}</button>
+		</div>
+	</div>
 </div>

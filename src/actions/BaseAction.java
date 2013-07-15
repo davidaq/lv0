@@ -3,15 +3,21 @@ package actions;
 
 import com.google.gson.Gson;
 import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionSupport;
 import java.util.Map;
 
-public class BaseAction {
+public class BaseAction extends ActionSupport {
     
     private Gson gson = new Gson();
     private String param;
-    
-    public static void validate(Object object) {
-        
+    private String callback;
+
+    public String getCallback() {
+        return callback;
+    }
+
+    public void setCallback(String callback) {
+        this.callback = callback;
     }
     
     public final void setParam(String param) {
@@ -23,7 +29,11 @@ public class BaseAction {
     }
     
     public final String jsonResult(Object o) {
-        return gson.toJson(o);
+        String ret = gson.toJson(o);
+        if(callback != null) {
+            ret = callback + "(" + ret + ");";
+        }
+        return ret;
     }
     
     public Map session() {

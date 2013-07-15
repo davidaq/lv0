@@ -72,6 +72,9 @@ function request(url, send, action, type) {
 		ajax = this;
 		this.intent();
     }
+    RetryAjax.prototype.error = function(action) {
+    	this.errorHandler = action;
+    };
     RetryAjax.prototype.intent = function() {
     	var me = this;
 		this.ajax = $.ajax({
@@ -103,6 +106,8 @@ function request(url, send, action, type) {
 					}, 1000);
 				} else {
 					logoAnimateStop();
+					if(this.errorHandler)
+						this.errorHandler();
 				}
 			}
 		});
@@ -115,51 +120,82 @@ function request(url, send, action, type) {
     }
     return new RetryAjax(url, send, method, action);
 }
-function initForm(body) {
+function initForm(body, data) {
 	var popedOver = [];
 	$('form', body).each(function() {
 		var form = $(this)[0];
-		form.onsubmit = function() {
-			var rawData = $(form).serializeArray();
-			var send = {};
-			for(k in rawData) {
-				var key = rawData[k].name;
-				if(key.substr(-2) == '[]') {
-					key = key.substr(0, key.length - 2);
-					if(!send[key])
-						send[key] = [];
-					send[key].push(rawData[k].value);
-				} else
-					send[key] = rawData[k].value;
-			}
-			for(k in popedOver) {
-				popedOver[k].popover('destroy');
-			}
-			popedOver = [];
-			$('input, textarea', form).css('border-color', '');
-			requestApi(form.action, send, function(result) {
-				if(result == 'ok') {
-					if(form.target) {
-						document.location.hash = form.target;
-						if($(form).attr('refresh'))
-							document.location.reload();
-					} else {
-						refresh();
-					}
-				} else {
-					var x = $('input[name^="' + result + '"], textarea[name="' + result + '"]', form);
-					x.css('border-color', '#F00');
-					x.focus();
-					if(x[0])
-						x[0].select();
-					setTimeout(function() {
-						x.stop().popover('show');
-					}, 200);
-					popedOver.push(x);
+		if(data) {
+			$('input, textarea').each(function() {
+				var name = $(this).attr('name');
+				if(data[name]) {
+					if($(this).attr('type') == 'checkbox') {
+						$(this).attr('checked', true);
+					} else
+						$(this).val(data[name]);
 				}
 			});
-			return false;
 		}
+		if($(this).hasClass('inited'))
+			return;
+		if($(form).attr('enctype') == 'multipart/form-data') {
+			$(form).attr('method', 'post');
+			var fname = 'form' + new Date().getTime();
+			var frame = '<iframe name="' + fname +'"></iframe>';
+			$(frame).appendTo(body).attr('name', fname).css({
+				position: 'fixed',
+				top: 0,
+				right: 0,
+				width: '1px',
+				height: '1px',
+				boder: 'none'
+			})[0].onload = function() {
+				refresh();
+			};
+			$(form).attr('target', fname);
+		} else {
+			form.onsubmit = function() {
+				var rawData = $(form).serializeArray();
+				var send = {};
+				for(k in rawData) {
+					var key = rawData[k].name;
+					if(key.substr(-2) == '[]') {
+						key = key.substr(0, key.length - 2);
+						if(!send[key])
+							send[key] = [];
+						send[key].push(rawData[k].value);
+					} else
+						send[key] = rawData[k].value;
+				}
+				for(k in popedOver) {
+					popedOver[k].popover('destroy');
+				}
+				popedOver = [];
+				$('input, textarea', form).css('border-color', '');
+				requestApi(form.action, send, function(result) {
+					if(result == 'ok') {
+						if(form.target) {
+							document.location.hash = form.target;
+							if($(form).attr('refresh'))
+								document.location.reload();
+						} else {
+							refresh();
+						}
+					} else {
+						var x = $('input[name^="' + result + '"], textarea[name="' + result + '"]', form);
+						x.css('border-color', '#F00');
+						x.focus();
+						if(x[0])
+							x[0].select();
+						setTimeout(function() {
+							x.stop().popover('show');
+						}, 200);
+						popedOver.push(x);
+					}
+				});
+				return false;
+			}
+		}
+		$(this).addClass('inited');
 	});
 }
 function logout() {
@@ -265,6 +301,18 @@ function refresh() {
 }
 
 function msgbox(message) {
-	$('#alert .modal-body').html(message);
-	$('#alert').modal();
+	$('#alertDlg .modal-body').html(message);
+	$('#alertDlg').modal();
+}
+function ask(message, action) {
+	$('#confirmDlg .modal-body').html(message);
+	$('#confirmDlg').modal();
+	$('#confirmDlg #ok')[0].onclick = action;
+}
+
+function inflate(template, data) {
+	var content = template.html();
+	for(i in data)
+		content = content.replace(new RegExp('%' + i + '%','g'), data[i]);
+	return content;
 }

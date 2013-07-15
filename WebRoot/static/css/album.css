@@ -1,0 +1,18 @@
+#media-detail .close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: #FFF;
+  text-shadow: 0 1px 5px #000; }
+#media-detail .extra {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-shadow: 0 0 5px #000;
+  padding: 5px;
+  background: rgba(0, 0, 0, 0.5);
+  color: #FFF; }
+  #media-detail .extra a {
+    color: #FFF;
+    text-decoration: underline; }

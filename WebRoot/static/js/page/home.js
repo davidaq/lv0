@@ -4,9 +4,7 @@ scripts.home = function(param, body) {
 		for(k in result) {
 			(function() {
 				var item = result[k][0];
-				var content = $('.template', body).html();
-				for(i in item)
-					content = content.replace(new RegExp('%' + i + '%','g'), item[i]);
+				var content = inflate($('.template', body), item);
 				var element = fv.addBlock(content, item.abstract_.length > 50);
 				$('.text', element).click(function() {
 					document.location.hash = '#tourlog%' + item.tourLogId;

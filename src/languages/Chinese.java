@@ -19,6 +19,7 @@ public class Chinese extends Language {
             Set_Profile = "设置个人资料",
             Follow = "关注",
             Memories = "记忆",
+            Delete = "删除",
             
             // Logs
             Post_New_Memory = "发表新记忆",
@@ -32,6 +33,10 @@ public class Chinese extends Language {
             Save = "保存",
             Change = "修改",
             Post = "发表",
+            Cancel = "取消",
+            Operation = "操作",
+            Edit = "编辑",
+            Upload = "上传",
             
             // Follow
             User_followed = "用户已关注",
@@ -65,6 +70,12 @@ public class Chinese extends Language {
             Self_Introduction = "自我简述",
             Preference = "偏好设置",
             Interest_Tag = "喜好标签",
+            
+            // Album
+            Album_title = "媒体集标题",
+            Album_cover = "媒体集封面",
+            Description = "说明",
+            Title = "标题",
             
             // Home tabs
             Hot_Focus = "热门关注",

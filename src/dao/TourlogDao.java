@@ -73,7 +73,6 @@ public class TourlogDao {
                 sftlist = (ArrayList<Tourlog>)q.list();
             } catch (HibernateException e) {
                 e.printStackTrace();
-                System.out.println("��ѯʧ��");
             } finally {
                 HibernateSessionFactory.closeSession();// �ر�session
             }
@@ -99,7 +98,6 @@ public class TourlogDao {
                 sftlist = (ArrayList<Tourlog>)q.list();
             } catch (HibernateException e) {
                 e.printStackTrace();
-                System.out.println("��ѯʧ��");
             } finally {
                 HibernateSessionFactory.closeSession();// �ر�session
             }

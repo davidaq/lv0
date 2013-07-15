@@ -63,7 +63,7 @@ public class Album extends BaseAction{
 			return jsonResult("mediaName");
 		}
 		if (param.mediaCover == null || param.mediaCover.equals("")){
-			return jsonResult("mediaCover");
+			return jsonResult("mediaCoverd");
 		}
 		
 		MediaDao md = new MediaDao();
