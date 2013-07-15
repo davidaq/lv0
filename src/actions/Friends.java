@@ -34,7 +34,7 @@ public class Friends extends BaseAction {
 	    	for(Attention attention : aList){
 	    		Userinfo u = ud.findUserinfoByid(attention.getAttedUser());
 	    		boolean online = false;
-	    		if(u.getUstate() != null && ((new Date()).getTime() - u.getUstate().getTime()) <= 10){
+	    		if(u.getUstate() != null && ((new Date()).getTime() - u.getUstate().getTime()) / (60 * 1000) % 60 <= 10){
 	    			online = true;
 	    		}
 	    		String relation = "watch";
