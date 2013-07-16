@@ -1,15 +1,11 @@
 package dao;
 
-import java.util.Date;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
+import java.util.Date;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
 import tables.Good;
 import tables.Tourlog;
 
@@ -90,30 +86,11 @@ public class GoodDao {
 		query.setMaxResults(10);
 		
 		System.out.println(strSql);
-		ArrayList <Tourlog> rs=(ArrayList<Tourlog>) query.list();
-//		List resultStu = query.list();
-//		Iterator it=resultStu.iterator();
-		
-//		while(it.hasNext())
-//		{
-//		
-//			Object o[]=(Object[])it.next();
-//			for(int i=0;i<o.length;i++)
-//			{
-//				System.out.print("uid "+o[i].toString()+"\t");
-//			}
-//			System.out.println();
-//		}
-//		while(it.hasNext())
-//		{
-//		
-//		
-//				System.out.print("uid "+it.next().toString()+"\n");
-//			
-//			
-//		}
-		
-		
+		ArrayList <Tourlog> rs= new ArrayList<Tourlog>();
+                for(Object o : query.list()) {
+                    Object[] arr = (Object[]) o;
+                    rs.add((Tourlog) arr[0]);
+                }
 		
 	    tran.commit();
 		//.close();
