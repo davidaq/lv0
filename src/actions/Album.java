@@ -125,8 +125,16 @@ public class Album extends BaseAction implements ServletContextAware {
 
     public String deleteAlbum(){
             DeleteAlbumParam param = (DeleteAlbumParam) getParam(DeleteAlbumParam.class);
+            Userinfo userinfo = (Userinfo)session("myUserinfo");
             MediacontentDao mcd = new MediacontentDao();
             MediaDao md = new MediaDao();
+            Media m = md.getMedia(param.albumId);
+            if(m == null){
+            	return jsonResult("albumId");
+            }
+            if(m.getUid() != userinfo.getUid()){
+            	return jsonResult("albumId");
+            }
             ArrayList<Mediacontent> list = null;
             list = md.getMediacontent(param.albumId);
             if(list != null){
@@ -134,11 +142,6 @@ public class Album extends BaseAction implements ServletContextAware {
                     new File(sc.getRealPath("/" + i.getAddress())).delete();
                     mcd.deleteMediacontent(i);
                 }
-            }
-
-            Media m = md.getMedia(param.albumId);
-            if(m == null){
-                    return jsonResult("albumId");
             }
             md.deleteMedia(m);
             return jsonResult("ok");
@@ -152,10 +155,14 @@ public class Album extends BaseAction implements ServletContextAware {
     public String deleteMedia(){
             DeleteMediaParam param = (DeleteMediaParam) getParam(DeleteMediaParam.class);
             MediacontentDao mcd = new MediacontentDao();
+            Userinfo userinfo = (Userinfo)session("myUserinfo");
             Mediacontent m = mcd.findMediacontentbyid(param.mediaId);
             if(m == null){
                     return jsonResult("mediaId");
-            }		
+            }
+            if(m.getUid() != userinfo.getUid()){
+            	return jsonResult("mediaId");
+            }
             mcd.deleteMediacontent(m);
             return jsonResult("ok");
     }
