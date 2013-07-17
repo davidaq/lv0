@@ -47,7 +47,8 @@ public class ResortDao {
 		return te;
 		
 		
-	} 
+	}
+
 	public ArrayList<Resort> findResortLikename(String name){
 
 		
@@ -104,19 +105,38 @@ public ArrayList<Ressupplement> findResSuplementByid(int id){
 	        ArrayList<Resort> sftlist = new ArrayList();
 	        try {
 	         
-	            //String hql = "from Employee emp";// ²éÑ¯HQLÓï¾ä
-	           String HQL = "from Resort";// Ìõ¼þ²éÑ¯HQLÓï¾ä
-	            Query q = session.createQuery(HQL);// Ö´ÐÐ²éÑ¯²Ù×÷
+	            //String hql = "from Employee emp";// ï¿½ï¿½Ñ¯HQLï¿½ï¿½ï¿½
+	           String HQL = "from Resort";// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯HQLï¿½ï¿½ï¿½
+	            Query q = session.createQuery(HQL);// Ö´ï¿½Ð²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
 	            q.setFirstResult(pageSize * (pageNow - 1));
 	            q.setMaxResults(pageSize);
 	            sftlist = (ArrayList<Resort>)q.list();
 	        } catch (HibernateException e) {
 	            e.printStackTrace();
-	            System.out.println("²éÑ¯Ê§°Ü");
+	            System.out.println("ï¿½ï¿½Ñ¯Ê§ï¿½ï¿½");
 	        } finally {
-	        	HibernateSessionFactory.closeSession();// ¹Ø±Õsession
+	        	HibernateSessionFactory.closeSession();// ï¿½Ø±ï¿½session
 	        }
 	        return sftlist;
 	    }
-
+	public ArrayList<Resort> findResortLikeLabels(String labels){
+		if(labels != null){
+			labels = labels.trim();
+		}
+		Transaction tran=session.beginTransaction();
+		String hql="from Resort where labels like '%"+labels+"%'";
+		Query query =session.createQuery(hql);
+    	if(labels != null && !labels.equals("")){
+			String s[] = labels.split(" |,|.|ï¼Œ|ã€‚");
+			for(String s2 : s){
+				if(!s2.equals("")){
+					hql += " or labels like '%"+s2+"%'";
+				}
+			}
+    	}
+		ArrayList<Resort> resultStu = (ArrayList<Resort>)query.list();
+	    tran.commit();
+		return resultStu;
+			
+	} 
 }

@@ -4,6 +4,8 @@ package actions;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.hibernate.annotations.Tables;
+
 import tables.Resortremark;
 import tables.Ressupplement;
 import tables.Userinfo;
@@ -14,7 +16,7 @@ import dao.RessupplementDao;
 
 public class Resort extends BaseAction {
     
-    static final int pageSize = 3;
+    static final int pageSize = 12;
     
     static class ResortPage {
         public int page;
@@ -34,8 +36,19 @@ public class Resort extends BaseAction {
     	SearchResortByNameParam param = (SearchResortByNameParam) getParam(SearchResortByNameParam.class);
     	ResortDao rd = new ResortDao();
     	ArrayList<tables.Resort> list = rd.findResortLikename(param.searchText);
-    	
     	return jsonResult(list);
+    }
+    
+    
+    public static class FindResortByNameParam{
+    	String resortName;
+    }
+    
+    public String findResortByName(){
+    	FindResortByNameParam param = (FindResortByNameParam) getParam(FindResortByNameParam.class);
+    	ResortDao rd = new ResortDao();
+    	tables.Resort r = rd.findResortByname(param.resortName);
+    	return jsonResult(r);
     }
     
     
@@ -278,5 +291,22 @@ public class Resort extends BaseAction {
     	rrd.addResortremark(rr);
     	
     	return jsonResult("ok");
+    }
+    
+    
+    public static class FindRelatedResortParam{
+    	int resortId;
+    }
+    
+    public String findRelatedResort(){
+    	FindRelatedResortParam param = (FindRelatedResortParam) getParam(FindRelatedResortParam.class);
+    	ResortDao rd = new ResortDao();
+    	ArrayList<tables.Resort> rList = null;
+    	tables.Resort r = rd.findResortById(param.resortId);
+    	String labels = r.getResLabel();
+    	if(labels != null){
+    		rList = rd.findResortLikeLabels(labels);
+    	}
+    	return jsonResult(rList);
     }
 }
