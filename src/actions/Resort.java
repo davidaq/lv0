@@ -165,6 +165,10 @@ public class Resort extends BaseAction {
     	}
     	
     	ResortDao rd = new ResortDao();
+    	tables.Resort r = rd.findResortByname(param.resort.getResName());
+    	if(r != null){
+    		return jsonResult("resort");
+    	}
     	rd.addResort(param.resort);    	
     	return jsonResult("ok");
     }
