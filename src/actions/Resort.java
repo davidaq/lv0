@@ -161,7 +161,7 @@ public class Resort extends BaseAction {
     		return jsonResult("resLabel");
     	}
     	if(param.resort.getResState() == null || param.resort.getResState().equals("")){
-    		param.resort.setResState("待审核");
+    		param.resort.setResState("check pending");
     	}
     	
     	ResortDao rd = new ResortDao();
