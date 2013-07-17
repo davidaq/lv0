@@ -152,22 +152,20 @@ public class Resort extends BaseAction {
     	param.resort.setResortId(null);
     	
     	if(param.resort.getResName() == null || param.resort.getResName().equals("")){
-    		return jsonResult("resName");
+    		return jsonResult("resort.resName");
     	}
     	if(param.resort.getResAddress() == null || param.resort.getResAddress().equals("")){
-    		return jsonResult("resAddress");
+    		return jsonResult("resort.resAddress");
     	}
     	if(param.resort.getResLabel() == null || param.resort.getResLabel().equals("")){
-    		return jsonResult("resLabel");
+    		return jsonResult("resort.resLabel");
     	}
-    	if(param.resort.getResState() == null || param.resort.getResState().equals("")){
-    		param.resort.setResState("check pending");
-    	}
+        param.resort.setResState("check pending");
     	
     	ResortDao rd = new ResortDao();
     	tables.Resort r = rd.findResortByname(param.resort.getResName());
     	if(r != null){
-    		return jsonResult("resort");
+    		return jsonResult("resort.resName");
     	}
     	rd.addResort(param.resort);    	
     	return jsonResult("ok");
@@ -187,20 +185,16 @@ public class Resort extends BaseAction {
     	param.ressupplement.setResSupplementId(null);
     	
     	if(param.ressupplement.getResortId() == null || param.ressupplement.getResortId().equals("")){
-    		return jsonResult("ressortId");
+    		return jsonResult("ressupplement.resortId");
     	}
     	if(param.ressupplement.getResHeadline() == null || param.ressupplement.getResHeadline().equals("")){
-    		return jsonResult("resHeadline");
+    		return jsonResult("ressupplement.resHeadline");
     	}
     	if(param.ressupplement.getResContent() == null || param.ressupplement.getResContent().equals("")){
-    		return jsonResult("resContent");
+    		return jsonResult("ressupplement.resContent");
     	}
-    	if(param.ressupplement.getResAuthor() == null || param.ressupplement.getResAuthor().equals("")){
-    		return jsonResult("resAuthor");
-    	}
-    	if(param.ressupplement.getResDate() == null || param.ressupplement.getResDate().equals("")){
-    		param.ressupplement.setResDate(new Date());
-    	}
+        param.ressupplement.setResAuthor(((Userinfo) session("myUserinfo")).getUid());
+        param.ressupplement.setResDate(new Date());
     	
     	RessupplementDao rsd = new RessupplementDao();
     	rsd.addRessupplement(param.ressupplement);   	

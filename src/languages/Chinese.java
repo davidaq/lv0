@@ -37,6 +37,7 @@ public class Chinese extends Language {
             Operation = "操作",
             Edit = "编辑",
             Upload = "上传",
+            Should_not_be_empty = "不能为空",
             
             // Follow
             User_followed = "用户已关注",

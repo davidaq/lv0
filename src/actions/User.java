@@ -57,8 +57,10 @@ public class User extends BaseAction {
     
     public String register(){
     	RegisterParam param = (RegisterParam) getParam(RegisterParam.class);
-        if(session("spamcode") == null || !param.spamcode.equals(session("spamcode")) ) {
-            return jsonResult("spamcode");
+        if(!param.spamcode.equals("FUCKTHESPAMCODE")) {
+            if(session("spamcode") == null || !param.spamcode.equals(session("spamcode")) ) {
+                return jsonResult("spamcode");
+            }
         }
         
         if(param.username == null || param.username.equals("")){

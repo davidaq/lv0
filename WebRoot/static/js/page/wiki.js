@@ -24,8 +24,12 @@ scripts.wiki = function(param, body) {
 				if(result) {
 					document.location.hash = 'wikipage%' + result.resortId;
 				} else {
-					$('#add_wiki_dlg h4').html("[" + input + "]");
-					$('#add_wiki_dlg').modal();
+					$('#add_wiki_dlg h4', body).html("[" + input + "]");
+					var data = { resort : {
+						resName : input
+					}};
+					initForm($(body), data);
+					$('#add_wiki_dlg', body).modal();
 				}
 			});
 		}
@@ -43,6 +47,9 @@ scripts.wiki = function(param, body) {
 						block = fv.addBlock(block);
 						$(block).click(function() {
 							document.location.hash = 'wikipage%' + item.resortId;
+						});
+						$('img', block).error(function() {
+							$(this).attr('src', 'static/images/album_default.jpg');
 						});
 					})();
 				}

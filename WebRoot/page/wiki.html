@@ -5,7 +5,7 @@
 </div>
 <div class="template">
 	<div class="thumb-item">
-		<img src="%resPicture%" onerror="this.src = 'static/images/album_default.jpg'"/>
+		<img src="%resPicture%" />
 		<div class="title">
 			%resName%
 			<div class="extra">
@@ -17,20 +17,20 @@
 <div class="flowview">
 </div>
 
-<form class="modal hide fade" id="add_wiki_dlg" action="Resort-addResort" target="xxx">
+<form class="modal hide fade" id="add_wiki_dlg" action="Resort-addResort">
 	<div class="modal-header">
 		<button class="close" data-dismiss="modal">&times;</button>
 		<h3>景点尚未被发现，来添加吧！</h3>
 	</div>
 	<div class="modal-body">
 		<h4></h4>
-		<input type="text" name="resort.resName" title=""/>
+		<input type="hidden" name="resort.resName"/>
 		<label>景点地址:</label>
-		<input type="text" name="resort.resAddress"/>
+		<input type="text" name="resort.resAddress" data-content="%{Should_not_be_empty}"/>
 		<label>景点标签:</label>
-		<input type="text" name="resort.resLabel" placeholder="空格分隔"/>
+		<input type="text" name="resort.resLabel" placeholder="空格分隔" data-content="%{Should_not_be_empty}"/>
 		<label>景点图片:</label>
-		<input type="text" name="resort.resPicture" placeholder="http://" onchange="$(this).next('img').attr('src', $(this).val())"/>
+		<input type="text" name="resort.resPicture" placeholder="http://" onchange="$(this).next('img').attr('src', $(this).val())" data-content="%{Should_not_be_empty}"/>
 		<img src="static/images/album_default.jpg" style="position: absolute; right: 10px; top: 80px; width: 300px; height: 150px;" onerror="this.src = 'static/images/album_default.jpg'"/>
 	</div>
 	<div class="modal-footer">

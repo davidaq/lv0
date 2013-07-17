@@ -122,18 +122,43 @@ function request(url, send, action, type) {
     return new RetryAjax(url, send, method, action);
 }
 function initForm(body, data) {
+	function access(set, path, value) {
+		var tmp = set, ret;
+		var key;
+		path = path.split('.');
+		for(key in path) {
+			key = path[key];
+			if(!tmp[key]) {
+				if(value)
+					tmp[key] = {};
+				else
+					return;
+			}
+			ret = tmp;
+			tmp = tmp[key];
+		}
+		if(value !== undefined) {
+			ret[key] = value;
+		}
+		return ret[key];
+	}
 	var popedOver = [];
 	$('form', body).each(function() {
 		var form = $(this)[0];
 		if(data) {
 			$('input, textarea').each(function() {
 				var name = $(this).attr('name');
-				if(data[name]) {
-					if($(this).attr('type') == 'checkbox') {
+				if(!name)
+					return;
+				var val = access(data, name);
+				var type = $(this).attr('type');
+				if(val) {
+					if(type == 'checkbox') {
 						$(this).attr('checked', true);
 					} else
-						$(this).val(data[name]);
-				}
+						$(this).val(val);
+				} else if(type != 'submit' && type == 'checkbox')
+					$(this).val('');
 			});
 		}
 		if($(this).hasClass('inited'))
@@ -162,22 +187,6 @@ function initForm(body, data) {
 			form.onsubmit = function() {
 				var rawData = $(form).serializeArray();
 				var send = {};
-				function access(set, path, value) {
-					var tmp = set, ret;
-					var key;
-					path = path.split('.');
-					for(key in path) {
-						key = path[key];
-						if(!tmp[key])
-							tmp[key] = {};
-						ret = tmp;
-						tmp = tmp[key];
-					}
-					if(value !== undefined) {
-						ret[key] = value;
-					}
-					return tmp;
-				}
 				for(k in rawData) {
 					var key = rawData[k].name;
 					if(key.substr(-2) == '[]') {
