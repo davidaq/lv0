@@ -1,3 +1,4 @@
+var undefined;
 
 function getCookie(c_name) {
 	var c_value = document.cookie;
@@ -161,15 +162,31 @@ function initForm(body, data) {
 			form.onsubmit = function() {
 				var rawData = $(form).serializeArray();
 				var send = {};
+				function access(set, path, value) {
+					var tmp = set, ret;
+					var key;
+					path = path.split('.');
+					for(key in path) {
+						key = path[key];
+						if(!tmp[key])
+							tmp[key] = {};
+						ret = tmp;
+						tmp = tmp[key];
+					}
+					if(value !== undefined) {
+						ret[key] = value;
+					}
+					return tmp;
+				}
 				for(k in rawData) {
 					var key = rawData[k].name;
 					if(key.substr(-2) == '[]') {
 						key = key.substr(0, key.length - 2);
-						if(!send[key])
-							send[key] = [];
-						send[key].push(rawData[k].value);
+						if(!access(send, key))
+							access(send, key, []);
+						access(send, key).push(rawData[k].value);
 					} else
-						send[key] = rawData[k].value;
+						access(send, key, rawData[k].value);
 				}
 				console.log(send);
 				for(k in popedOver) {
