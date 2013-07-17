@@ -59,14 +59,14 @@ public class Album extends BaseAction implements ServletContextAware {
 
 
     public static class EditAlbumParam{
-            int albumId;
+            int mediaId;
             String mediaName;
             String mediaCover;
     }
 
     public String editAlbum(){
             EditAlbumParam param = (EditAlbumParam) getParam(EditAlbumParam.class);
-            Media m = null;
+            Media m;
 
 
             if (param.mediaName == null || param.mediaName.equals("")){
@@ -77,13 +77,13 @@ public class Album extends BaseAction implements ServletContextAware {
             }
 
             MediaDao md = new MediaDao();
-            m = md.getMedia(param.albumId);
+            m = md.getMedia(param.mediaId);
             if (m == null){
                     return jsonResult("albumId");
             }
-
             m.setMediaName(param.mediaName);
             m.setMediaCover(param.mediaCover);
+            md.updateMedia(m);
             return jsonResult("ok");
     }
 

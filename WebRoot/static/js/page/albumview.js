@@ -20,11 +20,20 @@ scripts.albumview = function(param, body) {
 					var block = inflate($('.template', body), item);
 					block = fv.addBlock(block);
 					$('img', block).error(function() {
-						$(this).attr('src', item.address);
+						if($(this).attr('src') != item.address)
+							$(this).attr('src', item.address);
 					}).click(function() {
 						$('#media-detail img').attr('src', item.address);
 						$('#media-detail .extra').html(item.mediaAbstract + '<br/><a href="' + item.address + '" target="displayImage">' + L('Full_image') + '</a>');
 						$('#media-detail').modal();
+					});
+					$('button', block).click(function() {
+						requestApi('album-deleteMedia', {"mediaId" : item.mediaContentId}, function(result) {
+							if(result == 'ok')
+								$(block).fadeOut(200, function() {
+									$(this).show().css('visibility', 'hidden');
+								})
+						});
 					});
 				})();
 			}

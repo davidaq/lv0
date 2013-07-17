@@ -76,6 +76,7 @@ public class Chinese extends Language {
             Album_cover = "媒体集封面",
             Description = "说明",
             Title = "标题",
+            Full_image = "全图",
             
             // Home tabs
             Hot_Focus = "热门关注",

@@ -99,8 +99,8 @@ function request(url, send, action, type) {
 				}
 			},
 			error : function(e,m){
-				me.ajax = false;
 				if(me.retry-- > 0) {
+					me.ajax = false;
 					me.delay = setTimeout(function() {
 						me.intent();
 					}, 1000);
@@ -140,7 +140,8 @@ function initForm(body, data) {
 		if($(form).attr('enctype') == 'multipart/form-data') {
 			$(form).attr('method', 'post');
 			var fname = 'form' + new Date().getTime();
-			var frame = '<iframe name="' + fname +'"></iframe>';
+			var frame = '<iframe name="' + fname +'" src="about:blank"></iframe>';
+			var isSubmit = false;
 			$(frame).appendTo(body).attr('name', fname).css({
 				position: 'fixed',
 				top: 0,
@@ -149,8 +150,12 @@ function initForm(body, data) {
 				height: '1px',
 				boder: 'none'
 			})[0].onload = function() {
-				refresh();
+				if(isSubmit)
+					refresh();
 			};
+			setTimeout(function() {
+				isSubmit = true;
+			}, 1000);
 			$(form).attr('target', fname);
 		} else {
 			form.onsubmit = function() {
@@ -166,6 +171,7 @@ function initForm(body, data) {
 					} else
 						send[key] = rawData[k].value;
 				}
+				console.log(send);
 				for(k in popedOver) {
 					popedOver[k].popover('destroy');
 				}
