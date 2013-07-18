@@ -9,6 +9,7 @@ import org.hibernate.Transaction;
 
 import tables.Media;
 import tables.Mediacontent;
+import tables.Userinfo;
 
 public class MediaDao {
     Session session=HibernateSessionFactory.currentSession();
@@ -111,4 +112,22 @@ public ArrayList<Media>getMediaByUid(int uid){
             return sftlist;
         }
 
+     public ArrayList<Media> getMediasByUserIds(int userIds[]){
+		String hql = "from Media where";
+		
+		if(userIds.length > 0){
+			hql += " uId=" + userIds[0];
+		}
+		if(userIds.length > 1){
+			for(int i = 1; i < userIds.length; i++){
+				hql += " or uId=" + userIds[i];
+			}
+		}
+		Transaction tran=session.beginTransaction();
+		Query query =session.createQuery(hql);
+		ArrayList<Media> result1 = (ArrayList<Media>)query.list();
+		tran.commit();
+    	 
+    	return result1;
+     }
 }
