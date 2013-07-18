@@ -113,14 +113,16 @@ public ArrayList<Media>getMediaByUid(int uid){
         }
 
      public ArrayList<Media> getMediasByUserIds(int userIds[]){
+    	MediacontentDao mcd = new MediacontentDao();
+    	ArrayList<Mediacontent> mcList = mcd.getMediasByUserIds(userIds);
+    	
 		String hql = "from Media where";
-		
-		if(userIds.length > 0){
-			hql += " uId=" + userIds[0];
+		if(mcList.size() > 0){
+			hql += " mediaId=" + mcList.get(0).getMediaId();
 		}
-		if(userIds.length > 1){
-			for(int i = 1; i < userIds.length; i++){
-				hql += " or uId=" + userIds[i];
+		if(mcList.size() > 1){
+			for(int i = 1; i < mcList.size(); i++){
+				hql += " or mediaId=" + mcList.get(i).getMediaId();
 			}
 		}
 		Transaction tran=session.beginTransaction();
