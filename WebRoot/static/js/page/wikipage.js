@@ -16,13 +16,34 @@ scripts.wikipage = function(param, body) {
 				(function() {
 					var item = result[k];
 					var content = inflate($('.template', body), item);
-					$('.wikipage', body).append(content);
+					content = $(content).appendTo($('.wikipage', body));
+					content.find('button.del').click(function() {
+						requestApi('resort-deleteRessupplement', {resSupplementId : item.resSupplementId}, function(result) {
+							if(result == 'ok') {
+								content.slideUp(300, function() {
+									$(this).remove();
+								});
+							}
+						});
+					});
+					content.find('button.edit').click(function() {
+						$('#wiki_editor').attr('action', 'Resort-editResspupplement');
+						initForm(body, {ressupplement : {
+							resortId : param,
+							resSupplementId : item.resSupplementId,
+							resHeadline : item.resHeadline,
+							resContent : item.resContent
+						}});
+						if(editor)
+							editor.html(item.resContent);
+						$('#wiki_editor').modal();
+					});
 				})();
 			}
 		});
 	});
 	//$('#textarea#wiki_content')
-	KindEditor.create('textarea#wiki_content', {
+	var editor = KindEditor.create('textarea#wiki_content', {
 		width : '100%',
 		allowImageUpload : false,
 		resizable : false,

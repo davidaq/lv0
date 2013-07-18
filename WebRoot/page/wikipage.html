@@ -2,7 +2,7 @@
 <div class="template">
 	<div class="plain-page">
 		<h2>%resHeadline%
-			<div class="btn-group"><button class="btn">%{Edit}</button><button class="btn">%{Delete}</button></div>
+			<div class="btn-group"><button class="btn edit">%{Edit}</button><button class="btn del">%{Delete}</button></div>
 		</h2>
 		<div>
 			%resContent%
@@ -27,6 +27,7 @@
 	</div>
 	<div class="modal-body">
 		<input type="hidden" name="ressupplement.resortId"/>
+		<input type="hidden" name="ressupplement.resSupplementId"/>
 		<input type="text" placeholder="%{Title}" name="ressupplement.resHeadline" data-content="%{Should_not_be_empty}"/>
 		<textarea id="wiki_content" name="ressupplement.resContent" data-content="%{Should_not_be_empty}"></textarea>
 	</div>

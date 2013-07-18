@@ -204,6 +204,7 @@ function initForm(body, data) {
 				popedOver = [];
 				$('input, textarea', form).css('border-color', '');
 				requestApi(form.action, send, function(result) {
+					console.log(result);
 					if(result == 'ok') {
 						if(form.target) {
 							document.location.hash = form.target;

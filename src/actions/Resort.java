@@ -112,29 +112,27 @@ public class Resort extends BaseAction {
     
     
     public static class EditResspupplementParam{
-    	int resSupplementId;
-    	String resHeadline;	
-    	String resContent;
+    	Ressupplement ressupplement;
     }
     
     public String editResspupplement(){
     	EditResspupplementParam param = (EditResspupplementParam) getParam(EditResspupplementParam.class);
-    	if (param.resHeadline == null || param.resHeadline.equals("")){
+    	if (param.ressupplement.getResHeadline() == null || param.ressupplement.getResHeadline().equals("")){
     		return jsonResult("resHeadline");
     	}
-    	if (param.resContent == null || param.resContent.equals("")){
+    	if (param.ressupplement.getResContent() == null || param.ressupplement.getResContent().equals("")){
     		return jsonResult("resContent");
     	}
     	
     	RessupplementDao rsd = new RessupplementDao();
     	Ressupplement rs = null;
-    	rs = rsd.findRessupplementbyid(param.resSupplementId);
+    	rs = rsd.findRessupplementbyid(param.ressupplement.getResSupplementId());
     	if (rs == null){
     		return jsonResult("resSupplementId");
     	}
     	
-    	rs.setResHeadline(param.resHeadline);
-    	rs.setResContent(param.resContent);
+    	rs.setResHeadline(param.ressupplement.getResHeadline());
+    	rs.setResContent(param.ressupplement.getResContent());
     	return jsonResult("ok");
     }
     
