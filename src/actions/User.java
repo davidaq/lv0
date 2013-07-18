@@ -6,7 +6,8 @@ import java.util.Date;
 import tables.Userinfo;
 
 public class User extends BaseAction {
-    
+    String defaultPortrait = "http://img.moegirl.org/thumb/b/b7/Transparent_Akkarin.jpg/250px-Transparent_Akkarin.jpg";
+	
     public static class LoginParam {
         String username;
         String password;
@@ -39,7 +40,7 @@ public class User extends BaseAction {
         
         if(ui.getUpassword().equals(MD5Util.MD5(param.password))){
             if(ui.getUportrait() == null || ui.getUportrait().trim().equals("")){
-            	ui.setUportrait("http://t2.baidu.com/it/u=309108254,977696858&fm=11&gp=0.jpg");
+            	ui.setUportrait(defaultPortrait);
             }
         	session("myUserinfo",ui);
         	ui.setUstate(new Date());
@@ -97,7 +98,7 @@ public class User extends BaseAction {
         ui = ud.findUserinfoByname(param.username);
         ui.setUstate(new Date());
         if(ui.getUportrait() == null || ui.getUportrait().trim().equals("")){
-        	ui.setUportrait("http://t2.baidu.com/it/u=309108254,977696858&fm=11&gp=0.jpg");
+        	ui.setUportrait(defaultPortrait);
         }
         ud.updateUserinfo(ui);
         session("myUserinfo",ui);
@@ -144,7 +145,7 @@ public class User extends BaseAction {
             UserinfoDao ud = new UserinfoDao();
             ud.updateUserinfo(ui);
             if(ui.getUportrait() == null || ui.getUportrait().trim().equals("")){
-                    ui.setUportrait("http://t2.baidu.com/it/u=309108254,977696858&fm=11&gp=0.jpg");
+            	ui.setUportrait(defaultPortrait);
             }
         }
     	return jsonResult(ui);
@@ -159,8 +160,8 @@ public class User extends BaseAction {
     	GetUserinfoByUidParam param = (GetUserinfoByUidParam) getParam(GetUserinfoByUidParam.class);
     	UserinfoDao uDao = new UserinfoDao();
     	Userinfo ui = uDao.findUserinfoByid(param.userId);
-        if(ui.getUportrait() == null || ui.getUportrait().equals("")){
-        	ui.setUportrait("http://t2.baidu.com/it/u=309108254,977696858&fm=11&gp=0.jpg");
+        if(ui.getUportrait() == null || ui.getUportrait().trim().equals("")){
+        	ui.setUportrait(defaultPortrait);
         }
     	return jsonResult(ui);
     }
@@ -173,11 +174,11 @@ public class User extends BaseAction {
     public String getUsernameByUid(){
     	GetUsernameByUidParam param = (GetUsernameByUidParam) getParam(GetUsernameByUidParam.class);
     	UserinfoDao ud = new UserinfoDao();
-    	Userinfo u = ud.findUserinfoByid(param.userId);
-        if(u.getUportrait() == null || u.getUportrait().equals("")){
-        	u.setUportrait("http://t2.baidu.com/it/u=309108254,977696858&fm=11&gp=0.jpg");
+    	Userinfo ui = ud.findUserinfoByid(param.userId);
+        if(ui.getUportrait() == null || ui.getUportrait().trim().equals("")){
+        	ui.setUportrait(defaultPortrait);
         }
-    	return jsonResult(u.getUname());
+    	return jsonResult(ui.getUname());
     }
     
     
@@ -194,9 +195,9 @@ public class User extends BaseAction {
     	if(ui == null){
     		return jsonResult("username");
     	}
-    	if(param.username == null || param.username.equals("")){
-    		return jsonResult("username");
-    	}
+        if(ui.getUportrait() == null || ui.getUportrait().trim().equals("")){
+        	ui.setUportrait(defaultPortrait);
+        }
     	
     	ui.setUname(param.username);
         ui.setUmail(param.email);
@@ -270,8 +271,8 @@ public class User extends BaseAction {
     		return jsonResult("uid");
     	}
     	String portrait = ui.getUportrait();
-        if(portrait == null || portrait.equals("")){
-        	portrait = "http://t2.baidu.com/it/u=309108254,977696858&fm=11&gp=0.jpg";
+        if(ui.getUportrait() == null || ui.getUportrait().trim().equals("")){
+        	ui.setUportrait(defaultPortrait);
         }
     	return jsonResult(portrait);
     }
