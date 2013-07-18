@@ -25,7 +25,8 @@
 		<button class="close" data-dismiss="modal">&times;</button>
 		<h3></h3>
 	</div>
-	<form class="modal-body">
+	<form class="modal-body" action="Album-editAlbum">
+		<input type="hidden" name="mediaId"/>
 		<label>%{Album_title} : </label>
 		<input type="text" name="mediaName"/>
 		
@@ -36,7 +37,7 @@
 		<button class="btn btn-danger" id="del">%{Delete}</button>
 		&nbsp;&nbsp;&nbsp;&nbsp;
 		<div class="btn-group">
-			<button class="btn btn-primary" data-dismiss="modal" id="ok">%{Save}</button>
+			<button class="btn btn-primary" id="ok">%{Save}</button>
 			<button class="btn" data-dismiss="modal">%{Cancel}</button>
 		</div>
 	</div>

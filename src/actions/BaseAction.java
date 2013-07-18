@@ -20,6 +20,8 @@ public class BaseAction extends ActionSupport {
         this.callback = callback;
     }
     
+    public void setD(String d) {}
+    
     public final void setParam(String param) {
         this.param = param;
     }

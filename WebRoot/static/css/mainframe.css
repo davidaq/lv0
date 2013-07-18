@@ -104,6 +104,16 @@ a:hover {
   left: 0;
   right: 0;
   background: rgba(0, 0, 0, 0.5); }
+  .foot .counter {
+    display: inline-block;
+    padding: 5px;
+    border-radius: 5px;
+    color: #000;
+    background: #FFF;
+    text-shadow: none;
+    line-height: 10px;
+    font-size: 12px;
+    margin-left: 5px; }
   .foot ul li {
     cursor: pointer;
     background: rgba(0, 0, 0, 0.7); }
@@ -254,17 +264,33 @@ a:hover {
     .flowview-wrap .flowview .block.big {
       height: 410px; }
 
-.wikipage .basic {
+.wikipage {
   overflow: hidden; }
-  .wikipage .basic img.thumb {
-    max-width: 200px;
-    max-height: 200px;
-    margin-right: 20px;
-    margin-bottom: 10px;
-    box-shadow: #000 2px 2px 5px;
-    float: left; }
-  .wikipage .basic h1 button, .wikipage .basic h2 button, .wikipage .basic h3 button, .wikipage .basic h4 button, .wikipage .basic h5 button {
-    float: right; }
+  .wikipage .plain-page {
+    float: right;
+    width: 64%;
+    margin: 0; }
+    .wikipage .plain-page.basic-wrap {
+      float: left;
+      width: 24%;
+      margin-right: 20px;
+      margin-bottom: 10px; }
+      .wikipage .plain-page.basic-wrap .btn-group {
+        text-align: center;
+        display: block; }
+      .wikipage .plain-page.basic-wrap .basic p {
+        padding-left: 5%; }
+      .wikipage .plain-page.basic-wrap .basic img.thumb {
+        max-width: 95%;
+        max-height: 300px;
+        box-shadow: #000 2px 2px 5px;
+        display: block;
+        margin: 0 auto;
+        margin-bottom: 10px; }
+  .wikipage h1, .wikipage h2, .wikipage h3, .wikipage h4, .wikipage h5 {
+    border-bottom: 1px solid #AAA; }
+    .wikipage h1 .btn-group, .wikipage h2 .btn-group, .wikipage h3 .btn-group, .wikipage h4 .btn-group, .wikipage h5 .btn-group {
+      float: right; }
 
 .search {
   position: absolute;

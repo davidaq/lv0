@@ -114,29 +114,27 @@ public class Resort extends BaseAction {
     
     
     public static class EditResspupplementParam{
-    	int resSupplementId;
-    	String resHeadline;	
-    	String resContent;
+    	Ressupplement ressupplement;
     }
     
     public String editResspupplement(){
     	EditResspupplementParam param = (EditResspupplementParam) getParam(EditResspupplementParam.class);
-    	if (param.resHeadline == null || param.resHeadline.equals("")){
+    	if (param.ressupplement.getResHeadline() == null || param.ressupplement.getResHeadline().equals("")){
     		return jsonResult("resHeadline");
     	}
-    	if (param.resContent == null || param.resContent.equals("")){
+    	if (param.ressupplement.getResContent() == null || param.ressupplement.getResContent().equals("")){
     		return jsonResult("resContent");
     	}
     	
     	RessupplementDao rsd = new RessupplementDao();
     	Ressupplement rs = null;
-    	rs = rsd.findRessupplementbyid(param.resSupplementId);
+    	rs = rsd.findRessupplementbyid(param.ressupplement.getResSupplementId());
     	if (rs == null){
     		return jsonResult("resSupplementId");
     	}
     	
-    	rs.setResHeadline(param.resHeadline);
-    	rs.setResContent(param.resContent);
+    	rs.setResHeadline(param.ressupplement.getResHeadline());
+    	rs.setResContent(param.ressupplement.getResContent());
     	rsd.updateRessupplement(rs);
     	return jsonResult("ok");
     }
@@ -155,22 +153,20 @@ public class Resort extends BaseAction {
     	param.resort.setResortId(null);
     	
     	if(param.resort.getResName() == null || param.resort.getResName().equals("")){
-    		return jsonResult("resName");
+    		return jsonResult("resort.resName");
     	}
     	if(param.resort.getResAddress() == null || param.resort.getResAddress().equals("")){
-    		return jsonResult("resAddress");
+    		return jsonResult("resort.resAddress");
     	}
     	if(param.resort.getResLabel() == null || param.resort.getResLabel().equals("")){
-    		return jsonResult("resLabel");
+    		return jsonResult("resort.resLabel");
     	}
-    	if(param.resort.getResState() == null || param.resort.getResState().equals("")){
-    		param.resort.setResState("check pending");
-    	}
+        param.resort.setResState("check pending");
     	
     	ResortDao rd = new ResortDao();
     	tables.Resort r = rd.findResortByname(param.resort.getResName());
     	if(r != null){
-    		return jsonResult("resort");
+    		return jsonResult("resort.resName");
     	}
     	rd.addResort(param.resort);    	
     	return jsonResult("ok");
@@ -190,20 +186,16 @@ public class Resort extends BaseAction {
     	param.ressupplement.setResSupplementId(null);
     	
     	if(param.ressupplement.getResortId() == null || param.ressupplement.getResortId().equals("")){
-    		return jsonResult("ressortId");
+    		return jsonResult("ressupplement.resortId");
     	}
     	if(param.ressupplement.getResHeadline() == null || param.ressupplement.getResHeadline().equals("")){
-    		return jsonResult("resHeadline");
+    		return jsonResult("ressupplement.resHeadline");
     	}
     	if(param.ressupplement.getResContent() == null || param.ressupplement.getResContent().equals("")){
-    		return jsonResult("resContent");
+    		return jsonResult("ressupplement.resContent");
     	}
-    	if(param.ressupplement.getResAuthor() == null || param.ressupplement.getResAuthor().equals("")){
-    		return jsonResult("resAuthor");
-    	}
-    	if(param.ressupplement.getResDate() == null || param.ressupplement.getResDate().equals("")){
-    		param.ressupplement.setResDate(new Date());
-    	}
+        param.ressupplement.setResAuthor(((Userinfo) session("myUserinfo")).getUid());
+        param.ressupplement.setResDate(new Date());
     	
     	RessupplementDao rsd = new RessupplementDao();
     	rsd.addRessupplement(param.ressupplement);   	

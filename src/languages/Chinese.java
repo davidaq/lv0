@@ -37,6 +37,7 @@ public class Chinese extends Language {
             Operation = "操作",
             Edit = "编辑",
             Upload = "上传",
+            Should_not_be_empty = "不能为空",
             
             // Follow
             User_followed = "用户已关注",
@@ -76,6 +77,7 @@ public class Chinese extends Language {
             Album_cover = "媒体集封面",
             Description = "说明",
             Title = "标题",
+            Full_image = "全图",
             
             // Home tabs
             Hot_Focus = "热门关注",

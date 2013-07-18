@@ -81,7 +81,6 @@ public class GoodDao {
 		Transaction tran=session.beginTransaction();
 		String strSql="select t, (select count(*) from Good g where g.tourLogId = t.tourLogId and g.date > '"+startDate+"' group by g.tourLogId) as _good from Tourlog t order by _good desc";
 		Query query=session.createQuery(strSql);
-                System.out.println(query.getQueryString());
 		query.setFirstResult(0);
 		query.setMaxResults(10);
 		

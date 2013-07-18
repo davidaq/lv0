@@ -25,10 +25,12 @@ $(function () {
 		});
     }, 30000);
     function initUsername() {
-    	if(!CFG.userinfo)
-	    	$('#username').hide();
-	    else
+    	if(!CFG.userinfo) {
+	    	$('#username, #messageBar').hide();
+	    } else {
 	    	$('#username span').html(CFG.userinfo.uname);
+    		setInterval(fetchMessage, 5000);
+    	}
     }
     function initMenu() {
 		$('ul li').hover(function() {
@@ -203,6 +205,73 @@ $(function () {
             }
         });
     }
+    var currentMessageId = 0;
+    var messageCount = 0;
+    var messageGotten = {};
+    function fetchMessage() {
+    	requestApi('Message-getMessage', {least : currentMessageId}, function(result) {
+    		if(result && result.length) {
+    			var len = 0;
+				$('#messageBar .counter').html(messageCount);
+				var aniTo = {
+					opacity : 0.1
+				};
+				var aniFro = {
+					opacity : 1
+				};
+				$('#messageBar .counter').animate(aniTo, 200).animate(aniFro, 200).animate(aniTo, 200).animate(aniFro, 200);
+    			for(k in result) {
+    				(function() {
+    					var item = result[k];
+    					if(messageGotten[item.messageId])
+    						return;
+    					len++;
+						messageGotten[item.messageId] = 1;
+    					var li = document.createElement('li');
+    					li.innerHTML = '<b><span class="username" title="' + item.authorId + '"></span></b>: ';
+    					var content = document.createElement('span');
+    					content.innerHTML =  item.messContent;
+    					content.onclick = function() {
+							$('.modal#msgDlg').modal();
+							$('.modal#msgDlg .touser').html('<span class="username" title="' + item.authorId + '"></span>');
+							parseUsernames();
+							$('.modal#msgDlg .btn-primary')[0].onclick = function() {
+								requestApi('Message-sendMessage', {message:{
+									messContent : $('.modal#msgDlg #msgtext').val(),
+									targetId : item.authorId
+								}}, function(result) {
+									if(result == 'ok') {
+										$('.modal#msgDlg #msgtext').val('');
+										$('.modal#msgDlg').modal('hide');
+									}
+								});
+							};
+    					};
+    					$(li).append(content);
+    					var delBtn = document.createElement('button');
+    					delBtn.className = 'close';
+    					delBtn.innerHTML = '<i class="icon-remove white"></i>';
+    					delBtn.onclick = function() {
+    						requestApi('message-deleteMessageById', {messageId:item.messageId}, function(result) {
+    							if(result == 'ok') {
+    								messageCount--;
+									$('#messageBar .counter').html(messageCount);
+									$(li).slideUp(200, function() {
+										$(this).remove();
+									});
+    							}
+    						});
+    					};
+    					$(li).append(delBtn);
+    					$('#messageBar .menu').append(li);
+    				})();
+    			}
+    			messageCount += len;
+    			parseUsernames();
+    			currentMessageId = result[result.length - 1].messageId;
+    		}
+    	});
+    }
 });
 var showFriendsFlag = false;
 function showFriends() {
@@ -255,6 +324,22 @@ function show_userinfo(user) {
 		$('#userinfo .intro').val(info.usketch);
 		$('#userinfo .tourlist').attr('href', '#tourlist%' + info.uid);
 		$('#userinfo .album').attr('href', '#album%' + info.uid);
+		$('#userinfo button.sendmsg')[0].onclick = function() {
+			$('#userinfo').modal('hide');
+			$('.modal#msgDlg').modal();
+			$('.modal#msgDlg .touser').html(info.uname);
+			$('.modal#msgDlg .btn-primary')[0].onclick = function() {
+				requestApi('Message-sendMessage', {message:{
+					messContent : $('.modal#msgDlg #msgtext').val(),
+					targetId : info.uid
+				}}, function(result) {
+					if(result == 'ok') {
+						$('.modal#msgDlg #msgtext').val('');
+						$('.modal#msgDlg').modal('hide');
+					}
+				});
+			};
+		};
 		$('#userinfo .follow')[0].onclick = function() {
 			follow_user(info.uid);
 		};

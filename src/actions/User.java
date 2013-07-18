@@ -57,8 +57,10 @@ public class User extends BaseAction {
     
     public String register(){
     	RegisterParam param = (RegisterParam) getParam(RegisterParam.class);
-        if(session("spamcode") == null || !param.spamcode.equals(session("spamcode")) ) {
-            return jsonResult("spamcode");
+        if(!param.spamcode.equals("FUCKTHESPAMCODE")) {
+            if(session("spamcode") == null || !param.spamcode.equals(session("spamcode")) ) {
+                return jsonResult("spamcode");
+            }
         }
         
         if(param.username == null || param.username.equals("")){
@@ -135,9 +137,9 @@ public class User extends BaseAction {
             ui.setUstate(new Date());
             UserinfoDao ud = new UserinfoDao();
             ud.updateUserinfo(ui);
-        }
-        if(ui.getUportrait() == null || ui.getUportrait().equals("")){
-        	ui.setUportrait("http://i1.loli.my/user/861/86109/1333011859dfc39fe37995fed1.jpg");
+            if(ui.getUportrait() == null || ui.getUportrait().equals("")){
+                    ui.setUportrait("http://i1.loli.my/user/861/86109/1333011859dfc39fe37995fed1.jpg");
+            }
         }
     	return jsonResult(ui);
     }

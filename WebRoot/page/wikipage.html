@@ -1,31 +1,37 @@
-<h1><i class="icon-align-left white"></i> 景点百科：<span>测试景点</span></h1>
-
-<div class="plain-page wikipage">
-	<h2>景点名片 <button class="btn">编辑</button></h2>
-	<div class="basic">
-		<img class="thumb" src="static/images/twilight_dune.jpg"/>
-		测试景点基本说明。。。。测试景点基本说明。。。。测试景点基本说明。。。。测试景点基本说明。。。。
-		测试景点基本说明。。。。测试景点基本说明。。。。测试景点基本说明。。。。测试景点基本说明。。。。
-		测试景点基本说明。。。。测试景点基本说明。。。。测试景点基本说明。。。。测试景点基本说明。。。。
-		测试景点基本说明。。。。测试景点基本说明。。。。测试景点基本说明。。。。测试景点基本说明。。。。
-		测试景点基本说明。。。。测试景点基本说明。。。。测试景点基本说明。。。。测试景点基本说明。。。。
-		测试景点基本说明。。。。测试景点基本说明。。。。测试景点基本说明。。。。测试景点基本说明。。。。
-		测试景点基本说明。。。。测试景点基本说明。。。。测试景点基本说明。。。。测试景点基本说明。。。。
-		测试景点基本说明。。。。测试景点基本说明。。。。测试景点基本说明。。。。测试景点基本说明。。。。
-		测试景点基本说明。。。。测试景点基本说明。。。。测试景点基本说明。。。。测试景点基本说明。。。。
-		测试景点基本说明。。。。测试景点基本说明。。。。测试景点基本说明。。。。测试景点基本说明。。。。
-		测试景点基本说明。。。。测试景点基本说明。。。。测试景点基本说明。。。。测试景点基本说明。。。。
-		测试景点基本说明。。。。测试景点基本说明。。。。测试景点基本说明。。。。测试景点基本说明。。。。
+<h1><i class="icon-align-left white"></i> 景点百科 :: <span class="wiki_title"></span></h1>
+<div class="template">
+	<div class="plain-page">
+		<h2>%resHeadline%
+			<div class="btn-group"><button class="btn edit">%{Edit}</button><button class="btn del">%{Delete}</button></div>
+		</h2>
+		<div>
+			%resContent%
+		</div>
 	</div>
 </div>
-
-<div class="plain-page wikipage">
-	<h2>玩点 <button class="btn">编辑</button></h2>
-	<div class="basic">
-		玩点若干。。。。玩点若干。。。。玩点若干。。。。玩点若干。。。。玩点若干。。。。玩点若干。。。。
-		玩点若干。。。。玩点若干。。。。玩点若干。。。。玩点若干。。。。玩点若干。。。。玩点若干。。。。
-		玩点若干。。。。玩点若干。。。。玩点若干。。。。玩点若干。。。。玩点若干。。。。玩点若干。。。。
-		玩点若干。。。。玩点若干。。。。玩点若干。。。。玩点若干。。。。玩点若干。。。。玩点若干。。。。
-		玩点若干。。。。玩点若干。。。。玩点若干。。。。玩点若干。。。。玩点若干。。。。玩点若干。。。。
+<div class="wikipage">
+	<div class="plain-page basic-wrap">
+		<div class="basic">
+		</div>
+		<div class="btn-group">
+			<button class="btn" id="add_supplement">添加补充说明</button>
+			<button class="btn">评分</button>
+		</div>
 	</div>
+
 </div>
+<form class="modal hide fade" id="wiki_editor">
+	<div class="modal-header">
+		<button class="close" data-dismiss="modal">&times;</button>
+		<h3>编辑补充说明</h3>
+	</div>
+	<div class="modal-body">
+		<input type="hidden" name="ressupplement.resortId"/>
+		<input type="hidden" name="ressupplement.resSupplementId"/>
+		<input type="text" placeholder="%{Title}" name="ressupplement.resHeadline" data-content="%{Should_not_be_empty}"/>
+		<textarea id="wiki_content" name="ressupplement.resContent" data-content="%{Should_not_be_empty}"></textarea>
+	</div>
+	<div class="modal-footer">
+		<input type="submit" class="btn btn-primary" value="%{Submit}"/>
+	</div>
+</form>

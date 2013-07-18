@@ -1,3 +1,4 @@
+var undefined;
 
 function getCookie(c_name) {
 	var c_value = document.cookie;
@@ -99,8 +100,8 @@ function request(url, send, action, type) {
 				}
 			},
 			error : function(e,m){
-				me.ajax = false;
 				if(me.retry-- > 0) {
+					me.ajax = false;
 					me.delay = setTimeout(function() {
 						me.intent();
 					}, 1000);
@@ -121,18 +122,43 @@ function request(url, send, action, type) {
     return new RetryAjax(url, send, method, action);
 }
 function initForm(body, data) {
+	function access(set, path, value) {
+		var tmp = set, ret;
+		var key;
+		path = path.split('.');
+		for(key in path) {
+			key = path[key];
+			if(!tmp[key]) {
+				if(value)
+					tmp[key] = {};
+				else
+					return;
+			}
+			ret = tmp;
+			tmp = tmp[key];
+		}
+		if(value !== undefined) {
+			ret[key] = value;
+		}
+		return ret[key];
+	}
 	var popedOver = [];
 	$('form', body).each(function() {
 		var form = $(this)[0];
 		if(data) {
 			$('input, textarea').each(function() {
 				var name = $(this).attr('name');
-				if(data[name]) {
-					if($(this).attr('type') == 'checkbox') {
+				if(!name)
+					return;
+				var val = access(data, name);
+				var type = $(this).attr('type');
+				if(val) {
+					if(type == 'checkbox') {
 						$(this).attr('checked', true);
 					} else
-						$(this).val(data[name]);
-				}
+						$(this).val(val);
+				} else if(type != 'submit' && type == 'checkbox')
+					$(this).val('');
 			});
 		}
 		if($(this).hasClass('inited'))
@@ -140,7 +166,8 @@ function initForm(body, data) {
 		if($(form).attr('enctype') == 'multipart/form-data') {
 			$(form).attr('method', 'post');
 			var fname = 'form' + new Date().getTime();
-			var frame = '<iframe name="' + fname +'"></iframe>';
+			var frame = '<iframe name="' + fname +'" src="about:blank"></iframe>';
+			var isSubmit = false;
 			$(frame).appendTo(body).attr('name', fname).css({
 				position: 'fixed',
 				top: 0,
@@ -149,8 +176,12 @@ function initForm(body, data) {
 				height: '1px',
 				boder: 'none'
 			})[0].onload = function() {
-				refresh();
+				if(isSubmit)
+					refresh();
 			};
+			setTimeout(function() {
+				isSubmit = true;
+			}, 1000);
 			$(form).attr('target', fname);
 		} else {
 			form.onsubmit = function() {
@@ -160,11 +191,11 @@ function initForm(body, data) {
 					var key = rawData[k].name;
 					if(key.substr(-2) == '[]') {
 						key = key.substr(0, key.length - 2);
-						if(!send[key])
-							send[key] = [];
-						send[key].push(rawData[k].value);
+						if(!access(send, key))
+							access(send, key, []);
+						access(send, key).push(rawData[k].value);
 					} else
-						send[key] = rawData[k].value;
+						access(send, key, rawData[k].value);
 				}
 				for(k in popedOver) {
 					popedOver[k].popover('destroy');
@@ -289,7 +320,6 @@ function unfollow_user(uid) {
 
 function tour_log_like(pid) {
 	requestApi('tourLog-good', {tourLogId : pid}, function(result) {
-		console.log(result);
 		if(result == 'ok') {
 			$('.good.good' + pid).html($('.good.good' + pid).html() * 1 + 1);
 		}

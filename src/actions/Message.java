@@ -7,14 +7,15 @@ import tables.Userinfo;
 
 
 public class Message extends BaseAction{
-	public static class GetMessageByUserIdParam{
-		int userId;
+	public static class GetMessageParam{
+            int least;
 	}
 	
-	public String getMessageByUserId(){
-		GetMessageByUserIdParam param = (GetMessageByUserIdParam) getParam(GetMessageByUserIdParam.class);
+	public String getMessage() {
+		GetMessageParam param = (GetMessageParam) getParam(GetMessageParam.class);
 		MessageDao md = new MessageDao();
-		ArrayList<tables.Message> mdList = md.findMessagebyuid(param.userId);
+		Userinfo ui = (Userinfo)session("myUserinfo");
+		ArrayList<tables.Message> mdList = md.findMessagebyuid(ui.getUid(), param.least);
 		return jsonResult(mdList);
 	}
 	
@@ -53,9 +54,7 @@ public class Message extends BaseAction{
 		if(param.message.getMessContent() == null || param.message.getMessContent().equals("")){
 			return jsonResult("messContent");
 		}
-		if(param.message.getMessDate() == null || param.message.getMessDate().equals("")){
-			param.message.setMessDate(new Date());
-		}
+                param.message.setMessDate(new Date());
 		param.message.setMessageId(null);
 		MessageDao md = new MessageDao();
 		md.addMessage(param.message);

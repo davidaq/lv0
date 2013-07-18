@@ -33,10 +33,10 @@ public class MessageDao {
 		return ad;
 		
 	} 
-	public ArrayList<Message> findMessagebyuid(int id){
+	public ArrayList<Message> findMessagebyuid(int id, int least){
 
 		Transaction tran=session.beginTransaction();
-		String hql="from Message where authorId=' "+id+"'";
+		String hql="from Message where targetId=' "+id+"' and messageId > " + least + " order by messageId asc";
 		Query query =session.createQuery(hql);
 		ArrayList<Message> ad=(ArrayList<Message>)query.list();
 	    tran.commit();
@@ -73,17 +73,17 @@ public class MessageDao {
 	 public ArrayList<Message> queryByPage(int pageSize, int pageNow) {
 	       
 	        ArrayList<Message> sftlist = new ArrayList();
-	        try {  //String hql = "from Employee emp";// ²éÑ¯HQLÓï¾ä
-	           String HQL = "from Message";// Ìõ¼þ²éÑ¯HQLÓï¾ä
-	            Query q = session.createQuery(HQL);// Ö´ÐÐ²éÑ¯²Ù×÷
+	        try {  //String hql = "from Employee emp";// ï¿½ï¿½Ñ¯HQLï¿½ï¿½ï¿½
+	           String HQL = "from Message";// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯HQLï¿½ï¿½ï¿½
+	            Query q = session.createQuery(HQL);// Ö´ï¿½Ð²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
 	            q.setFirstResult(pageSize * (pageNow - 1));
 	            q.setMaxResults(pageSize);
 	            sftlist = (ArrayList<Message>)q.list();
 	        } catch (HibernateException e) {
 	            e.printStackTrace();
-	            System.out.println("²éÑ¯Ê§°Ü");
+	            System.out.println("ï¿½ï¿½Ñ¯Ê§ï¿½ï¿½");
 	        } finally {
-	        	HibernateSessionFactory.closeSession();// ¹Ø±Õsession
+	        	HibernateSessionFactory.closeSession();// ï¿½Ø±ï¿½session
 	        }
 	        return sftlist;
 	    }

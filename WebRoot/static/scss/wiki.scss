@@ -1,18 +1,37 @@
 .wikipage {
-	.basic {
-		overflow: hidden;
-		img.thumb {
-			max-width: 200px;
-			max-height: 200px;
+	overflow: hidden;
+	.plain-page {
+		float: right;
+		width: 64%;
+		margin: 0;
+		&.basic-wrap {
+			float: left;
+			width: 24%;
 			margin-right: 20px;
 			margin-bottom: 10px;
-			box-shadow: #000 2px 2px 5px;
-			float: left;
-		}
-		h1,h2,h3,h4,h5 {
-			button {
-				float: right;
+			.btn-group {
+				text-align: center;
+				display: block;
 			}
+			.basic {
+				p {
+					padding-left: 5%;
+				}
+				img.thumb {
+					max-width: 95%;
+					max-height: 300px;
+					box-shadow: #000 2px 2px 5px;
+					display: block;
+					margin: 0 auto;
+					margin-bottom: 10px;
+				}
+			}
+		}
+	}
+	h1,h2,h3,h4,h5 {
+		border-bottom: 1px solid #AAA;
+		.btn-group {
+			float: right;
 		}
 	}
 }

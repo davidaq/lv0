@@ -23,6 +23,10 @@ scripts.album = function(param, body) {
 					dlg.modal();
 					$('h3', dlg).html(L('Edit') + ' : ' + item.mediaName);
 					initForm(dlg, item);
+					$('#ok', dlg)[0].onclick = function() {
+						$('form', dlg)[0].onsubmit();
+						$(dlg).modal('hide');
+					};
 					$('#del', dlg)[0].onclick = function() {
 						ask(L('Do_you_really_want_to_delete_this_item'), function() {
 							$(dlg).modal('hide');

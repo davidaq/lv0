@@ -29,7 +29,7 @@ public class ResortDao {
 		Transaction tran=session.beginTransaction();
 		String hql="from Resort where resName='"+name+"'";
 		Query query =session.createQuery(hql);
-		
+		query.setMaxResults(1);
 		Resort te=(Resort) query.uniqueResult();
 	    tran.commit();
 		return te;
