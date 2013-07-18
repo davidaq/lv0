@@ -138,6 +138,9 @@ public class User extends BaseAction {
             UserinfoDao ud = new UserinfoDao();
             ud.updateUserinfo(ui);
         }
+        if(ui.getUportrait() == null || ui.getUportrait().equals("")){
+        	ui.setUportrait("http://i1.loli.my/user/861/86109/1333011859dfc39fe37995fed1.jpg");
+        }
     	return jsonResult(ui);
     }
     
@@ -150,6 +153,9 @@ public class User extends BaseAction {
     	GetUserinfoByUidParam param = (GetUserinfoByUidParam) getParam(GetUserinfoByUidParam.class);
     	UserinfoDao uDao = new UserinfoDao();
     	Userinfo ui = uDao.findUserinfoByid(param.userId);
+        if(ui.getUportrait() == null || ui.getUportrait().equals("")){
+        	ui.setUportrait("http://i1.loli.my/user/861/86109/1333011859dfc39fe37995fed1.jpg");
+        }
     	return jsonResult(ui);
     }
     
@@ -162,7 +168,9 @@ public class User extends BaseAction {
     	GetUsernameByUidParam param = (GetUsernameByUidParam) getParam(GetUsernameByUidParam.class);
     	UserinfoDao ud = new UserinfoDao();
     	Userinfo u = ud.findUserinfoByid(param.userId);
-    	
+        if(u.getUportrait() == null || u.getUportrait().equals("")){
+        	u.setUportrait("http://i1.loli.my/user/861/86109/1333011859dfc39fe37995fed1.jpg");
+        }
     	return jsonResult(u.getUname());
     }
     
@@ -256,6 +264,9 @@ public class User extends BaseAction {
     		return jsonResult("uid");
     	}
     	String portrait = ui.getUportrait();
+        if(portrait == null || portrait.equals("")){
+        	portrait = "http://i1.loli.my/user/861/86109/1333011859dfc39fe37995fed1.jpg";
+        }
     	return jsonResult(portrait);
     }
 }

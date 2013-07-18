@@ -133,6 +133,7 @@ public class Resort extends BaseAction {
     	
     	rs.setResHeadline(param.ressupplement.getResHeadline());
     	rs.setResContent(param.ressupplement.getResContent());
+    	rsd.updateRessupplement(rs);
     	return jsonResult("ok");
     }
     
