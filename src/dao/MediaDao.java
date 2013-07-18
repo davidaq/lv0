@@ -125,7 +125,6 @@ public ArrayList<Media>getMediaByUid(int uid){
 				Query query =session.createQuery(hql);
 				Media result2 = (Media)query.uniqueResult();
 				tran.commit();
-				System.out.println("result2=" + result2);
 				if(!result1.contains(result2)){
 					result1.add(result2);
 				}
