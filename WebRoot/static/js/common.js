@@ -197,14 +197,12 @@ function initForm(body, data) {
 					} else
 						access(send, key, rawData[k].value);
 				}
-				console.log(send);
 				for(k in popedOver) {
 					popedOver[k].popover('destroy');
 				}
 				popedOver = [];
 				$('input, textarea', form).css('border-color', '');
 				requestApi(form.action, send, function(result) {
-					console.log(result);
 					if(result == 'ok') {
 						if(form.target) {
 							document.location.hash = form.target;
@@ -322,7 +320,6 @@ function unfollow_user(uid) {
 
 function tour_log_like(pid) {
 	requestApi('tourLog-good', {tourLogId : pid}, function(result) {
-		console.log(result);
 		if(result == 'ok') {
 			$('.good.good' + pid).html($('.good.good' + pid).html() * 1 + 1);
 		}

@@ -137,9 +137,9 @@ public class User extends BaseAction {
             ui.setUstate(new Date());
             UserinfoDao ud = new UserinfoDao();
             ud.updateUserinfo(ui);
-        }
-        if(ui.getUportrait() == null || ui.getUportrait().equals("")){
-        	ui.setUportrait("http://i1.loli.my/user/861/86109/1333011859dfc39fe37995fed1.jpg");
+            if(ui.getUportrait() == null || ui.getUportrait().equals("")){
+                    ui.setUportrait("http://i1.loli.my/user/861/86109/1333011859dfc39fe37995fed1.jpg");
+            }
         }
     	return jsonResult(ui);
     }

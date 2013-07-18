@@ -1,6 +1,5 @@
 scripts.tourlist = function(param, body) {
 	$('h1 .username', body).attr('title', param);
-	console.log(param);
 	var fv = new FlowView(body);
 	var page = 1;
 	fv.load(function() {

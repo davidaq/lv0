@@ -104,6 +104,16 @@ a:hover {
   left: 0;
   right: 0;
   background: rgba(0, 0, 0, 0.5); }
+  .foot .counter {
+    display: inline-block;
+    padding: 5px;
+    border-radius: 5px;
+    color: #000;
+    background: #FFF;
+    text-shadow: none;
+    line-height: 10px;
+    font-size: 12px;
+    margin-left: 5px; }
   .foot ul li {
     cursor: pointer;
     background: rgba(0, 0, 0, 0.7); }
