@@ -115,21 +115,22 @@ public ArrayList<Media>getMediaByUid(int uid){
      public ArrayList<Media> getMediasByUserIds(int userIds[]){
     	MediacontentDao mcd = new MediacontentDao();
     	ArrayList<Mediacontent> mcList = mcd.getMediasByUserIds(userIds);
-    	
-		String hql = "from Media where";
+    	ArrayList<Media> result1 = null;
 		if(mcList.size() > 0){
-			hql += " mediaId=" + mcList.get(0).getMediaId();
-		}
-		if(mcList.size() > 1){
-			for(int i = 1; i < mcList.size(); i++){
-				hql += " or mediaId=" + mcList.get(i).getMediaId();
+			result1 = new ArrayList<Media>();
+			for(Mediacontent m : mcList){
+				
+				String hql = "from Media where mediaId=" + m.getMediaId();
+				Transaction tran=session.beginTransaction();
+				Query query =session.createQuery(hql);
+				Media result2 = (Media)query.uniqueResult();
+				tran.commit();
+				System.out.println("result2=" + result2);
+				if(!result1.contains(result2)){
+					result1.add(result2);
+				}
 			}
 		}
-		Transaction tran=session.beginTransaction();
-		Query query =session.createQuery(hql);
-		ArrayList<Media> result1 = (ArrayList<Media>)query.list();
-		tran.commit();
-    	 
     	return result1;
      }
 }

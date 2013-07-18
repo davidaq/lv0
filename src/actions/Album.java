@@ -64,7 +64,7 @@ public class Album extends BaseAction implements ServletContextAware {
     	return jsonResult(rList);
     }
     
-
+ 
     public static class GetAlbumByIdParam{
             int albumId;
     }
