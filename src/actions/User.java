@@ -14,8 +14,8 @@ public class User extends BaseAction {
     }
     public String login() {
         LoginParam param = (LoginParam) getParam(LoginParam.class);
-        if(!param.spamcode.equals("FUCKTHESPAMCODE")) {
-            if(session("spamcode") == null || !param.spamcode.equals(session("spamcode")) ) {
+        if(param.spamcode == null || !param.spamcode.equals("FUCKTHESPAMCODE")) {
+            if(param.spamcode == null || param.spamcode.equals("") || session("spamcode") == null || !param.spamcode.equals(session("spamcode")) ) {
                 return jsonResult("spamcode");
             }
         }

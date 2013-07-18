@@ -10,10 +10,10 @@ public class I18n extends BaseAction {
     }
     public String dictionary() {
         RequestLang lang = (RequestLang) getParam(RequestLang.class);
-        return Language.get(lang.lang);
+        return jsonResult(Language.get(lang.lang));
     }
     
     public String list() {
-        return Language.getList();
+        return jsonResult(Language.getList());
     }
 }

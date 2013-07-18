@@ -4,6 +4,8 @@ package actions;
 import com.google.gson.Gson;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.Map;
 
 public class BaseAction extends ActionSupport {
@@ -11,6 +13,11 @@ public class BaseAction extends ActionSupport {
     private Gson gson = new Gson();
     private String param;
     private String callback;
+    private String resultStream;
+    
+    public InputStream getResultStream() {
+        return new ByteArrayInputStream(resultStream.getBytes());
+    }
 
     public String getCallback() {
         return callback;
@@ -35,7 +42,8 @@ public class BaseAction extends ActionSupport {
         if(callback != null) {
             ret = callback + "(" + ret + ");";
         }
-        return ret;
+        resultStream = ret;
+        return "success";
     }
     
     public Map session() {

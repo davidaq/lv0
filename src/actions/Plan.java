@@ -8,7 +8,6 @@ import dao.PlanitemDao;
 import dao.ResortDao;
 
 
-import sun.net.www.content.text.plain;
 import tables.Planitem;
 import tables.Resort;
 import tables.Userinfo;

@@ -1,7 +1,6 @@
 
 package languages;
 
-import com.google.gson.Gson;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -12,9 +11,9 @@ public abstract class Language {
     
     public abstract String getName();
     
-    private static HashMap<String, String> cache = new HashMap<String, String>();
+    private static HashMap<String, Object> cache = new HashMap<String, Object>();
     
-    public static String get(String language) {
+    public static Object get(String language) {
         if(cache.containsKey(language)) {
             return cache.get(language);
         }
@@ -32,7 +31,7 @@ public abstract class Language {
         }
         if(clz != null) {
             try {
-                String ret = new Gson().toJson(clz.newInstance());
+                Object ret = clz.newInstance();
                 if(saveCache) {
                     cache.put(language, ret);
                 }
@@ -46,11 +45,11 @@ public abstract class Language {
         return null;
     }
     
-    public static String lanList;
+    public static LinkedList<LanguageItem> lanList;
     public static class LanguageItem {
         public String name, title;
     }
-    public static String getList() {
+    public static LinkedList<LanguageItem> getList() {
         if(lanList != null) {
             return lanList;
         }
@@ -71,7 +70,6 @@ public abstract class Language {
             }
             list.add(item);
         }
-        lanList = new Gson().toJson(list);
-        return lanList;
+        return list;
     }
 }

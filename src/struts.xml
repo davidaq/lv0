@@ -3,13 +3,8 @@
 <struts>
     <constant name="struts.action.excludePattern" value=".*/static/.*" />
     <package name="default" extends="struts-default">
-        <interceptors>
-            <interceptor name="tojson" class="interceptors.ToJson"/>
-        </interceptors>
 
         <action name="*-*" class="actions.{1}" method="{2}">
-            <interceptor-ref name="tojson"/>
-            <interceptor-ref name="defaultStack"/>
             <result type="stream" name="success">
                 <param name="contentType">text/javascript;charset=UTF-8</param>
                 <param name="inputName">resultStream</param>
