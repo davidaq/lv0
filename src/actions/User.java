@@ -93,6 +93,9 @@ public class User extends BaseAction {
         
         ui = ud.findUserinfoByname(param.username);
         ui.setUstate(new Date());
+        if(ui.getUportrait() == null || ui.getUportrait().trim().equals("")){
+        	ui.setUportrait("http://i1.loli.my/user/861/86109/1333011859dfc39fe37995fed1.jpg");
+        }
         ud.updateUserinfo(ui);
         session("myUserinfo",ui);
     	return jsonResult("ok");
@@ -137,7 +140,7 @@ public class User extends BaseAction {
             ui.setUstate(new Date());
             UserinfoDao ud = new UserinfoDao();
             ud.updateUserinfo(ui);
-            if(ui.getUportrait() == null || ui.getUportrait().equals("")){
+            if(ui.getUportrait() == null || ui.getUportrait().trim().equals("")){
                     ui.setUportrait("http://i1.loli.my/user/861/86109/1333011859dfc39fe37995fed1.jpg");
             }
         }
