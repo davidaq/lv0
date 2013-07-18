@@ -66,20 +66,37 @@ public class MediacontentDao {
 	        Session session = null;
 	        ArrayList<Mediacontent> sftlist = new ArrayList();
 	        try {
-	           // »ñµÃsession¶ÔÏó
-	            //String hql = "from Employee emp";// ²éÑ¯HQLÓï¾ä
-	           String HQL = "from Mediacontent";// Ìõ¼þ²éÑ¯HQLÓï¾ä
-	            Query q = session.createQuery(HQL);// Ö´ÐÐ²éÑ¯²Ù×÷
+	           // ï¿½ï¿½ï¿½sessionï¿½ï¿½ï¿½ï¿½
+	            //String hql = "from Employee emp";// ï¿½ï¿½Ñ¯HQLï¿½ï¿½ï¿½
+	           String HQL = "from Mediacontent";// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯HQLï¿½ï¿½ï¿½
+	            Query q = session.createQuery(HQL);// Ö´ï¿½Ð²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
 	            q.setFirstResult(pageSize * (pageNow - 1));
 	            q.setMaxResults(pageSize);
 	            sftlist = (ArrayList<Mediacontent>)q.list();
 	        } catch (HibernateException e) {
 	            e.printStackTrace();
-	            System.out.println("²éÑ¯Ê§°Ü");
+	            System.out.println("ï¿½ï¿½Ñ¯Ê§ï¿½ï¿½");
 	        } finally {
-	        	HibernateSessionFactory.closeSession();// ¹Ø±Õsession
+	        	HibernateSessionFactory.closeSession();// ï¿½Ø±ï¿½session
 	        }
 	        return sftlist;
 	    }
-
+	 
+     public ArrayList<Mediacontent> getMediasByUserIds(int userIds[]){
+		String hql = "from Mediacontent where";
+		if(userIds.length > 0){
+			hql += " uId=" + userIds[0];
+		}
+		if(userIds.length > 1){
+			for(int i = 1; i < userIds.length; i++){
+				hql += " or uId=" + userIds[i];
+			}
+		}
+		hql += " order by date desc";
+		Transaction tran=session.beginTransaction();
+		Query query =session.createQuery(hql);
+		ArrayList<Mediacontent> result1 = (ArrayList<Mediacontent>)query.list();
+		tran.commit();
+    	return result1;
+     }
 }

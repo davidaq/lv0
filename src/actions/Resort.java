@@ -6,10 +6,12 @@ import java.util.Date;
 
 import org.hibernate.annotations.Tables;
 
+import tables.Attention;
 import tables.Resortremark;
 import tables.Ressupplement;
 import tables.Userinfo;
 
+import dao.AttentionDao;
 import dao.ResortDao;
 import dao.ResortremarkDao;
 import dao.RessupplementDao;

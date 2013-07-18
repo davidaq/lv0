@@ -38,6 +38,9 @@ public class User extends BaseAction {
         }
         
         if(ui.getUpassword().equals(MD5Util.MD5(param.password))){
+            if(ui.getUportrait() == null || ui.getUportrait().trim().equals("")){
+            	ui.setUportrait("http://t2.baidu.com/it/u=309108254,977696858&fm=11&gp=0.jpg");
+            }
         	session("myUserinfo",ui);
         	ui.setUstate(new Date());
         	ud.updateUserinfo(ui);
@@ -93,6 +96,9 @@ public class User extends BaseAction {
         
         ui = ud.findUserinfoByname(param.username);
         ui.setUstate(new Date());
+        if(ui.getUportrait() == null || ui.getUportrait().trim().equals("")){
+        	ui.setUportrait("http://t2.baidu.com/it/u=309108254,977696858&fm=11&gp=0.jpg");
+        }
         ud.updateUserinfo(ui);
         session("myUserinfo",ui);
     	return jsonResult("ok");
@@ -137,8 +143,8 @@ public class User extends BaseAction {
             ui.setUstate(new Date());
             UserinfoDao ud = new UserinfoDao();
             ud.updateUserinfo(ui);
-            if(ui.getUportrait() == null || ui.getUportrait().equals("")){
-                    ui.setUportrait("http://i1.loli.my/user/861/86109/1333011859dfc39fe37995fed1.jpg");
+            if(ui.getUportrait() == null || ui.getUportrait().trim().equals("")){
+                    ui.setUportrait("http://t2.baidu.com/it/u=309108254,977696858&fm=11&gp=0.jpg");
             }
         }
     	return jsonResult(ui);
@@ -154,7 +160,7 @@ public class User extends BaseAction {
     	UserinfoDao uDao = new UserinfoDao();
     	Userinfo ui = uDao.findUserinfoByid(param.userId);
         if(ui.getUportrait() == null || ui.getUportrait().equals("")){
-        	ui.setUportrait("http://i1.loli.my/user/861/86109/1333011859dfc39fe37995fed1.jpg");
+        	ui.setUportrait("http://t2.baidu.com/it/u=309108254,977696858&fm=11&gp=0.jpg");
         }
     	return jsonResult(ui);
     }
@@ -169,7 +175,7 @@ public class User extends BaseAction {
     	UserinfoDao ud = new UserinfoDao();
     	Userinfo u = ud.findUserinfoByid(param.userId);
         if(u.getUportrait() == null || u.getUportrait().equals("")){
-        	u.setUportrait("http://i1.loli.my/user/861/86109/1333011859dfc39fe37995fed1.jpg");
+        	u.setUportrait("http://t2.baidu.com/it/u=309108254,977696858&fm=11&gp=0.jpg");
         }
     	return jsonResult(u.getUname());
     }
@@ -265,7 +271,7 @@ public class User extends BaseAction {
     	}
     	String portrait = ui.getUportrait();
         if(portrait == null || portrait.equals("")){
-        	portrait = "http://i1.loli.my/user/861/86109/1333011859dfc39fe37995fed1.jpg";
+        	portrait = "http://t2.baidu.com/it/u=309108254,977696858&fm=11&gp=0.jpg";
         }
     	return jsonResult(portrait);
     }

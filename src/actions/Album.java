@@ -1,13 +1,19 @@
 package actions;
 
+import dao.AttentionDao;
 import dao.MediaDao;
 import dao.MediacontentDao;
+import dao.ResortDao;
+import dao.UserinfoDao;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import javax.servlet.ServletContext;
 import org.apache.struts2.util.ServletContextAware;
+
+import tables.Attention;
 import tables.Media;
 import tables.Mediacontent;
 import tables.Userinfo;
@@ -32,7 +38,33 @@ public class Album extends BaseAction implements ServletContextAware {
             return jsonResult(m);
     }
 
-
+    
+    public String getMyAlbums(){
+        MediaDao md = new MediaDao();
+        Userinfo userinfo = (Userinfo)session("myUserinfo");
+        ArrayList<Media> m = md.getMediaByUid(userinfo.getUid());
+        return jsonResult(m);
+    }
+    
+    
+    public String getResortFromAttention(){
+    	AttentionDao atd = new AttentionDao();
+    	MediaDao md = new MediaDao();
+    	Userinfo u = (Userinfo)session("myUserinfo");
+    	ArrayList<Attention> at = atd.GetAttentionsByUserId(u.getUid());
+    	ArrayList<tables.Media> rList = null;
+    	
+    	if(at.size() > 0){
+    		int userIds[] = new int[at.size()];
+    		for(int i = 0; i < at.size(); i++){
+    			userIds[i] = at.get(i).getAttedUser();
+    		}
+    		rList = md.getMediasByUserIds(userIds);
+    	}
+    	return jsonResult(rList);
+    }
+    
+ 
     public static class GetAlbumByIdParam{
             int albumId;
     }
