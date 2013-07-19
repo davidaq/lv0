@@ -89,7 +89,7 @@ public class PlanDao {
         try {
 
             //String hql = "from Employee emp";// ��ѯHQL���
-            String HQL = "from Plan where authorId='" + uid + "'";// ������ѯHQL���
+            String HQL = "from Plan where authorId='" + uid + "' order by planId desc";// ������ѯHQL���
             Query q = session.createQuery(HQL);// ִ�в�ѯ����
             q.setFirstResult(pageSize * (pageNow - 1));
             q.setMaxResults(pageSize);

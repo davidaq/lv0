@@ -29,10 +29,9 @@ scripts.planmatch = function(param, body) {
 			parseUsernames();
 			fv.show();
 		} else {
-			msgbox(L("Can_not_find_any_result"));
-			setTimeout(function() {
+			msgbox(L("Can_not_find_any_result"), function() {
 				window.history.back();
-			}, 3000);
+			});
 		}
 	});
 };

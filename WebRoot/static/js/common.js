@@ -330,8 +330,13 @@ function refresh() {
 	CFG.refresh = true;
 }
 
-function msgbox(message) {
+function msgbox(message, action) {
 	$('#alertDlg .modal-body').html(message);
+	if(action) {
+		$('#alertDlg .btn:last').attr('data-dismiss','').click(action);
+	} else {
+		$('#alertDlg .btn:last').attr('data-dismiss','modal');
+	}
 	$('#alertDlg').modal();
 }
 function ask(message, action) {
