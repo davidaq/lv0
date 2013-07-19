@@ -7,11 +7,17 @@ import dao.ResortDao;
 import dao.UserinfoDao;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+
+import javax.print.attribute.standard.MediaSize;
 import javax.servlet.ServletContext;
 import org.apache.struts2.util.ServletContextAware;
+
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import tables.Attention;
 import tables.Media;
@@ -259,6 +265,47 @@ public class Album extends BaseAction implements ServletContextAware {
             return jsonResult("ok");
     }
 
+    public static class AddMediaFromMobilePhoneParam{
+        String address;
+    }
+
+    public String addMediaFromMobilePhone(){
+    	AddMediaFromMobilePhoneParam param = (AddMediaFromMobilePhoneParam) getParam(AddMediaFromMobilePhoneParam.class);
+    	if(param.address == null || param.address.equals("") || param.address.trim().equals("")){
+    		return jsonResult("address");
+    	}
+    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH时mm分ss秒S上传");
+    	Date nowDate = new Date();
+    	String dateString = sdf.format(nowDate);
+    	Userinfo userinfo = (Userinfo)session("myUserinfo");
+    	Mediacontent mediacontent = new Mediacontent();
+    	mediacontent.setMediaContentId(null);
+    	mediacontent.setUid(userinfo.getUid());
+    	mediacontent.setType("picture");
+    	mediacontent.setAddress(param.address);
+    	mediacontent.setHeadline((dateString));
+    	mediacontent.setMediaAbstract(("这是手机上传的相片，日期：" + dateString));
+    	mediacontent.setDate(nowDate);
+    	
+    	MediaDao md = new MediaDao();
+    	Media m = md.getMediasByUserIdAndHeadline(userinfo.getUid(), ("手机相册"));
+    	if(m == null || m.getUid() == null || m.getMediaName().equals(("手机相册"))){
+    		m = new Media();
+    		m.setDate(new Date());
+    		m.setMediaCover(null);
+    		m.setMediaId(null);
+    		m.setMediaCover("upload/1_1374202190176.jpg_thumb.jpg");
+    		m.setUid(userinfo.getUid());
+    		m.setMediaName(("手机相册"));
+    		md.addMedia(m);
+    	}
+    	
+    	mediacontent.setMediaId(m.getMediaId());
+        MediacontentDao mcd = new MediacontentDao();
+        mcd.addMediacontent(mediacontent);
+
+        return jsonResult("ok");
+}
 
     public static class MoveMediaParam{
             int mediaId;
