@@ -1,13 +1,9 @@
 package actions;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 import dao.PlanDao;
 import dao.PlanitemDao;
 import dao.ResortDao;
-
-
+import java.util.ArrayList;
 import tables.Planitem;
 import tables.Resort;
 import tables.Userinfo;
@@ -15,7 +11,7 @@ import tables.Userinfo;
 public class Plan extends BaseAction {
 	public static class AddPlanParam{
 		tables.Plan plan;
-		ArrayList<Planitem> planitems;
+		Planitem[] planitems;
 	}
 	
 	public String addPlan(){
@@ -36,41 +32,40 @@ public class Plan extends BaseAction {
 		}
 		
 		Userinfo ui = (Userinfo)session("myUserinfo");
-		if(param.plan.getAuthorId() == null){
-			param.plan.setAuthorId(ui.getUid());
-		}
+                param.plan.setAuthorId(ui.getUid());
+                param.plan.setPlanFavor(Byte.MIN_VALUE);
 		
 		PlanDao pd = new PlanDao();
 		pd.addPlan(param.plan);
 		
 		PlanitemDao pid = new PlanitemDao();
 		ResortDao rd = new ResortDao();
-		if(param.planitems.size() > 1){
-			for(tables.Planitem planitem : param.planitems){
-				planitem.setPlanItemId(null);
-				planitem.setPlanId(param.plan.getPlanId());
-				if(planitem.getStartdate() == null || planitem.getStartdate().equals("")){
-					continue;
-				}
-				if(planitem.getEnddate() == null || planitem.getEnddate().equals("")){
-					continue;
-				}
-				Resort r = rd.findResortById(planitem.getResortId());
-				if(r == null || r.getResortId() == null ){
-					planitem.setResortId(null);
-				}
-				pid.addPlanitem(planitem);
-			}
-		}
+                for(tables.Planitem planitem : param.planitems){
+                        planitem.setPlanItemId(null);
+                        planitem.setPlanId(param.plan.getPlanId());
+                        if(planitem.getStartdate() == null || planitem.getStartdate().equals("")){
+                                continue;
+                        }
+                        if(planitem.getEnddate() == null || planitem.getEnddate().equals("")){
+                                continue;
+                        }
+                        Resort r = rd.findResortByname(planitem.getResName());
+                        if(r != null){
+                            planitem.setResortId(r.getResortId());
+                        } else {
+                            planitem.setResortId(null);
+                        }
+                        pid.addPlanitem(planitem);
+                }
 		return jsonResult("ok");
 	}
 	
 	
 	public static class EditPlanParam{
-		int planId;
-		String planHeadline;
-		String planContent;
-		boolean planFavor;
+            int planId;
+            String planHeadline;
+            String planContent;
+            boolean planFavor;
 	}
 	
 	public String editPlan(){
@@ -139,8 +134,8 @@ public class Plan extends BaseAction {
 		int planItemId;
 		int resortId;
 		String resName;
-		Date startDate;
-		Date endDate;
+		Integer startDate;
+		Integer endDate;
 	}
 	
 	public String editPlanItem(){

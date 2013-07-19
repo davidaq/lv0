@@ -212,14 +212,6 @@ $(function () {
     	requestApi('Message-getMessage', {least : currentMessageId}, function(result) {
     		if(result && result.length) {
     			var len = 0;
-				$('#messageBar .counter').html(messageCount);
-				var aniTo = {
-					opacity : 0.1
-				};
-				var aniFro = {
-					opacity : 1
-				};
-				$('#messageBar .counter').animate(aniTo, 200).animate(aniFro, 200).animate(aniTo, 200).animate(aniFro, 200);
     			for(k in result) {
     				(function() {
     					var item = result[k];
@@ -267,8 +259,16 @@ $(function () {
     				})();
     			}
     			messageCount += len;
-    			parseUsernames();
     			currentMessageId = result[result.length - 1].messageId;
+    			parseUsernames();
+				$('#messageBar .counter').html(messageCount);
+				var aniTo = {
+					opacity : 0.1
+				};
+				var aniFro = {
+					opacity : 1
+				};
+				$('#messageBar .counter').animate(aniTo, 200).animate(aniFro, 200).animate(aniTo, 200).animate(aniFro, 200);
     		}
     	});
     }

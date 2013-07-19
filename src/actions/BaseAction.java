@@ -12,6 +12,7 @@ public class BaseAction extends ActionSupport {
     
     private Gson gson = new Gson();
     private String param;
+    private Object paramObj;
     private String callback;
     private String resultStream;
     
@@ -32,8 +33,14 @@ public class BaseAction extends ActionSupport {
     public final void setParam(String param) {
         this.param = param;
     }
+    public final void setParamObject(Object param) {
+        this.paramObj = param;
+    }
     
     public final Object getParam(Class<? extends Object> clazz) {
+        if(paramObj != null) {
+            return paramObj;
+        }
         return gson.fromJson(param, clazz);
     }
     

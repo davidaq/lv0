@@ -17,11 +17,11 @@
         <property name="resName" type="string">
             <column name="resName" />
         </property>
-        <property name="startdate" type="timestamp">
-            <column name="startdate" length="19" />
+        <property name="startdate" type="java.lang.Integer">
+            <column name="startdate"  />
         </property>
-        <property name="enddate" type="timestamp">
-            <column name="enddate" length="19" />
+        <property name="enddate" type="java.lang.Integer">
+            <column name="enddate"  />
         </property>
     </class>
 </hibernate-mapping>

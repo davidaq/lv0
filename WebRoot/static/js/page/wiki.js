@@ -7,7 +7,7 @@ scripts.wiki = function(param, body) {
 				search_tip = false;
 			}
 			if(input.length > 2) {
-				requestApi('resort-searchResortByName', {searchText : input}, function(result) {
+				search_tip = requestApi('resort-searchResortByName', {searchText : input}, function(result) {
 					var ret = [];
 					for(k in result) {
 						ret.push(result[k].resName);

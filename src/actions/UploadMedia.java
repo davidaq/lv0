@@ -1,14 +1,11 @@
 
 package actions;
 
-import com.opensymphony.xwork2.ActionSupport;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import org.apache.commons.io.FileUtils;
@@ -55,11 +52,6 @@ public class UploadMedia extends BaseAction implements ServletContextAware {
         this.description = description;
     }
     
-    private String param;
-    public String getParam() {
-        return param;
-    }
-    
     @Override
     public String execute() throws IOException {
         String[] parts = attachmentFileName.split("\\.");
@@ -80,9 +72,8 @@ public class UploadMedia extends BaseAction implements ServletContextAware {
         o.media.setMediaAbstract(toAbstract(description));
         o.media.setUid(ui.getUid());
         o.media.setType("image");
-        System.out.println(jsonResult(o));
         Album action = new Album();
-        action.setParam(jsonResult(o));
+        action.setParamObject(o);
         if(action.addMedia().equals(jsonResult("ok"))) {
             File full = new File(sc.getRealPath("/") + fname);
             FileUtils.copyFile(attachment, full);
