@@ -18,7 +18,7 @@ public class Message extends BaseAction{
 		ArrayList<tables.Message> mdList = md.findMessagebyuid(ui.getUid(), param.least);
 		return jsonResult(mdList);
 	}
-	
+
 	
 	public static class DeleteMessageByIdParam{
 		int messageId;
