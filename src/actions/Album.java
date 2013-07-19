@@ -3,6 +3,8 @@ package actions;
 import dao.AttentionDao;
 import dao.MediaDao;
 import dao.MediacontentDao;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -13,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import org.apache.struts2.util.ServletContextAware;
 import tables.Attention;
@@ -283,8 +286,11 @@ public class Album extends BaseAction implements ServletContextAware {
             if(fp.createNewFile()) {
                 new FileOutputStream(fp).write(param.data.getBytes("ISO-8859-1"));
             }
+            BufferedImage img = new BufferedImage(310, 200, BufferedImage.TYPE_INT_RGB);
+            img.createGraphics().drawImage(ImageIO.read(fp).getScaledInstance(310, 200, Image.SCALE_SMOOTH),0,0,null);
+            ImageIO.write(img, "jpg", new File(sc.getRealPath("/") + fname + "_thumb.jpg"));
             return jsonResult(path + fname);
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(Album.class.getName()).log(Level.SEVERE, null, ex);
         }
         return jsonResult("error");
