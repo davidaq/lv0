@@ -1,98 +1,105 @@
 package dao;
 
 import java.util.ArrayList;
-
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
-import tables.Message;
 import tables.Plan;
 
-public class PlanDao {	
-	Session session=HibernateSessionFactory.currentSession();
-	public void close(){
-		session.close();
-	}
-	public void addPlan(Plan ad){
+public class PlanDao {
 
-	
-	Transaction tran=session.beginTransaction();
-	session.save(ad);
-    tran.commit();
-	
-} 
-	public Plan findPlanbyid(int id){
+    Session session = HibernateSessionFactory.currentSession();
 
-		Transaction tran=session.beginTransaction();
-		String hql="from Plan where planId=' "+id+"'";
-		Query query =session.createQuery(hql);
-		Plan ad=(Plan)query.uniqueResult();
-	    tran.commit();
-		return ad;
-		
-	} 
-public void updatePlan(Plan ad){
-	Transaction tran=session.beginTransaction();
-	session.update(ad);
-    tran.commit();
-	
-} 
-public void deletePlan(Plan ad){
+    public void close() {
+        session.close();
+    }
 
-	
-	Transaction tran=session.beginTransaction();
-	session.delete(ad);
-    tran.commit();
-	
-} 
-public ArrayList<Plan> getPlanAll(){
+    public void addPlan(Plan ad) {
 
-	
-	Transaction tran=session.beginTransaction();
-	String hqlsql = "from Plan";
-	 Query query = session.createQuery(hqlsql);
-	 ArrayList<Plan> resultStu = (ArrayList<Plan>)query.list();
-    tran.commit();
-	
-	return resultStu;
-} 
- public ArrayList<Plan> queryByPage(int pageSize, int pageNow) {
-       
+
+        Transaction tran = session.beginTransaction();
+        session.save(ad);
+        tran.commit();
+
+    }
+
+    public Plan findPlanbyid(int id) {
+
+        Transaction tran = session.beginTransaction();
+        String hql = "from Plan where planId=' " + id + "'";
+        Query query = session.createQuery(hql);
+        Plan ad = (Plan) query.uniqueResult();
+        tran.commit();
+        return ad;
+
+    }
+
+    public void updatePlan(Plan ad) {
+        Transaction tran = session.beginTransaction();
+        session.update(ad);
+        tran.commit();
+
+    }
+
+    public void deletePlan(Plan ad) {
+
+
+        Transaction tran = session.beginTransaction();
+        session.delete(ad);
+        tran.commit();
+
+    }
+
+    public ArrayList<Plan> getPlanAll() {
+
+
+        Transaction tran = session.beginTransaction();
+        String hqlsql = "from Plan";
+        Query query = session.createQuery(hqlsql);
+        ArrayList<Plan> resultStu = (ArrayList<Plan>) query.list();
+        tran.commit();
+
+        return resultStu;
+    }
+
+    public ArrayList<Plan> queryByPage(int pageSize, int pageNow) {
+
         ArrayList<Plan> sftlist = new ArrayList();
         try {
-            
-            //String hql = "from Employee emp";// ²éÑ¯HQLÓï¾ä
-           String HQL = "from Plan";// Ìõ¼þ²éÑ¯HQLÓï¾ä
-            Query q = session.createQuery(HQL);// Ö´ÐÐ²éÑ¯²Ù×÷
+
+            //String hql = "from Employee emp";// ï¿½ï¿½Ñ¯HQLï¿½ï¿½ï¿½
+            String HQL = "from Plan";// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯HQLï¿½ï¿½ï¿½
+            Query q = session.createQuery(HQL);// Ö´ï¿½Ð²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
             q.setFirstResult(pageSize * (pageNow - 1));
             q.setMaxResults(pageSize);
-            sftlist = (ArrayList<Plan>)q.list();
+            sftlist = (ArrayList<Plan>) q.list();
         } catch (HibernateException e) {
             e.printStackTrace();
-            System.out.println("²éÑ¯Ê§°Ü");
+            System.out.println("ï¿½ï¿½Ñ¯Ê§ï¿½ï¿½");
         } finally {
-        	HibernateSessionFactory.closeSession();// ¹Ø±Õsession
+            HibernateSessionFactory.closeSession();// ï¿½Ø±ï¿½session
         }
         return sftlist;
     }
- public ArrayList<Plan> queryByPageAuthor(int uid,int pageSize, int pageNow) {
-     
-     ArrayList<Plan> sftlist = new ArrayList();
-     try {
-         
-         //String hql = "from Employee emp";// ²éÑ¯HQLÓï¾ä
-        String HQL = "from Plan where authorId='"+uid+"'";// Ìõ¼þ²éÑ¯HQLÓï¾ä
-         Query q = session.createQuery(HQL);// Ö´ÐÐ²éÑ¯²Ù×÷
-         q.setFirstResult(pageSize * (pageNow - 1));
-         q.setMaxResults(pageSize);
-         sftlist = (ArrayList<Plan>)q.list();
-     } catch (HibernateException e) {
-         e.printStackTrace();
-         System.out.println("²éÑ¯Ê§°Ü");
-     } finally {
-     	HibernateSessionFactory.closeSession();// ¹Ø±Õsession
-     }
-     return sftlist;
- }}
+
+    public ArrayList<Plan> queryByPageAuthor(int uid, int pageSize, int pageNow) {
+
+        ArrayList<Plan> sftlist = new ArrayList();
+        try {
+
+            //String hql = "from Employee emp";// ï¿½ï¿½Ñ¯HQLï¿½ï¿½ï¿½
+            String HQL = "from Plan where authorId='" + uid + "'";// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯HQLï¿½ï¿½ï¿½
+            Query q = session.createQuery(HQL);// Ö´ï¿½Ð²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
+            q.setFirstResult(pageSize * (pageNow - 1));
+            q.setMaxResults(pageSize);
+            sftlist = (ArrayList<Plan>) q.list();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            System.out.println("ï¿½ï¿½Ñ¯Ê§ï¿½ï¿½");
+        } finally {
+            HibernateSessionFactory.closeSession();// ï¿½Ø±ï¿½session
+        }
+        return sftlist;
+    }
+}

@@ -38,6 +38,7 @@ public class Chinese extends Language {
             Edit = "编辑",
             Upload = "上传",
             Should_not_be_empty = "不能为空",
+            Can_not_find_any_result = "找不到任何符合条件的结果",
             
             // Follow
             User_followed = "用户已关注",

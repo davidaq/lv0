@@ -46,7 +46,12 @@
 			.feed {
 				cursor: pointer;
 				padding: 5px;
-			
+				li {
+					.dates {
+						font-size: 10px;
+						color: #777;
+					}
+				}
 				.avatar, .text, img.thumb {
 					float: left;
 					overflow: hidden;

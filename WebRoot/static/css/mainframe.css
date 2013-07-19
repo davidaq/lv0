@@ -214,6 +214,9 @@ a:hover {
       .flowview-wrap .flowview .block .feed {
         cursor: pointer;
         padding: 5px; }
+        .flowview-wrap .flowview .block .feed li .dates {
+          font-size: 10px;
+          color: #777; }
         .flowview-wrap .flowview .block .feed .avatar, .flowview-wrap .flowview .block .feed .text, .flowview-wrap .flowview .block .feed img.thumb {
           float: left;
           overflow: hidden;

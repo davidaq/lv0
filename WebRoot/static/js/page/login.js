@@ -5,5 +5,5 @@ scripts['login'] = function(param, body) {
 	}
 	image.onclick = loadSpam;
 	loadSpam();
-	$('#spamcode').html(image);
+	$('#spamcode', body).html(image);
 }

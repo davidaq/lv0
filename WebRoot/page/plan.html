@@ -1,25 +1,23 @@
-<h1><i class="icon-align-left white"></i> 旅游计划</h1>
+<h1><i class="icon-align-left white"></i> %{Travel_Plan}</h1>
 
-<div class="template">
+<div class="template block">
 	<div class="feed">
 		<div class="avatar">
-			<img src="static/images/picmi.png" />
-			<span>驴肉火烧</span>
-			<button class="btn btn-primary">关注</button>
+			<img class="useravatar" title="%authorId%"/>
+			<span class="username" title="%authorId%"></span>
+			<button class="btn btn-primary">找伙伴</button>
 		</div>
-		<div class="text">
-			<b class="title">暑假旅游</b>
-			放假想去南方玩！
-			<ul>
-				<li>测试景点1</li>
-				<li>测试景点2</li>
-				<li>测试景点3</li>
-				<li>测试景点4</li>
-				<li>测试景点5</li>
+		<div class="text" style="font-size: 1em">
+			<b class="title">%planHeadline%</b>
+			%planContent%
+			<ul class="plan-items">
 			</ul>
 		</div>
-		<button class="thumb btn btn-primary">找伙伴</button>
+		<i class="icon-remove remove"></i>
 	</div>
+</div>
+<div class="template planitem">
+	<li><a href="#wikipage%%resortId%">%resName%</a> <span class="dates">%startdate% ~ %enddate%</div></li>
 </div>
 <div class="flowview">
 	<div class="block big">
@@ -27,11 +25,6 @@
 			<h3>发表新计划 </h3>
 			<input type="text" placeholder="标题" id="plan_title" style="width: 280px;"/>
 			<textarea style="width: 280px; height: 40px;" id="plan_content" placeholder="简述"></textarea>
-			<div class="plan-item">
-				<input type="text" placeholder="景点" style="width: 90px;"/>
-				<input type="text" placeholder="最早日期" style="width: 75px;"/>
-				<input type="text" placeholder="最晚日期" style="width: 75px;"/>
-			</div>
 			<div class="plan-item">
 				<input type="text" placeholder="景点" style="width: 90px;"/>
 				<input type="text" placeholder="最早日期" style="width: 75px;"/>
