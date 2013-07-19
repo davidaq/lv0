@@ -45,4 +45,5 @@ scripts.plan = function(param, body) {
 		});
 		$('input:gt(0)', this).datepicker();
 	});
+	requestApi('plan-');
 };
