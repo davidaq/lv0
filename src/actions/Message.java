@@ -19,6 +19,13 @@ public class Message extends BaseAction{
 		return jsonResult(mdList);
 	}
 	
+	public String getMyMessage() {
+		MessageDao md = new MessageDao();
+		Userinfo ui = (Userinfo)session("myUserinfo");
+		ArrayList<tables.Message> mdList = md.findMessagebyuid(ui.getUid(), -1);
+		return jsonResult(mdList);
+	}
+	
 	
 	public static class DeleteMessageByIdParam{
 		int messageId;
