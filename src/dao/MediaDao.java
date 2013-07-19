@@ -132,4 +132,14 @@ public ArrayList<Media>getMediaByUid(int uid){
 		}
     	return result1;
      }
+     
+     
+     public Media getMediasByUserIdAndHeadline(int userId, String mediaName){
+		String hql = "from Media where uId=" + userId + "and mediaName='" + mediaName + "'";
+		Transaction tran=session.beginTransaction();
+		Query query =session.createQuery(hql);
+		Media result1 = (Media)query.uniqueResult();
+		tran.commit();
+    	return result1;
+     }
 }
